@@ -84,6 +84,8 @@ Blockly.Python.addReservedWords(
     'sum,super,tuple,type,unichr,unicode,vars,xrange,zip'
 );
 
+
+
 /**
  * Order of operation ENUMs.
  * http://docs.python.org/reference/expressions.html#summary
@@ -110,6 +112,62 @@ Blockly.Python.ORDER_LOGICAL_OR = 14;       // or
 Blockly.Python.ORDER_CONDITIONAL = 15;      // if else
 Blockly.Python.ORDER_LAMBDA = 16;           // lambda
 Blockly.Python.ORDER_NONE = 99;             // (...)
+
+/************************* START MAKERCLUB *********************/
+/** these arrays are MakerClub specific */
+Blockly.Python.SERVO_ARRAY = [
+    ["1", "1"],
+    ["2", "2"],
+    ["3", "3"],
+    ["4", "4"],
+    ["5", "5"],
+    ["6", "6"],
+    ["7", "7"],
+    ["8", "8"],
+    ["9", "9"],
+    ["10", "10"],
+    ["11", "11"],
+    ["12", "12"],
+    ["13", "13"],
+    ["14", "14"],
+    ["15", "15"],
+    ["16", "16"],
+    ["17", "17"],
+    ["18", "18"],
+  ];
+
+  Blockly.Python.INPUT_PIN_ARRAY = [
+      ["I1", "I1"],
+      ["I2", "I2"],
+      ["I3", "I3"],
+      ["I4", "I4"],
+      ["I5", "I5"],
+      ["I6", "I6"],
+    ];
+
+    Blockly.Python.INPUT_PULLUP_PIN_ARRAY = [
+        ["I4", "I4"],
+        ["I5", "I5"],
+        ["I6", "I6"],
+      ];
+/**
+ * A list of types tasks that the pins can be assigned. Used to track usage and
+ * warn if the same pin has been assigned to more than one task.
+ */
+Blockly.Python.PinTypes = {
+  INPUT: 'INPUT',
+  OUTPUT: 'OUTPUT',
+  PWM: 'PWM',
+  SERVO: 'SERVO',
+  STEPPER: 'STEPPER',
+  SERIAL: 'SERIAL',
+  I2C: 'I2C/TWI',
+  SPI: 'SPI'
+};
+
+
+/************************* END MAKERCLUB *********************/
+
 
 /**
  * List of outer-inner pairings that do NOT require parentheses.

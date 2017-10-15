@@ -895,3 +895,14 @@ Blockly.Blocks['procedures_ifreturn'] = {
    */
   FUNCTION_TYPES: ['procedures_defnoreturn', 'procedures_defreturn']
 };
+
+Blockly.Blocks['procedures_start'] = {
+  init: function() {
+    this.appendStatementInput("Start")
+        .setCheck(null)
+        .appendField("Start");
+    this.setColour(290);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
