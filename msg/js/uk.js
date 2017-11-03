@@ -76,7 +76,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.INLINE_INPUTS = "Вбудовані входи";
 /** @export */ Blockly.Msg.IOS_CANCEL = "Скасувати";
 /** @export */ Blockly.Msg.IOS_ERROR = "Помилка";
-/** @export */ Blockly.Msg.IOS_OK = "OK";  // untranslated
+/** @export */ Blockly.Msg.IOS_OK = "Готово";
 /** @export */ Blockly.Msg.IOS_PROCEDURES_ADD_INPUT = "+ Add Input";  // untranslated
 /** @export */ Blockly.Msg.IOS_PROCEDURES_ALLOW_STATEMENTS = "Allow statements";  // untranslated
 /** @export */ Blockly.Msg.IOS_PROCEDURES_DUPLICATE_INPUTS_ERROR = "This function has duplicate inputs.";  // untranslated
