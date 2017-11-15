@@ -291,7 +291,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL = "https://en.wikipedia.org/wiki/Subroutine";  // untranslated
 /** @export */ Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP = "Run the user-defined function '%1' and use its output.";  // untranslated
 /** @export */ Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS = "mat:";
-/** @export */ Blockly.Msg.PROCEDURES_CREATE_DO = "Create '%1'";  // untranslated
+/** @export */ Blockly.Msg.PROCEDURES_CREATE_DO = "'%1' uleeën";
 /** @export */ Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT = "Dës Funktioun beschreiwen...";
 /** @export */ Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";  // untranslated
 /** @export */ Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Subroutine";  // untranslated

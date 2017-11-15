@@ -304,7 +304,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "Attention : Cette fonction a des paramètres en double.";
 /** @export */ Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "Surligner la définition de la fonction";
 /** @export */ Blockly.Msg.PROCEDURES_IFRETURN_HELPURL = "http://c2.com/cgi/wiki?GuardClause";
-/** @export */ Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = "Si une valeur est vraie, alors renvoyer une seconde valeur.";
+/** @export */ Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = "Si une valeur est vrai, alors renvoyer une seconde valeur.";
 /** @export */ Blockly.Msg.PROCEDURES_IFRETURN_WARNING = "Attention : Ce bloc pourrait n’être utilisé que dans une définition de fonction.";
 /** @export */ Blockly.Msg.PROCEDURES_MUTATORARG_TITLE = "nom de l’entrée :";
 /** @export */ Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP = "Ajouter une entrée à la fonction.";
