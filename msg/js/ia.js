@@ -9,7 +9,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.ADD_COMMENT = "Adder commento";
 /** @export */ Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";  // untranslated
 /** @export */ Blockly.Msg.CHANGE_VALUE_TITLE = "Cambiar valor:";
-/** @export */ Blockly.Msg.CLEAN_UP = "Clarar le blocos";
+/** @export */ Blockly.Msg.CLEAN_UP = "Rangiar le blocos";
 /** @export */ Blockly.Msg.COLLAPSE_ALL = "Plicar blocos";
 /** @export */ Blockly.Msg.COLLAPSE_BLOCK = "Plicar bloco";
 /** @export */ Blockly.Msg.COLOUR_BLEND_COLOUR1 = "color 1";
@@ -166,8 +166,8 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.LISTS_SORT_TYPE_NUMERIC = "numeric";
 /** @export */ Blockly.Msg.LISTS_SORT_TYPE_TEXT = "alphabetic";
 /** @export */ Blockly.Msg.LISTS_SPLIT_HELPURL = "https://github.com/google/blockly/wiki/Lists#splitting-strings-and-joining-lists";  // untranslated
-/** @export */ Blockly.Msg.LISTS_SPLIT_LIST_FROM_TEXT = "Crear un lista per un texto";
-/** @export */ Blockly.Msg.LISTS_SPLIT_TEXT_FROM_LIST = "crear un texto per un lista";
+/** @export */ Blockly.Msg.LISTS_SPLIT_LIST_FROM_TEXT = "crear lista ab texto";
+/** @export */ Blockly.Msg.LISTS_SPLIT_TEXT_FROM_LIST = "crear texto ab lista";
 /** @export */ Blockly.Msg.LISTS_SPLIT_TOOLTIP_JOIN = "Unir un lista de textos, separate per un delimitator, in un sol texto.";
 /** @export */ Blockly.Msg.LISTS_SPLIT_TOOLTIP_SPLIT = "Divider texto in un lista de textos, separante lo a cata delimitator.";
 /** @export */ Blockly.Msg.LISTS_SPLIT_WITH_DELIMITER = "con delimitator";
@@ -395,6 +395,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.VARIABLES_SET_TOOLTIP = "Mitte iste variabile al valor del entrata.";
 /** @export */ Blockly.Msg.VARIABLE_ALREADY_EXISTS = "A variable named '%1' already exists.";  // untranslated
 /** @export */ Blockly.Msg.VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE = "A variable named '%1' already exists for another variable of type '%2'.";  // untranslated
+/** @export */ Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE;
 /** @export */ Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = Blockly.Msg.CONTROLS_IF_MSG_IF;
 /** @export */ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
@@ -403,7 +404,6 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE = Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE;
 /** @export */ Blockly.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 /** @export */ Blockly.Msg.LISTS_GET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
-/** @export */ Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_DO = Blockly.Msg.PROCEDURES_DEFNORETURN_DO;
 /** @export */ Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = Blockly.Msg.CONTROLS_IF_MSG_ELSEIF;
 /** @export */ Blockly.Msg.LISTS_GET_INDEX_HELPURL = Blockly.Msg.LISTS_INDEX_OF_HELPURL;

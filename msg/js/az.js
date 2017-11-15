@@ -75,7 +75,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.HELP = "Kömək";
 /** @export */ Blockly.Msg.INLINE_INPUTS = "Sətiriçi girişlər";
 /** @export */ Blockly.Msg.IOS_CANCEL = "Cancel";  // untranslated
-/** @export */ Blockly.Msg.IOS_ERROR = "Error";  // untranslated
+/** @export */ Blockly.Msg.IOS_ERROR = "Xəta";
 /** @export */ Blockly.Msg.IOS_OK = "OK";  // untranslated
 /** @export */ Blockly.Msg.IOS_PROCEDURES_ADD_INPUT = "+ Add Input";  // untranslated
 /** @export */ Blockly.Msg.IOS_PROCEDURES_ALLOW_STATEMENTS = "Allow statements";  // untranslated
@@ -85,7 +85,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.IOS_VARIABLES_ADD_VARIABLE = "+ Add Variable";  // untranslated
 /** @export */ Blockly.Msg.IOS_VARIABLES_DELETE_BUTTON = "Delete";  // untranslated
 /** @export */ Blockly.Msg.IOS_VARIABLES_EMPTY_NAME_ERROR = "You can't use an empty variable name.";  // untranslated
-/** @export */ Blockly.Msg.IOS_VARIABLES_RENAME_BUTTON = "Rename";  // untranslated
+/** @export */ Blockly.Msg.IOS_VARIABLES_RENAME_BUTTON = "Adını dəyiş";
 /** @export */ Blockly.Msg.IOS_VARIABLES_VARIABLE_NAME = "Variable name";  // untranslated
 /** @export */ Blockly.Msg.LISTS_CREATE_EMPTY_HELPURL = "https://github.com/google/blockly/wiki/Lists#create-empty-list";  // untranslated
 /** @export */ Blockly.Msg.LISTS_CREATE_EMPTY_TITLE = "boş siyahı düzəlt";
@@ -395,6 +395,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.VARIABLES_SET_TOOLTIP = "Bu dəyişəni daxil edilmiş qiymətə bərabər edir.";
 /** @export */ Blockly.Msg.VARIABLE_ALREADY_EXISTS = "A variable named '%1' already exists.";  // untranslated
 /** @export */ Blockly.Msg.VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE = "A variable named '%1' already exists for another variable of type '%2'.";  // untranslated
+/** @export */ Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE;
 /** @export */ Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = Blockly.Msg.CONTROLS_IF_MSG_IF;
 /** @export */ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
@@ -403,7 +404,6 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE = Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE;
 /** @export */ Blockly.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 /** @export */ Blockly.Msg.LISTS_GET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
-/** @export */ Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_DO = Blockly.Msg.PROCEDURES_DEFNORETURN_DO;
 /** @export */ Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = Blockly.Msg.CONTROLS_IF_MSG_ELSEIF;
 /** @export */ Blockly.Msg.LISTS_GET_INDEX_HELPURL = Blockly.Msg.LISTS_INDEX_OF_HELPURL;
