@@ -30,8 +30,8 @@ goog.require('Blockly.Python');
 
 
 Blockly.Python['motor_forwards'] = function(block) {
-  var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
-  var speed = Blockly.Python.valueToCode(block, 'SPEED', Blockly.Python.ORDER_ATOMIC) || 0;
+  // var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
+  // var speed = Blockly.Python.valueToCode(block, 'SPEED', Blockly.Python.ORDER_ATOMIC) || 0;
 
   // Blockly.Python.addObject({
   //   class: 'Motor',
@@ -41,13 +41,13 @@ Blockly.Python['motor_forwards'] = function(block) {
   //   ]
   // });
 
-  var code = 'motor' + pinNum + '.forwards(' + speed  + ');\n';
+  var code = '';//;'motor' + pinNum + '.forwards(' + speed  + ');\n';
   return code;
 };
 
 Blockly.Python['motor_backwards'] = function(block) {
-  var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
-  var speed = Blockly.Python.valueToCode(block, 'SPEED', Blockly.Python.ORDER_ATOMIC) || 0;
+  // var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
+  // var speed = Blockly.Python.valueToCode(block, 'SPEED', Blockly.Python.ORDER_ATOMIC) || 0;
 
   // Blockly.Python.addObject({
   //   class: 'Motor',
@@ -57,12 +57,12 @@ Blockly.Python['motor_backwards'] = function(block) {
   //   ]
   // });
 
-  var code = 'motor' + pinNum + '.backwards(' + speed + ');\n';
+  var code = '';//'motor' + pinNum + '.backwards(' + speed + ');\n';
   return code;
 };
 
 Blockly.Python['motor_stop'] = function(block) {
-  var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
+  // var pinNum = parseInt(block.getFieldValue("MOTOR_NUM"));
 
   // Blockly.Python.addObject({
   //   class: 'Motor',
@@ -72,6 +72,6 @@ Blockly.Python['motor_stop'] = function(block) {
   //   ]
   // });
 
-  var code = 'motor' + pinNum + '.stop();\n';
+  var code = '';//'motor' + pinNum + '.stop();\n';
   return code;
 };

@@ -41,7 +41,7 @@ goog.require('Blockly');
  * Should be the same as Blockly.Msg.MATH_HUE
  * @readonly
  */
-Blockly.Constants.Math.HUE = 230;
+Blockly.Constants.Math.HUE = 20;
 /** @deprecated Use Blockly.Constants.Math.HUE */
 Blockly.Blocks.math.HUE = Blockly.Constants.Math.HUE;
 

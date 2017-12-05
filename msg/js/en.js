@@ -416,7 +416,7 @@ goog.require('Blockly.Msg');
 /** @export */ Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 /** @export */ Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT = Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT;
 
-/** @export */ Blockly.Msg.MATH_HUE = "230";
+/** @export */ Blockly.Msg.MATH_HUE = "20";
 /** @export */ Blockly.Msg.LOOPS_HUE = "120";
 /** @export */ Blockly.Msg.LISTS_HUE = "260";
 /** @export */ Blockly.Msg.LOGIC_HUE = "210";

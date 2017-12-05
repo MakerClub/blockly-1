@@ -369,3 +369,83 @@ Blockly.Python.getAdjustedInt = function(block, atId, opt_delta, opt_negate) {
   }
   return at;
 };
+
+Blockly.Python.addLibrary = function(libraryName) {
+  if(!Blockly.Python['libraries']){
+    Blockly.Python['libraries'] = [];
+  }
+  Blockly.Python['libraries'].push(libraryName);
+};
+
+Blockly.Python.clearObjects = function(){
+  Blockly.Python['objects'] = [];
+};
+
+Blockly.Python.addObject = function(object) {
+  if(!object.name) {
+    throw new Error('Object must include a name');
+  }
+  if(!object.class) {
+    throw new Error('Object must include a class');
+  }
+  if(!Blockly.Python['objects']){
+    Blockly.Python['objects'] = [];
+  }
+  Blockly.Python['objects'].push(object);
+  Blockly.Python.addLibrary(object.class);
+};
+
+Blockly.Python.includeVariables = function(code){
+  var variableString = '';
+  for (var name in Blockly.Python.variables_) {
+    variableString += Blockly.Python.variables_[name] + "\n";
+  }
+  code = variableString + "\n\n" + code;
+
+  return code;
+};
+
+Blockly.Python.includeObjects = function(code){
+  var objectString = '';
+  var blocklyObjects = Blockly.Python['objects'];
+  if (blocklyObjects){
+    var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
+    for (var i = 0; i < objects.length; i++){
+      var object = objects[i];
+      objectString += `${ object.name } = ${ object.class }`;
+      if(object.parameters){
+        objectString += `(${object.parameters.join()})`;
+      }
+      objectString += '\n';
+    }
+  }
+  code = objectString + '\n\n' + code;
+
+  return code;
+};
+
+Blockly.Python.includeLibraries = function(code){
+  var includes = '';
+  var blocklyLibraries = Blockly.Python['libraries'];
+  // if (blocklyLibraries){
+  //   var libraries = Blockly.Python.getUnique(blocklyLibraries);
+  //   for (var i = 0; i < libraries.length; i++){
+  //     includes += "#include <" + libraries[i] + ".h>\n";
+  //   }
+  // }
+  includes += 'from makerclub import *'
+
+  code = includes + '\n\n' + code;
+  return code;
+
+};
+
+Blockly.Python.getUnique = function(a, selector) {
+  var seen = {};
+  return a.filter(function(item) {
+      if (selector) {
+        return seen.hasOwnProperty(item[selector]) ? false : (seen[item[selector]] = true);
+      }
+      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+};

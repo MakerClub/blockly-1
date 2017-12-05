@@ -37,6 +37,14 @@ Blockly.Python['procedures_defreturn'] = function(block) {
   var varName;
   var workspace = block.workspace;
   var variables = workspace.getAllVariables() || [];
+  let blocklyObjects = Blockly.Python['objects'];
+  if (blocklyObjects){
+    var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
+    for (var i = 0; i < objects.length; i++){
+      var object = objects[i];
+      globals.push(object.name);
+    }
+  }
   for (var i = 0, variable; variable = variables[i]; i++) {
     varName = variable.name;
     if (block.arguments_.indexOf(varName) == -1) {

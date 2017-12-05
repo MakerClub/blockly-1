@@ -24,74 +24,70 @@
  */
 'use strict';
 
-goog.provide('Blockly.Python.servo');
+goog.provide('Blockly.Python.webevent');
 goog.require('Blockly.Python');
 
 https://blockly-demo.appspot.Pythonom/static/demos/blockfactory/index.html#yqnowv
-Blockly.Python['servo_to'] = function(block) {
-  var servoNumber = block.getFieldValue('SERVO_NUMBER');
-  var duration = Blockly.Python.valueToCode(block, 'DURATION_INPUT', Blockly.Python.ORDER_ATOMIC) || 1;
-  var wait = Blockly.Python.valueToCode(block, 'WAIT_INPUT', Blockly.Python.ORDER_ATOMIC) || 'False';
-  var value_servo = Blockly.Python.valueToCode(block, 'SERVO', Blockly.Python.ORDER_ATOMIC) || 90;
+Blockly.Python['mcwebevent'] = function(block) {
+  var webeventName = block.getFieldValue('EVENT_NAME_INPUT');
+  var functionName = block.getFieldValue('FUNCTION_INPUT');
+  var value_webevent = Blockly.Python.valueToCode(block, 'WEBEVENT', Blockly.Python.ORDER_ATOMIC) || 90;
 
-  var servoName = 'servo' + servoNumber;
-
-  // Blockly.Python.addLibrary('Wire');
-  // Blockly.Python.addLibrary('Adafruit_PWMServoDriver');
+  var webeventVariableName = 'webevent_' + webeventName;
 
   Blockly.Python.addObject({
-    class: 'Servo',
-    name: servoName,
+    class: 'Webevent',
+    name: webeventVariableName,
     parameters : [
-      servoNumber
+      `'${webeventName}'`
     ]
   });
-  var code = `${ servoName }.to(${ value_servo }, ${duration}, ${wait});\n`;
+  var code = `${ webeventVariableName }.on_trigger(${ functionName });\n`;
   return code;
 };
 
-Blockly.Python['servo_left'] = function(block) {
-  var servoNumber = block.getFieldValue('SERVO_NUMBER');
-  var value_servo = Blockly.Python.valueToCode(block, 'SERVO', Blockly.Python.ORDER_ATOMIC) || 90;
-  var servoName = 'servo' + servoNumber;
+Blockly.Python['webevent_left'] = function(block) {
+  var webeventName = block.getFieldValue('WEBEVENT_NUMBER');
+  var value_webevent = Blockly.Python.valueToCode(block, 'WEBEVENT', Blockly.Python.ORDER_ATOMIC) || 90;
+  var webeventName = 'webevent' + webeventName;
 
   // Blockly.Python.addLibrary('Wire');
-  // Blockly.Python.addLibrary('Adafruit_PWMServoDriver');
+  // Blockly.Python.addLibrary('Adafruit_PWMWebeventDriver');
   Blockly.Python.addObject({
-    class: 'Servo',
-    name: servoName,
+    class: 'Webevent',
+    name: webeventName,
     parameters : [
-      servoNumber
+      webeventName
     ]
 
   });
-  var code = ` ${ servoName }.left(${ value_servo });\n`;
+  var code = ` ${ webeventName }.left(${ value_webevent });\n`;
   return code;
 };
 
-Blockly.Python['servo_right'] = function(block) {
-  var servoNumber = block.getFieldValue('SERVO_NUMBER');
-  var value_servo = Blockly.Python.valueToCode(block, 'SERVO', Blockly.Python.ORDER_ATOMIC) || 90;
-  var servoName = 'servo' + servoNumber;
+Blockly.Python['webevent_right'] = function(block) {
+  var webeventName = block.getFieldValue('WEBEVENT_NUMBER');
+  var value_webevent = Blockly.Python.valueToCode(block, 'WEBEVENT', Blockly.Python.ORDER_ATOMIC) || 90;
+  var webeventName = 'webevent' + webeventName;
 
   // Blockly.Python.addLibrary('Wire');
-  // Blockly.Python.addLibrary('Adafruit_PWMServoDriver');
+  // Blockly.Python.addLibrary('Adafruit_PWMWebeventDriver');
   Blockly.Python.addObject({
-   class: 'Servo',
-   name: servoName,
+   class: 'Webevent',
+   name: webeventName,
    parameters : [
-     servoNumber
+     webeventName
    ]
   });
-  var code = `${ servoName }.right(${ value_servo });\n`;
+  var code = `${ webeventName }.right(${ value_webevent });\n`;
   return code;
 };
 
-Blockly.Python['servo_get_position'] = function(block) {
-  var servoNumber = block.getFieldValue('SERVO_NUMBER');
-  var servoName = 'servo' + servoNumber;
+Blockly.Python['webevent_get_position'] = function(block) {
+  var webeventName = block.getFieldValue('WEBEVENT_NUMBER');
+  var webeventName = 'webevent' + webeventName;
   // TODO: Assemble JavaScript into code variable.
-  var code = ` ${ servoName }.getPosition()`;
+  var code = ` ${ webeventName }.getPosition()`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };
@@ -103,7 +99,7 @@ Blockly.Python['servo_get_position'] = function(block) {
  * @augments Blockly.Block
  * @package
  */
-Blockly.Constants.Servo.IS_DIVISIBLEBY_MUTATOR_MIXIN = {
+Blockly.Constants.Webevent.IS_DIVISIBLEBY_MUTATOR_MIXIN = {
   /**
    * Create XML to represent whether the 'divisorInput' should be present.
    * @return {Element} XML storage element.
@@ -151,7 +147,7 @@ Blockly.Constants.Servo.IS_DIVISIBLEBY_MUTATOR_MIXIN = {
  * @this Blockly.Block
  * @package
  */
-Blockly.Constants.Servo.IS_DIVISIBLE_MUTATOR_EXTENSION = function() {
+Blockly.Constants.Webevent.IS_DIVISIBLE_MUTATOR_EXTENSION = function() {
   this.getField('PROPERTY').setValidator(function(option) {
     var divisorInput = (option == 'DIVISIBLE_BY');
     this.sourceBlock_.updateShape_(divisorInput);
