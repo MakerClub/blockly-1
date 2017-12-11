@@ -123,7 +123,6 @@ Blockly.Constants.Webevent.LIST_FUNCTIONS_MUTATOR_MIXIN = {
 
 
     this.updateList_();
-    console.log(this.procedureList);
     return container;
   },
   /**
