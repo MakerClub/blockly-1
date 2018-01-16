@@ -44,3 +44,19 @@ Blockly.Python['variables_set'] = function(block) {
       Blockly.Variables.NAME_TYPE);
   return varName + ' = ' + argument0 + '\n';
 };
+
+Blockly.Python['variables_get_servo'] = function(block) {
+  // Variable getter.
+  var code = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'),
+      Blockly.Variables.NAME_TYPE);
+  return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python['variables_set_servo'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.Python.valueToCode(block, 'VALUE',
+      Blockly.Python.ORDER_NONE) || '0';
+  var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'),
+      Blockly.Variables.NAME_TYPE);
+  return varName + ' = ' + argument0 + '\n';
+};

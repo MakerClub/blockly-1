@@ -27,14 +27,14 @@
 goog.provide('Blockly.Python.servo');
 goog.require('Blockly.Python');
 
-https://blockly-demo.appspot.Pythonom/static/demos/blockfactory/index.html#yqnowv
+//https://blockly-demo.appspot.Pythonom/static/demos/blockfactory/index.html#yqnowv
 Blockly.Python['servo_to'] = function(block) {
-  var servoNumber = block.getFieldValue('SERVO_NUMBER');
+  var servoNumber = block.getFieldValue('servo_dropdown');
   var duration = Blockly.Python.valueToCode(block, 'DURATION_INPUT', Blockly.Python.ORDER_ATOMIC) || 1;
   var wait = Blockly.Python.valueToCode(block, 'WAIT_INPUT', Blockly.Python.ORDER_ATOMIC) || 'False';
-  var value_servo = Blockly.Python.valueToCode(block, 'SERVO', Blockly.Python.ORDER_ATOMIC) || 90;
+  var value_servo = Blockly.Python.valueToCode(block, 'SERVO_POSITION', Blockly.Python.ORDER_ATOMIC) || 90;
 
-  var servoName = 'servo' + servoNumber;
+  var servoName = '' + servoNumber;
 
   // Blockly.Python.addLibrary('Wire');
   // Blockly.Python.addLibrary('Adafruit_PWMServoDriver');

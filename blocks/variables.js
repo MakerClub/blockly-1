@@ -84,7 +84,46 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_VARIABLES_SET_TOOLTIP}",
     "helpUrl": "%{BKY_VARIABLES_SET_HELPURL}",
     "extensions": ["contextMenu_variableSetterGetter"]
-  }
+  },
+  // Block for Panda variable getter.
+{
+ "type": "variables_get_servo",
+ "message0": "%1",
+ "args0": [
+   {
+     "type": "field_variable",
+     "name": "VAR",
+     "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+     "variableTypes": ["Servo"]    // Specifies what types to put in the dropdown
+   }
+ ],
+ "colour": 230,
+ "output": "Servo",    // Returns a value of "Panda"
+ "extensions": ["contextMenu_servoVariableSetterGetter"]
+},
+
+// Block for Panda variable setter.
+{
+ "type": "variables_set_servo",
+ "message0": "%{BKY_VARIABLES_SET}",
+ "args0": [
+   {
+     "type": "field_variable",
+     "name": "VAR",
+     "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+     "variableTypes": ["Servo"]
+   },
+   {
+     "type": "input_value",
+     "name": "VALUE",
+     "check": "Servo"    // Checks that the input value is of type "Panda"
+   }
+ ],
+ "colour": 230,
+ "extensions": ["contextMenu_servoVariableSetterGetter"],
+ "previousStatement": null,
+ "nextStatement": null,
+}
 ]);  // END JSON EXTRACT (Do not delete this comment.)
 
 /**
@@ -126,3 +165,34 @@ Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MIXIN = {
 
 Blockly.Extensions.registerMixin('contextMenu_variableSetterGetter',
   Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_VARIABLE_GETTER_SETTER_MIXIN);
+
+Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_SERVO_VARIABLE_GETTER_SETTER_MIXIN = {
+    /**
+     * Add menu option to create getter/setter block for this setter/getter.
+     * @param {!Array} options List of menu options to add to.
+     * @this Blockly.Block
+     */
+    customContextMenu: function(options) {
+      // Getter blocks have the option to create a setter block, and vice versa.
+      if (this.type == 'variables_get_servo') {
+        var opposite_type = 'variables_set_servo';
+        var contextMenuMsg = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+      } else {
+        var opposite_type = 'variables_get';
+        var contextMenuMsg = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+      }
+
+      var option = {enabled: this.workspace.remainingCapacity() > 0};
+      var name = this.getFieldValue('VAR');
+      option.text = contextMenuMsg.replace('%1', name);
+      var xmlField = goog.dom.createDom('field', null, name);
+      xmlField.setAttribute('name', 'VAR');
+      var xmlBlock = goog.dom.createDom('block', null, xmlField);
+      xmlBlock.setAttribute('type', opposite_type);
+      option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+      options.push(option);
+    }
+  };
+
+  Blockly.Extensions.registerMixin('contextMenu_servoVariableSetterGetter',
+    Blockly.Constants.Variables.CUSTOM_CONTEXT_MENU_SERVO_VARIABLE_GETTER_SETTER_MIXIN);

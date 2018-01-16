@@ -424,6 +424,30 @@ Blockly.Python.includeObjects = function(code){
   return code;
 };
 
+Blockly.Python.getServoList = function(){
+  let servoVariables = Blockly.mainWorkspace.getVariablesOfType('Servo');
+
+  let servoList = [];
+  if (servoVariables.length) {
+    for (var i = 0; i < servoVariables.length; i++) {
+      let variableName = servoVariables[i].name;
+      servoList.push([variableName, variableName]);
+    }
+  }
+  else {
+    servoList.push(['Please select...']);
+  }
+  let addServo = 'add servo';
+  servoList.push([addServo, addServo]);
+  let deleteServo = `Delete the '${ null }' servo`;
+
+  let renameServo = `Rename the '${ null }' servo`;
+  servoList.push([renameServo, renameServo]);
+
+  servoList.push([deleteServo, deleteServo]);
+  return servoList;
+}
+
 Blockly.Python.includeLibraries = function(code){
   var includes = '';
   var blocklyLibraries = Blockly.Python['libraries'];

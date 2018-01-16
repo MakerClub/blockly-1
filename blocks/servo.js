@@ -42,42 +42,6 @@ Blockly.defineBlocksWithJsonArray([
 "colour": 230,
 },
 {
-  "type": "servo_to",
-  "message0": "Servo %1 to %2",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "SERVO_NUMBER",
-      "options": [
-        [
-          "1",
-          "1"
-        ],
-        [
-          "2",
-          "2"
-        ],
-        [
-          "3",
-          "3"
-        ]
-      ]
-    },
-    {
-      "type": "input_value",
-      "name": "SERVO_POSITION",
-      "check": "Number"
-    }
-  ],
-  "inputsInline": true,
-  "previousStatement": null,
-  "nextStatement": null,
-  "mutator": "servo_parameters_mutator",
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
   "type": "parameters",
   "message0": "Parameters %1 Duration %2  %3 Wait to finish %4 ",
   "args0": [
@@ -101,12 +65,43 @@ Blockly.defineBlocksWithJsonArray([
   "helpUrl": ""
 }]);
 
+var servoToJson = {
+  "type": "servo_to",
+  "message0": "Servo %1 To %2",
+  "args0": [
+    {
+     "type": "input_dummy",
+     "name": "SERVO_PLACEHOLDER"
+    },
+    {
+      "type": "input_value",
+      "name": "SERVO_POSITION"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "mutator": "servo_parameters_mutator",
+  "helpUrl": ""
+};
+
+Blockly.Blocks['servo_to'] = {
+  init: function(){
+    this.jsonInit(servoToJson);
+
+  }
+};
+
+
+
 Blockly.Blocks['servo_left'] = {
   init: function() {
     this.appendValueInput("SERVO")
         .setCheck("Number")
         .appendField("Servo")
-        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_NUMBER")
+        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_INPUT")
         .appendField("left");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -121,7 +116,7 @@ Blockly.Blocks['servo_right'] = {
     this.appendValueInput("SERVO")
         .setCheck("Number")
         .appendField("Servo")
-        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_NUMBER")
+        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_INPUT")
         .appendField("right");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -135,7 +130,7 @@ Blockly.Blocks['servo_get_position'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("servo")
-        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_NUMBER")
+        .appendField(new Blockly.FieldDropdown(Blockly.Python.SERVO_ARRAY), "SERVO_INPUT")
         .appendField("getPosition");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
@@ -181,7 +176,30 @@ Blockly.Constants.Servo.PARAMETER_MUTATOR_MIXIN = {
     if(this.waitInput){
       container.setAttribute('wait', this.waitInput);
     }
+    if(this.selectedServo){
+      let newValue = this.getFieldValue('servo_dropdown');
+      if(newValue && newValue != this.selectedServo){
+        this.selectedServo = newValue;
+      }
+      container.setAttribute('servo_dropdown', this.selectedServo);
+    }
+    if(this.selectedServo == 'add servo'){
+        this.addVariable();
+    }
+    else if(this.selectedServo && this.selectedServo.includes('Delete the')){
+      this.deleteVariable(this.selectedServo);
+    }
+    else if (this.selectedServo && this.selectedServo.includes('Delete the')){
+      this.renameVariable();
+    }
+    this.updateDropdown();
+
     return container;
+  },
+
+  setupListener: function(){
+    var boundRename = this.onVariableRename.bind(this);
+    Blockly.mainWorkspace.addChangeListener(boundRename);
   },
   /**
    * Parse XML to restore the 'divisorInput'.
@@ -192,16 +210,86 @@ Blockly.Constants.Servo.PARAMETER_MUTATOR_MIXIN = {
     // var waitInput = (xmlElement.getAttribute('wait') == true);
     this.durationInput = (xmlElement.getAttribute('duration') == 'true') || false;
     this.waitInput = (xmlElement.getAttribute('wait') == 'true') || false;
-    this.updateShape_();
+    this.selectedServo = xmlElement.getAttribute('servo_dropdown');
+    if(this.selectedServo == "undefined"){
+      this.selectedServo = undefined;
+    }
+
   },
-  /**
-   * Modify this block to have (or not have) an input for 'is divisible by'.
-   * @param {boolean} divisorInput True if this block has a divisor input.
-   * @private
-   * @this Blockly.Block
-   */
+
+  onVariableRename: function(event) {
+    if(event.type == Blockly.Events.VAR_RENAME ||
+      event.type == Blockly.Events.VAR_CREATE ||
+      event.type == Blockly.Events.VAR_DELETE
+    ){
+      if(event.newName && this.selectedServo == event.oldName){
+        this.selectedServo = event.newName;
+      }
+      this.updateShape_();
+    }
+  },
+
+  addVariable: function(){
+      Blockly.Variables.createVariable(Blockly.mainWorkspace, null, 'Servo');
+      this.selectedServo = 'new created';
+  },
+
+  renameVariable: function(){
+    console.log('renaming');
+      // Blockly.Variables.createVariable(Blockly.mainWorkspace, null, 'Servo');
+      // this.selectedServo = 'new created';
+  },
+
+  deleteVariable: function(selectedServo){
+    let deleteArray = this.selectedServo.split('\'');
+    Blockly.mainWorkspace.deleteVariable(deleteArray[1]);
+    console.log('deleting');
+  },
+
+  updateDropdown: function(){
+
+    let servoVariables = Blockly.mainWorkspace.getVariablesOfType('Servo');
+
+    if(servoVariables.length){
+
+      this.servoList = [];
+      for(var i = 0; i < servoVariables.length; i++){
+        let variableName = servoVariables[i].name;
+        this.servoList.push([variableName, variableName]);
+      }
+      let addServo = 'add servo';
+      this.servoList.push([addServo, addServo]);
+      let deleteServo = `Delete the '${this.selectedServo}' servo`;
+
+      let renameServo = `Rename the '${this.selectedServo}' servo`;
+      this.servoList.push([renameServo, renameServo]);
+
+      this.servoList.push([deleteServo, deleteServo]);
+    }
+    if(!this.servoList){
+      return;
+    }
+    var dropdown = new Blockly.FieldDropdown(this.servoList);
+    if(this.selectedServo){
+      dropdown.setValue(this.selectedServo);
+    }
+
+    let input = this.getInput('SERVO_PLACEHOLDER');
+    if(this.getField('servo_dropdown')){
+      input.removeField('servo_dropdown');
+    }
+    if (input){
+      input.appendField(dropdown, 'servo_dropdown');
+    }
+  },
+
   updateShape_: function() {
-    // Add or remove a Value Input.
+
+    this.updateDropdown();
+    let input = this.getInput('SERVO_PLACEHOLDER');
+    if(!input){
+      return;
+    }
     var durationInputExists = this.getInput('DURATION_INPUT');
     if (this.durationInput) {
       if (!durationInputExists) {
@@ -226,20 +314,15 @@ Blockly.Constants.Servo.PARAMETER_MUTATOR_MIXIN = {
   }
 };
 
-/**
- * 'math_is_divisibleby_mutator' extension to the 'math_property' block that
- * can update the block shape (add/remove divisor input) based on whether
- * property is "divisble by".
- * @this Blockly.Block
- * @package
- */
 Blockly.Constants.Servo.PARAMETER_MUTATOR_EXTENSION = function() {
-  this.getField('SERVO_NUMBER').setValidator(function(option) {
-    var divisorInput = (option == '1');
-    this.sourceBlock_.updateShape_(divisorInput);
-  });
+    this.setupListener();
+};
+
+Blockly.Constants.Servo.SETUP_VARIABLES = function() {
+
 };
 
 Blockly.Extensions.registerMutator('servo_parameters_mutator',
   Blockly.Constants.Servo.PARAMETER_MUTATOR_MIXIN,
-  null, ['servo_to_parameters']);
+  Blockly.Constants.Servo.PARAMETER_MUTATOR_EXTENSION,
+  ['servo_to_parameters']);
