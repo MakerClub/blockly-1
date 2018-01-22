@@ -221,7 +221,8 @@ Blockly.Python.init = function(workspace) {
   var defvars = [];
   var variables = workspace.getAllVariables();
   for (var i = 0; i < variables.length; i++) {
-    defvars[i] = Blockly.Python.variableDB_.getName(variables[i].name,
+    var variable = variables[i];
+    defvars[i] = Blockly.Python.variableDB_.getName(variable.name,
         Blockly.Variables.NAME_TYPE) + ' = None';
   }
   Blockly.Python.definitions_['variables'] = defvars.join('\n');
@@ -370,30 +371,13 @@ Blockly.Python.getAdjustedInt = function(block, atId, opt_delta, opt_negate) {
   return at;
 };
 
-Blockly.Python.addLibrary = function(libraryName) {
-  if(!Blockly.Python['libraries']){
-    Blockly.Python['libraries'] = [];
-  }
-  Blockly.Python['libraries'].push(libraryName);
-};
-
-Blockly.Python.clearObjects = function(){
+Blockly.Python.clearObjects = function() {
   Blockly.Python['objects'] = [];
 };
 
-Blockly.Python.addObject = function(object) {
-  if(!object.name) {
-    throw new Error('Object must include a name');
-  }
-  if(!object.class) {
-    throw new Error('Object must include a class');
-  }
-  if(!Blockly.Python['objects']){
-    Blockly.Python['objects'] = [];
-  }
-  Blockly.Python['objects'].push(object);
-  Blockly.Python.addLibrary(object.class);
-};
+Blockly.Python.includeObjects = function(code) {
+  return code;
+}
 
 Blockly.Python.includeVariables = function(code){
   var variableString = '';
@@ -401,25 +385,6 @@ Blockly.Python.includeVariables = function(code){
     variableString += Blockly.Python.variables_[name] + "\n";
   }
   code = variableString + "\n\n" + code;
-
-  return code;
-};
-
-Blockly.Python.includeObjects = function(code){
-  var objectString = '';
-  var blocklyObjects = Blockly.Python['objects'];
-  if (blocklyObjects){
-    var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
-    for (var i = 0; i < objects.length; i++){
-      var object = objects[i];
-      objectString += `${ object.name } = ${ object.class }`;
-      if(object.parameters){
-        objectString += `(${object.parameters.join()})`;
-      }
-      objectString += '\n';
-    }
-  }
-  code = objectString + '\n\n' + code;
 
   return code;
 };
@@ -433,35 +398,18 @@ Blockly.Python.getServoList = function(){
       let variableName = servoVariables[i].name;
       servoList.push([variableName, variableName]);
     }
+    //servoList.push(["Rename", "mcRenameServo"]); //We kind of need a recursive way to update all dropdowns, until we have this I'm commenting this out.
+    servoList.push(["Delete", "mcDeleteServo"]);
+  } else {
+    servoList.push(['Please select...', ""]);
   }
-  else {
-    servoList.push(['Please select...']);
-  }
-  let addServo = 'add servo';
-  servoList.push([addServo, addServo]);
-  let deleteServo = `Delete the '${ null }' servo`;
 
-  let renameServo = `Rename the '${ null }' servo`;
-  servoList.push([renameServo, renameServo]);
-
-  servoList.push([deleteServo, deleteServo]);
+  servoList.push(["Add Servo", "mcAddServo"]);
   return servoList;
 }
 
 Blockly.Python.includeLibraries = function(code){
-  var includes = '';
-  var blocklyLibraries = Blockly.Python['libraries'];
-  // if (blocklyLibraries){
-  //   var libraries = Blockly.Python.getUnique(blocklyLibraries);
-  //   for (var i = 0; i < libraries.length; i++){
-  //     includes += "#include <" + libraries[i] + ".h>\n";
-  //   }
-  // }
-  includes += 'from makerclub import *'
-
-  code = includes + '\n\n' + code;
-  return code;
-
+  return 'from makerclub import *' + '\n\n' + code;
 };
 
 Blockly.Python.getUnique = function(a, selector) {

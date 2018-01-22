@@ -184,6 +184,7 @@ Blockly.Constants.Servo.PARAMETER_MUTATOR_MIXIN = {
       container.setAttribute('servo_dropdown', this.selectedServo);
     }
     if(this.selectedServo == 'add servo'){
+        debugger;
         this.addVariable();
     }
     else if(this.selectedServo && this.selectedServo.includes('Delete the')){

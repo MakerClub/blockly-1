@@ -27,24 +27,23 @@
 goog.provide('Blockly.Python.servo2');
 goog.require('Blockly.Python');
 
+Blockly.Python['servo_2_constructor'] = function(block) {
+  var servoNumber = block.getFieldValue('SERVO_NUMBER'); //We don't have constructors yet, but obviously this needs to change.
+  var servoName = block.getFieldValue('SERVO_VARIABLE');
+
+  var code = `${ servoName } = Servo(${servoNumber});\n`;
+  return code;
+};
+
+
 Blockly.Python['servo_2_to'] = function(block) {
-  var servoNumber = block.getFieldValue('servo_dropdown');
-  var duration = Blockly.Python.valueToCode(block, 'DURATION_INPUT', Blockly.Python.ORDER_ATOMIC) || 1;
-  var wait = Blockly.Python.valueToCode(block, 'WAIT_INPUT', Blockly.Python.ORDER_ATOMIC) || 'False';
+  var servoNumber = 1; //We don't have constructors yet, but obviously this needs to change.
+  var duration = Blockly.Python.valueToCode(block, 'DURATION', Blockly.Python.ORDER_ATOMIC) || 1;
+  var wait = Blockly.Python.valueToCode(block, 'WAIT', Blockly.Python.ORDER_ATOMIC) || 'False';
   var value_servo = Blockly.Python.valueToCode(block, 'SERVO_POSITION', Blockly.Python.ORDER_ATOMIC) || 90;
 
-  var servoName = '' + servoNumber;
+  var servoName = block.getFieldValue('SERVO_VARIABLE');
 
-  // Blockly.Python.addLibrary('Wire');
-  // Blockly.Python.addLibrary('Adafruit_PWMServoDriver');
-
-  Blockly.Python.addObject({
-    class: 'Servo',
-    name: servoName,
-    parameters : [
-      servoNumber
-    ]
-  });
-  var code = `${ servoName }.to(${ value_servo }, ${duration}, ${wait});\n`;
+  var code = `${ servoName }.move_to(${ value_servo }, ${duration}, ${wait})\n`;
   return code;
 };

@@ -135,7 +135,7 @@ Blockly.Python['procedures_ifreturn'] = function(block) {
 Blockly.Python['procedures_start'] = function(block) {
   var statements_start = Blockly.Python.statementToCode(block, 'Start');
   // TODO: Assemble Python into code variable.
-  var code = 'start\n';
+  var code = 'def start():\n';
   code += statements_start;
   return code;
 };
