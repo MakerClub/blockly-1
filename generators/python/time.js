@@ -24,14 +24,5 @@
  */
 'use strict';
 
-goog.provide('Blockly.Python.servo');
+goog.provide('Blockly.Python.time');
 goog.require('Blockly.Python');
-
-if (Blockly.mcGeneratorsToCreate) {
-  for (var key in Blockly.mcGeneratorsToCreate) {
-    if (!Blockly.mcGeneratorsToCreate.hasOwnProperty(key)) {
-      continue
-    }
-    Blockly.Python[key] = Blockly.mcGeneratorsToCreate[key];
-  }
-}

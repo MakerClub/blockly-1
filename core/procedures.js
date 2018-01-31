@@ -179,6 +179,22 @@ Blockly.Procedures.rename = function(name) {
  */
 Blockly.Procedures.flyoutCategory = function(workspace) {
   var xmlList = [];
+  if (Blockly.Blocks['procedures_start']) {
+    // <block type="procedures_ifreturn" gap="16"></block>
+    var block = goog.dom.createDom('block');
+    block.setAttribute('type', 'procedures_start');
+    block.setAttribute('gap', 16);
+    xmlList.push(block);
+  }
+
+  if (Blockly.Blocks['procedures_loop']) {
+    // <block type="procedures_ifreturn" gap="16"></block>
+    var block = goog.dom.createDom('block');
+    block.setAttribute('type', 'procedures_loop');
+    block.setAttribute('gap', 16);
+    xmlList.push(block);
+  }
+
   if (Blockly.Blocks['procedures_defnoreturn']) {
     // <block type="procedures_defnoreturn" gap="16">
     //     <field name="NAME">do something</field>
@@ -209,14 +225,6 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
     // <block type="procedures_ifreturn" gap="16"></block>
     var block = goog.dom.createDom('block');
     block.setAttribute('type', 'procedures_ifreturn');
-    block.setAttribute('gap', 16);
-    xmlList.push(block);
-  }
-
-  if (Blockly.Blocks['procedures_start']) {
-    // <block type="procedures_ifreturn" gap="16"></block>
-    var block = goog.dom.createDom('block');
-    block.setAttribute('type', 'procedures_start');
     block.setAttribute('gap', 16);
     xmlList.push(block);
   }

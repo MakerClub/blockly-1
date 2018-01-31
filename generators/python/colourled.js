@@ -27,39 +27,3 @@
 goog.provide('Blockly.Python.colourled');
 
 goog.require('Blockly.Python');
-
-
-Blockly.Python['colour_led_on'] = function() {
-  // Blockly.Python.addObject({
-  //   class: 'ColorLED',
-  //   name: 'colorLed'
-  // });
-
-  var code = 'colorLed.on();\n';
-  return code;
-};
-
-Blockly.Python['colour_led_off'] = function() {
-  // Blockly.Python.addObject({
-  //   class: 'ColorLED',
-  //   name: 'colorLed'
-  // });
-
-  var code = 'colorLed.off();\n';
-  return code;
-};
-
-
-Blockly.Python['colour_led_setcolor'] = function(block) {
-  // Blockly.Python.addObject({
-  //   class: 'ColorLED',
-  //   name: 'colorLed'
-  // });
-
-  var value_red = Blockly.Python.valueToCode(block, 'RED', Blockly.Python.ORDER_ATOMIC) || 0;
-  var value_green = Blockly.Python.valueToCode(block, 'GREEN', Blockly.Python.ORDER_ATOMIC) || 0;
-  var value_blue = Blockly.Python.valueToCode(block, 'BLUE', Blockly.Python.ORDER_ATOMIC) || 0;
-  // TODO: Assemble C into code variable.
-  var code = `colorLed.setColor(${ value_red }, ${ value_green }, ${ value_blue });\n`;
-  return code;
-};

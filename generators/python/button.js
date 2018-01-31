@@ -24,25 +24,6 @@
  */
 'use strict';
 
-goog.provide('Blockly.Python.leddigits');
+goog.provide('Blockly.Python.button');
 
 goog.require('Blockly.Python');
-
-Blockly.Python['led_digits_set'] = function(block) {
-  var firstPinNum = parseInt(block.getFieldValue("FIRST_PIN_NUM"));
-
-  // Blockly.Python.addObject({
-  //   class: 'LedDigits',
-  //   name: 'ledDigits' + firstPinNum,
-  //   parameters : [
-  //     firstPinNum,
-  //     firstPinNum+1,
-  //     firstPinNum+2
-  //   ]
-  // });
-
-  var value_degrees = Blockly.Python.valueToCode(block, 'NUMBER', Blockly.Python.ORDER_ATOMIC) || 0;
-  // TODO: Assemble C into code variable.
-  var code = `ledDigits${ firstPinNum }.set(${ value_degrees });\n`;
-  return code;
-};

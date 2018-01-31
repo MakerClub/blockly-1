@@ -24,7 +24,7 @@
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.colourled');
+goog.provide('Blockly.Blocks.time');
 goog.require('Blockly.Blocks');
 
 goog.require('Blockly.Python.mcCreateBlocklyBlock');
@@ -37,15 +37,15 @@ Blockly.Blocks.colourled.HUE = 240;
 //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#3vjbfz
 
 mcCreateBlocklyBlock({
-  "type": "rgb_led_set_color_hex",
+  "type": "time_sleep",
   "colour": "%{BKY_LOGIC_HUE}",
   "fields": [
     {
-      "name": "color_hex",
-      "label": "Set led color",
+      "name": "sleep_seconds",
+      "label": "Sleep (s) ",
       "type": "input_value",
-      "check": "String",
+      "check": "Number",
     }
   ],
-  "generator": "rgb_led.color({{color_hex}})\n",
+  "generator": "sleep({{sleep_seconds}})\n",
 });

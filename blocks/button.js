@@ -25,8 +25,8 @@
 //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#hfomcc
 'use strict';
 
-goog.provide('Blockly.Blocks.motor');
-goog.provide('Blockly.Constants.Motor');
+goog.provide('Blockly.Blocks.button');
+goog.provide('Blockly.Constants.Button');
 
 goog.require('Blockly.Blocks');
 goog.require('Blockly');
@@ -36,64 +36,56 @@ goog.require('Blockly.Python.mcCreateBlocklyBlock');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.motor.HUE = 260;
-
+Blockly.Blocks.button.HUE = 260;
 
 mcCreateBlocklyBlock({
-  "type": "motor_constructor",
+  "type": "button_constructor",
   "colour": "%{BKY_LOGIC_HUE}",
   "fields": [
     {
-      "name": "motor_variable",
-      "label": "Set Motor ",
+      "name": "button_variable",
+      "label": "Set Button ",
       "type": "object_dropdown",
-      "object": "Motor", //Used with object_dropdown (required if object_dropdown)
+      "object": "Button", //Used with object_dropdown (required if object_dropdown)
     },
     {
-      "name": "motor_number",
+      "name": "button_number",
       "label": " to ",
       "type": "dropdown",
       "options": [
         ["1", "1"],
         ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"],
+        ["6", "6"],
+        ["7", "7"],
+        ["8", "8"],
+        ["9", "9"],
+        ["10", "10"],
       ],
     }
   ],
-  "generator": "{{motor_variable}} = Motor({{motor_number}})\n",
+  "generator": "{{button_variable}} = Button({{button_number}})\n",
 });
 
 mcCreateBlocklyBlock({
-  "type": "motor_set_speed",
+  "type": "button_on_press",
   "colour": "%{BKY_LOGIC_HUE}",
   "fields": [
     {
-      "name": "motor_variable",
-      "label": "Motor ",
+      "name": "button_variable",
+      "label": "Button ",
       "type": "object_dropdown",
-      "object": "Motor", //Used with object_dropdown (required if object_dropdown)
+      "object": "Button", //Used with object_dropdown (required if object_dropdown)
     },
     {
-      "name": "motor_speed",
-      "label": " set speed to ",
+      "name": "button_on_press_callback",
+      "label": "on press",
       "type": "input_value",
-      "check": "Number",
+      "check": "String",
     },
-    {
-      "name": "motor_time",
-      "label": " duration (s) ",
-      "type": "input_value",
-      "check": "Number",
-      "optional": true,
-      "optionalDefaultValue": 0,
-      "optionalShowHideLabel": "Duration",
-    },
-    {
-      "name": "motor_until_done",
-      "label": " until done",
-      "type": "hidden_checkbox",
-      "optional": true,
-      "optionalShowHideLabel": "Wait until done",
-    },
+
   ],
-  "generator": "{{motor_variable}}.set_speed({{motor_speed}}, {{motor_time}}, {{motor_until_done}})\n",
+  "generator": "{{button_variable}}.on_press({{button_on_press_callback}})\n",
 });

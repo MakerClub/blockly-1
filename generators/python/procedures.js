@@ -132,10 +132,116 @@ Blockly.Python['procedures_ifreturn'] = function(block) {
   return code;
 };
 
+
+
 Blockly.Python['procedures_start'] = function(block) {
-  var statements_start = Blockly.Python.statementToCode(block, 'Start');
-  // TODO: Assemble Python into code variable.
-  var code = 'def start():\n';
-  code += statements_start;
-  return code;
+  if (!block.arguments_) {
+    block.arguments_ = [];
+  }
+  var globals = [];
+  var varName;
+  var workspace = block.workspace;
+  var variables = workspace.getAllVariables() || [];
+  let blocklyObjects = Blockly.Python['objects'];
+  if (blocklyObjects){
+    var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
+    for (var i = 0; i < objects.length; i++){
+      var object = objects[i];
+      globals.push(object.name);
+    }
+  }
+  for (var i = 0, variable; variable = variables[i]; i++) {
+    varName = variable.name;
+    if (block.arguments_.indexOf(varName) == -1) {
+      globals.push(Blockly.Python.variableDB_.getName(varName,
+          Blockly.Variables.NAME_TYPE));
+    }
+  }
+  globals = globals.length ? '  global ' + globals.join(', ') + '\n' : '';
+  var funcName = "start";
+  var branch = Blockly.Python.statementToCode(block, 'STACK');
+  if (Blockly.Python.STATEMENT_PREFIX) {
+    var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
+    branch = Blockly.Python.prefixLines(
+        Blockly.Python.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + id + '\''), Blockly.Python.INDENT) + branch;
+  }
+  if (Blockly.Python.INFINITE_LOOP_TRAP) {
+    branch = Blockly.Python.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '"' + block.id + '"') + branch;
+  }
+  var returnValue = Blockly.Python.valueToCode(block, 'RETURN',
+      Blockly.Python.ORDER_NONE) || '';
+  if (returnValue) {
+    returnValue = '  return ' + returnValue + '\n';
+  } else if (!branch) {
+    branch = Blockly.Python.PASS;
+  }
+  var args = [];
+  for (var i = 0; i < block.arguments_.length; i++) {
+    args[i] = Blockly.Python.variableDB_.getName(block.arguments_[i],
+        Blockly.Variables.NAME_TYPE);
+  }
+  var code = 'def ' + funcName + '(' + args.join(', ') + '):\n' +
+      globals + branch + returnValue;
+  code = Blockly.Python.scrub_(block, code);
+  // Add % so as not to collide with helper functions in definitions list.
+  Blockly.Python.definitions_['%' + funcName] = code;
+  return null;
+};
+
+Blockly.Python['procedures_loop'] = function(block) {
+  if (!block.arguments_) {
+    block.arguments_ = [];
+  }
+  var globals = [];
+  var varName;
+  var workspace = block.workspace;
+  var variables = workspace.getAllVariables() || [];
+  let blocklyObjects = Blockly.Python['objects'];
+  if (blocklyObjects){
+    var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
+    for (var i = 0; i < objects.length; i++){
+      var object = objects[i];
+      globals.push(object.name);
+    }
+  }
+  for (var i = 0, variable; variable = variables[i]; i++) {
+    varName = variable.name;
+    if (block.arguments_.indexOf(varName) == -1) {
+      globals.push(Blockly.Python.variableDB_.getName(varName,
+          Blockly.Variables.NAME_TYPE));
+    }
+  }
+  globals = globals.length ? '  global ' + globals.join(', ') + '\n' : '';
+  var funcName = "loop";
+  var branch = Blockly.Python.statementToCode(block, 'STACK');
+  if (Blockly.Python.STATEMENT_PREFIX) {
+    var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
+    branch = Blockly.Python.prefixLines(
+        Blockly.Python.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + id + '\''), Blockly.Python.INDENT) + branch;
+  }
+  if (Blockly.Python.INFINITE_LOOP_TRAP) {
+    branch = Blockly.Python.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '"' + block.id + '"') + branch;
+  }
+  var returnValue = Blockly.Python.valueToCode(block, 'RETURN',
+      Blockly.Python.ORDER_NONE) || '';
+  if (returnValue) {
+    returnValue = '  return ' + returnValue + '\n';
+  } else if (!branch) {
+    branch = Blockly.Python.PASS;
+  }
+  var args = [];
+  for (var i = 0; i < block.arguments_.length; i++) {
+    args[i] = Blockly.Python.variableDB_.getName(block.arguments_[i],
+        Blockly.Variables.NAME_TYPE);
+  }
+  var code = 'def ' + funcName + '(' + args.join(', ') + '):\n' +
+      globals + branch + returnValue;
+  code = Blockly.Python.scrub_(block, code);
+  // Add % so as not to collide with helper functions in definitions list.
+  Blockly.Python.definitions_['%' + funcName] = code;
+  return null;
 };
