@@ -82,8 +82,7 @@ mcCreateBlocklyBlock({
     {
       "name": "button_on_press_callback",
       "label": "on press",
-      "type": "input_value",
-      "check": "String",
+      "type": "function_dropdown",
     },
 
   ],

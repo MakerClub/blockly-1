@@ -289,6 +289,24 @@ function mcObjectDropdownValidator(newValue) {
   }
 }
 
+function mcFunctionMenuGenerator() {
+  var functionList = [];
+
+  var allFunctions = Blockly.Procedures.allProcedures(Blockly.mainWorkspace);
+  allFunctions = allFunctions[0].concat(allFunctions[1]);
+
+  for (var iii = 0; iii < allFunctions.length; iii++) {
+    var functionName = allFunctions[iii][0];
+    functionList.push([functionName, functionName]);
+  }
+
+  if (functionList.length == 0) {
+    functionList.push(["Choose a function", "mcNullSelection"]);
+  }
+
+  return functionList;
+}
+
 function mcUpdateBlock() {
   //Need to save connection here to restore them at end of update shape
   var connectedBlocks = {};
@@ -358,6 +376,11 @@ function mcUpdateBlock() {
       var dropdown = new Blockly.FieldDropdown(menuGenerator, dropdownValidator);
       dropdown.setValue(dropdown.getOptions()[0][1]);
       dropdown.mcObjectType = field.object; //Just in case.
+      this.appendDummyInput().appendField(labelBefore).appendField(dropdown, field.name).init();
+      this.appendDummyInput().appendField(labelAfter).init();
+    } else if (field.type === "function_dropdown") {
+      var dropdown = new Blockly.FieldDropdown(mcFunctionMenuGenerator);
+      dropdown.setValue(dropdown.getOptions()[0][1]);
       this.appendDummyInput().appendField(labelBefore).appendField(dropdown, field.name).init();
       this.appendDummyInput().appendField(labelAfter).init();
     }
