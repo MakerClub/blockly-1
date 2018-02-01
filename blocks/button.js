@@ -31,7 +31,7 @@ goog.provide('Blockly.Constants.Button');
 goog.require('Blockly.Blocks');
 goog.require('Blockly');
 
-goog.require('Blockly.Python.mcCreateBlocklyBlock');
+goog.require('Blockly.Blocks.mcCreateBlocklyBlock');
 
 /**
  * Common HSV hue for all blocks in this category.

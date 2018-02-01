@@ -1,6 +1,6 @@
 'use strict';
 
-goog.provide('Blockly.Python.mcCreateBlocklyBlock');
+goog.provide('Blockly.Blocks.mcCreateBlocklyBlock');
 
 Blockly.mcGeneratorsToCreate = {};
 
