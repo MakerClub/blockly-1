@@ -90,7 +90,7 @@ mcCreateBlocklyBlock({
     },
     {
       "name": "button_on_press_callback",
-      "label": "on press",
+      "label": "",
       "type": "function_dropdown",
     },
 
