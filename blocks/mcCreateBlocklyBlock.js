@@ -248,10 +248,10 @@ function mcObjectDropdownMenuGenerator() {
     //variableList.push(["Rename", "mcRenameObject"]); //We kind of need a recursive way to update all dropdowns, until we have this I'm commenting this out.
     variableList.push(["Delete", "mcDeleteObject"]);
   } else {
-    variableList.push(['Choose a ' + object, "mcNullSelection"]);
+    variableList.push(['Choose a ' + object.replace(/_/g, " "), "mcNullSelection"]);
   }
 
-  variableList.push(["Add " + object, "mcAddNewObject"]);
+  variableList.push(["Add " + object.replace(/_/g, " "), "mcAddNewObject"]);
   return variableList;
 }
 

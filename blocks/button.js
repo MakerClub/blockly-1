@@ -80,11 +80,85 @@ mcCreateBlocklyBlock({
       "object": "Button", //Used with object_dropdown (required if object_dropdown)
     },
     {
+      "name": "button_function",
+      "label": "",
+      "type": "dropdown",
+      "options": [
+        ["on press", "on_press"],
+        ["on release", "on_release"],
+      ],
+    },
+    {
       "name": "button_on_press_callback",
       "label": "on press",
       "type": "function_dropdown",
     },
 
   ],
-  "generator": "{{button_variable}}.on_press({{button_on_press_callback}})\n",
+  "generator": "{{button_variable}}.{{button_function}}({{button_on_press_callback}})\n",
 });
+
+
+
+
+
+
+
+//A bunch of aliases
+function create_basic_button_alias(prettyName, objectName, functionName, functionLabel) {
+  mcCreateBlocklyBlock({
+    "type": objectName + "_constructor",
+    "colour": "%{BKY_LOGIC_HUE}",
+    "fields": [
+      {
+        "name": objectName + "_variable",
+        "label": "Set " + prettyName + " ",
+        "type": "object_dropdown",
+        "object": objectName, //Used with object_dropdown (required if object_dropdown)
+      },
+      {
+        "name": objectName + "_number",
+        "label": " to ",
+        "type": "dropdown",
+        "options": [
+          ["1", "1"],
+          ["2", "2"],
+          ["3", "3"],
+          ["4", "4"],
+          ["5", "5"],
+          ["6", "6"],
+          ["7", "7"],
+          ["8", "8"],
+          ["9", "9"],
+          ["10", "10"],
+        ],
+      }
+    ],
+    "generator": "{{" + objectName + "_variable}} = Button({{" + objectName + "_number}})\n",
+  });
+
+  mcCreateBlocklyBlock({
+    "type": objectName + "_" + functionName,
+    "colour": "%{BKY_LOGIC_HUE}",
+    "fields": [
+      {
+        "name": objectName + "_variable",
+        "label": prettyName + " ",
+        "type": "object_dropdown",
+        "object": objectName, //Used with object_dropdown (required if object_dropdown)
+      },
+      {
+        "name": objectName + "_" + functionName + "_callback",
+        "label": functionLabel,
+        "type": "function_dropdown",
+      },
+
+    ],
+    "generator": "{{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n",
+  });
+}
+
+create_basic_button_alias("Tilt Sensor", "tilt_sensor", "on_tilt", "on tilt");
+create_basic_button_alias("Motion Sensor", "motion_sensor", "on_motion", "on motion");
+create_basic_button_alias("Light Sensor", "light_sensor", "on_light", "on light");
+create_basic_button_alias("Sound Sensor", "sound_sensor", "on_sound", "on sound");
