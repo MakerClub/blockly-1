@@ -54,6 +54,12 @@ function mcCreateBlocklyBlock(args) {
         if (valueCode === "" && block.getFieldValue(field.name)) { //No input
           valueCode = block.getFieldValue(field.name);
         }
+        if (field.type === "object_dropdown") {
+          valueCode = Blockly.Python.variableDB_.getName(block.getFieldValue(field.name), Blockly.Variables.NAME_TYPE);
+        }
+        if (field.type === "function_dropdown") {
+          valueCode = Blockly.Python.variableDB_.getName(block.getFieldValue(field.name), Blockly.Procedures.NAME_TYPE);
+        }
         if (field.type === "hidden_checkbox") {
           valueCode = "False";
           if (this["showField_" + field.name] === true) {
