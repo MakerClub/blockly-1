@@ -25,6 +25,11 @@ function mcCreateBlocklyBlock(args) {
   if (blocklyJson.type === null) {
     throw "Block type cannot be null";
   }
+  if ("output" in args) {
+    blocklyJson.output = args.output;
+    delete blocklyJson.previousStatement;
+    delete blocklyJson.nextStatement;
+  }
 
   var mcDataFields = args.fields || [];
   mcDataFields = mcDataFields.slice(); //Ensure we don't modify the one passed in.
@@ -86,7 +91,12 @@ function mcCreateBlocklyBlock(args) {
         //
         code = code.replace("{{" + field.name + "}}", valueCode);
       }
-      return code;
+
+      if ("output" in blocklyJson) {
+        return [code, Blockly.Python.ORDER_ATOMIC];
+      } else {
+        return code;
+      }
     };
 
     Blockly.mcGeneratorsToCreate[blocklyJson.type] = generator;
@@ -243,6 +253,7 @@ Blockly.Extensions.registerMutator('mc_auto_mutator_mixin', mcAutoMutatorMixin, 
 //This generator and validator are used for the object_dropdown type
 function mcObjectDropdownMenuGenerator() {
   var object = this.mcObjectType;
+  var prettyObjectName = this.mcPrettyObjectName;
   var variables = Blockly.mainWorkspace.getVariablesOfType(object);
   var variableList = [];
   for (var iii = 0; iii < variables.length; iii++) {
@@ -254,10 +265,10 @@ function mcObjectDropdownMenuGenerator() {
     //variableList.push(["Rename", "mcRenameObject"]); //We kind of need a recursive way to update all dropdowns, until we have this I'm commenting this out.
     variableList.push(["Delete", "mcDeleteObject"]);
   } else {
-    variableList.push(['Choose a ' + object.replace(/_/g, " "), "mcNullSelection"]);
+    variableList.push(['Choose a ' + prettyObjectName.replace(/_/g, " "), "mcNullSelection"]);
   }
 
-  variableList.push(["Add " + object.replace(/_/g, " "), "mcAddNewObject"]);
+  variableList.push(["Add " + prettyObjectName.replace(/_/g, " "), "mcAddNewObject"]);
   return variableList;
 }
 
@@ -371,8 +382,10 @@ function mcUpdateBlock() {
       this.appendDummyInput().appendField(labelBefore + labelAfter).init();
     } else if (field.type === "object_dropdown") {
       var objectType = field.object;
+      var prettyObjectName = field.prettyObjectName || objectType;
       var menuGenerator = function() {
         this.mcObjectType = objectType; //Required arg
+        this.mcPrettyObjectName = prettyObjectName;
         return (mcObjectDropdownMenuGenerator.bind(this))();
       }
       var dropdownValidator = function(newValue) {
