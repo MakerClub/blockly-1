@@ -44,9 +44,9 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "ifttt_variable",
-      "label": "Set IFTTT Event ",
+      "label": "Set Web Event ",
       "type": "object_dropdown",
-      "object": "ifttt", //Used with object_dropdown (required if object_dropdown)
+      "object": "webevent", //Used with object_dropdown (required if object_dropdown)
     },
     {
       "name": "ifttt_event_name",
@@ -64,9 +64,9 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "ifttt_variable",
-      "label": "Set IFTTT Event ",
+      "label": "Set Web Event ",
       "type": "object_dropdown",
-      "object": "ifttt", //Used with object_dropdown (required if object_dropdown)
+      "object": "webevent", //Used with object_dropdown (required if object_dropdown)
     },
     {
       "name": "ifttt_on_change_callback",
