@@ -329,6 +329,11 @@ Blockly.Blocks['procedures_defnoreturn'] = {
   callType_: 'procedures_callnoreturn'
 };
 
+
+
+
+
+
 Blockly.Blocks['procedures_defreturn'] = {
   /**
    * Block for defining a procedure with a return value.
@@ -381,6 +386,16 @@ Blockly.Blocks['procedures_defreturn'] = {
   customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
   callType_: 'procedures_callreturn'
 };
+
+
+
+
+
+
+
+
+
+
 
 Blockly.Blocks['procedures_mutatorcontainer'] = {
   /**
@@ -935,13 +950,26 @@ Blockly.Blocks['procedures_start'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-    return [this.getFieldValue('NAME'), this.arguments_, true];
+    return ["start", this.arguments_, false];
   },
   getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
-  customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
-  callType_: 'procedures_callreturn'
+  customContextMenu: function(options) {
+    for (let iii = 0; iii < options.length; iii++) {
+      if (options[iii].text === "Duplicate") {
+        options.splice(iii, 1);
+        break;
+      }
+    }
+  },
+  callType_: 'procedures_callnoreturn'
 };
+
+
+
+
+
+
 
 Blockly.Blocks['procedures_loop'] = {
   /**
@@ -950,7 +978,7 @@ Blockly.Blocks['procedures_loop'] = {
    */
   init: function() {
     this.appendDummyInput()
-        .appendField("Loop")
+        .appendField("Forever")
         .appendField("", 'NAME')
         .appendField('', 'PARAMS');
     if ((this.workspace.options.comments ||
@@ -981,34 +1009,10 @@ Blockly.Blocks['procedures_loop'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-    return [this.getFieldValue('NAME'), this.arguments_, true];
+    return [Blockly.Python.variableDB_.getDistinctName("forever", Blockly.Procedures.NAME_TYPE), this.arguments_, false];
   },
   getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
   customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
-  callType_: 'procedures_callreturn'
+  callType_: 'procedures_callnoreturn'
 };
-
-/*
-Blockly.Blocks['procedures_start'] = {
-  init: function() {
-    this.appendStatementInput("Start")
-        .setCheck(null)
-        .appendField("Start");
-    this.setColour(290);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['procedures_loop'] = {
-  init: function() {
-    this.appendStatementInput("Loop")
-        .setCheck(null)
-        .appendField("Loop");
-    this.setColour(290);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-*/

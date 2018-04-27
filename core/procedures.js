@@ -184,6 +184,12 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
     var block = goog.dom.createDom('block');
     block.setAttribute('type', 'procedures_start');
     block.setAttribute('gap', 16);
+    var workspaceTopBlocks = workspace.getTopBlocks();
+    for (var iii = 0; iii < workspaceTopBlocks.length; iii++) {
+      if (workspaceTopBlocks[iii].type === "procedures_start") {
+        block.setAttribute('disabled', true);
+      }
+    }
     xmlList.push(block);
   }
 
@@ -238,6 +244,9 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
     for (var i = 0; i < procedureList.length; i++) {
       var name = procedureList[i][0];
       var args = procedureList[i][1];
+      if (name === "start" || name === "loop") {
+        continue; //Makerclub core
+      }
       // <block type="procedures_callnoreturn" gap="16">
       //   <mutation name="do something">
       //     <arg name="x"></arg>
