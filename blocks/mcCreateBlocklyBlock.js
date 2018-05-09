@@ -89,7 +89,7 @@ function mcCreateBlocklyBlock(args) {
           }
         }
         //
-        code = code.replace("{{" + field.name + "}}", valueCode);
+        code = code.replace(new RegExp("{{" + field.name + "}}", "g"), valueCode);
       }
 
       if ("output" in blocklyJson) {

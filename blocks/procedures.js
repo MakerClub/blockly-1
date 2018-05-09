@@ -993,6 +993,7 @@ Blockly.Blocks['procedures_loop'] = {
     this.arguments_ = [];
     this.setStatements_(true);
     this.statementConnection_ = null;
+    this.mcName = Blockly.Procedures.findLegalName("forever", this);
   },
   setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
   updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
@@ -1009,7 +1010,7 @@ Blockly.Blocks['procedures_loop'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-    return [Blockly.Python.variableDB_.getDistinctName("forever", Blockly.Procedures.NAME_TYPE), this.arguments_, false];
+    return [this.mcName, this.arguments_, false];
   },
   getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,

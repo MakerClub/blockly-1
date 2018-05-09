@@ -214,8 +214,7 @@ Blockly.Python['procedures_loop'] = function(block) {
     }
   }
   globals = globals.length ? '  global ' + globals.join(', ') + '\n' : '';
-  var funcName = Blockly.Python.variableDB_.getDistinctName("forever",
-      Blockly.Procedures.NAME_TYPE);
+  var funcName = block.mcName;
   var branch = Blockly.Python.statementToCode(block, 'STACK');
   if (Blockly.Python.STATEMENT_PREFIX) {
     var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
