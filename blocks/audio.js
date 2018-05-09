@@ -35,7 +35,7 @@ goog.require('Blockly.Blocks.mcCreateBlocklyBlock');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.motor.HUE = 260;
+Blockly.Blocks.audio.HUE = 260;
 
 
 mcCreateBlocklyBlock({
