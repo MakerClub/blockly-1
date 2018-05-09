@@ -98,14 +98,14 @@ mcCreateBlocklyBlock({
       "optional": true,
       "optionalDefaultValue": 0,
       "optionalShowHideLabel": "Duration",
-    },
+  },/*
     {
       "name": "servo_until_done",
       "label": " until done",
       "type": "hidden_checkbox",
       "optional": true,
       "optionalShowHideLabel": "Wait until done",
-    },
+  },*/
   ],
-  "generator": "{{servo_variable}}.move_to({{servo_angle}}, {{servo_time}}, {{servo_until_done}})\n",
+  "generator": "{{servo_variable}}.move_to({{servo_angle}}, {{servo_time}})\n",
 });

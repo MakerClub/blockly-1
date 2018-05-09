@@ -24,168 +24,86 @@
  */
 'use strict';
 
-var pinMap = [
-  {
-    userVisiblePinName: "1",
-    codePinName: "1",
-    instanceName: "input1",
-    supportsDigitalWrite: false,
-    supportsDigitalRead: true, //Emulated in software
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "2",
-    codePinName: "2",
-    instanceName: "input2",
-    supportsDigitalWrite: false,
-    supportsDigitalRead: true, //Emulated in software
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "3",
-    codePinName: "3",
-    instanceName: "input3",
-    supportsDigitalWrite: false, //Supports true, but set to false to make it simpler for kids
-    supportsDigitalRead: true,
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "4",
-    codePinName: "4",
-    instanceName: "input4",
-    supportsDigitalWrite: false, //Supports true, but set to false to make it simpler for kids
-    supportsDigitalRead: true,
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "5",
-    codePinName: "5",
-    instanceName: "input5",
-    supportsDigitalWrite: false, //Supports true, but set to false to make it simpler for kids
-    supportsDigitalRead: true,
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "6",
-    codePinName: "6",
-    instanceName: "input6",
-    supportsDigitalWrite: false, //Supports true, but set to false to make it simpler for kids
-    supportsDigitalRead: true,
-    supportsAnalogRead: true,
-  },
-  {
-    userVisiblePinName: "1",
-    codePinName: "1",
-    instanceName: "output1",
-    supportsDigitalWrite: true,
-    supportsDigitalRead: false, //Supports true, but set to false to make it simpler to kids.
-    supportsAnalogRead: false, //Supports true, but set to false to make it simpler to kids.
-  },
-  {
-    userVisiblePinName: "2",
-    codePinName: "2",
-    instanceName: "output2",
-    supportsDigitalWrite: true,
-    supportsDigitalRead: false, //Supports true, but set to false to make it simpler to kids.
-    supportsAnalogRead: false, //Supports true, but set to false to make it simpler to kids.
-  },
-];
-
-for (var iii = 3; iii <= 18; iii++) {
-  pinMap.push({
-    userVisiblePinName: String(iii),
-    codePinName: String(iii),
-    instanceName: "output" + iii,
-    supportsDigitalWrite: true,
-    supportsDigitalRead: false,
-    supportsAnalogRead: false,
-  });
-}
-
-function getPinsThatSupport(supportKey) {
-  var pinsThatSupport = [];
-  supportKey = supportKey.charAt(0).toUpperCase() + supportKey.slice(1);
-
-  for (var iii = 0; iii < pinMap.length; iii++) {
-    var pin = pinMap[iii];
-    if (("supports" + supportKey) in pin && pin["supports" + supportKey] == true) {
-      pinsThatSupport.push(pin);
-    }
-  }
-  return pinsThatSupport;
-}
-
-function pinsToDropdown(pins) {
-  var output = [];
-  for (var iii = 0; iii < pins.length; iii++) {
-    var pin = pins[iii];
-    output.push([pin.userVisiblePinName, JSON.stringify(pin)]);
-  }
-  return output;
-}
-
 goog.provide('Blockly.Blocks.pin');
+goog.provide('Blockly.Constants.Pin');
 
 goog.require('Blockly.Blocks');
+goog.require('Blockly');
 
+goog.require('Blockly.Blocks.mcCreateBlocklyBlock');
 
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.pin.HUE = 260;
+Blockly.Blocks.motor.HUE = 260;
 
-https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vz8xv3
-Blockly.Blocks['pin_on'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Pin")
-        .appendField(new Blockly.FieldDropdown(pinsToDropdown(getPinsThatSupport("digitalWrite"))), "PIN_NAME")
-        .appendField(".on");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(Blockly.Blocks.pin.HUE);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
 
-https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vz8xv3
-Blockly.Blocks['pin_off'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Pin")
-        .appendField(new Blockly.FieldDropdown(pinsToDropdown(getPinsThatSupport("digitalWrite"))), "PIN_NAME")
-        .appendField(".off");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(Blockly.Blocks.pin.HUE);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
+mcCreateBlocklyBlock({
+  "type": "pin_constructor",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "pin_variable",
+      "label": "Set Pin ",
+      "type": "object_dropdown",
+      "object": "Pin", //Used with object_dropdown (required if object_dropdown)
+    },
+    {
+      "name": "pin_number",
+      "label": " to ",
+      "type": "dropdown",
+      "options": [
+        ["1", "1"],
+        ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"],
+        ["6", "6"],
+        ["7", "7"],
+        ["8", "8"],
+        ["9", "9"],
+        ["10", "10"],
+      ],
+    }
+  ],
+  "generator": "{{pin_variable}} = mc_pin({{pin_number}})\n",
+});
 
-Blockly.Blocks['pin_digital_read'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("input")
-        .appendField(new Blockly.FieldDropdown(pinsToDropdown(getPinsThatSupport("digitalRead"))), "PIN_NAME")
-        .appendField(".digitalRead");
-    this.setOutput(true, "Number");
-    this.setColour(Blockly.Blocks.pin.HUE);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
 
-Blockly.Blocks['pin_analog_read'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("input")
-        .appendField(new Blockly.FieldDropdown(pinsToDropdown(getPinsThatSupport("analogRead"))), "PIN_NAME")
-        .appendField(".analogRead");
-    this.setOutput(true, "Number");
-    this.setColour(Blockly.Blocks.pin.HUE);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
+mcCreateBlocklyBlock({
+  "type": "pin_output",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "pin_variable",
+      "label": "Pin ",
+      "type": "object_dropdown",
+      "object": "Pin", //Used with object_dropdown (required if object_dropdown)
+    },
+    {
+      "name": "pin_state",
+      "label": " set output ",
+      "type": "dropdown",
+      "options": [
+        ["high", "1"],
+        ["low", "0"],
+      ],
+    }
+  ],
+  "generator": "{{pin_variable}}.init(Pin.OUT, Pin.PULL_FLOATING, value={{pin_state}})\n",
+});
+
+mcCreateBlocklyBlock({
+  "type": "pin_read",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "output": "Number",
+  "fields": [
+    {
+      "name": "pin_variable",
+      "label": "Pin %1 digital read",
+      "type": "object_dropdown",
+      "object": "Pin",
+    }
+  ],
+  "generator": "({{pin_variable}}.init(Pin.IN, Pin.PULL_DOWN) or {{pin_variable}}.value())", /*This is a bit hacky, it's using the fact that init() returns None to evaluate to the value.*/
+});

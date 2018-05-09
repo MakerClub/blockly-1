@@ -86,14 +86,14 @@ mcCreateBlocklyBlock({
       "optional": true,
       "optionalDefaultValue": 0,
       "optionalShowHideLabel": "Duration",
-    },
+  },/*
     {
       "name": "motor_until_done",
       "label": " until done",
       "type": "hidden_checkbox",
       "optional": true,
       "optionalShowHideLabel": "Wait until done",
-    },
+  },*/
   ],
-  "generator": "{{motor_variable}}.set_speed({{motor_speed}}, {{motor_time}}, {{motor_until_done}})\n",
+  "generator": "{{motor_variable}}.set_speed({{motor_speed}}, {{motor_time}})\n",
 });
