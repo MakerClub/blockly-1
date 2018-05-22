@@ -90,7 +90,7 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{pin_variable}}.init(Pin.OUT, Pin.PULL_FLOATING, value={{pin_state}})\n",
+  "generator": "{{pin_variable}}.init(Pin.OUT, Pin.PULL_FLOAT, value={{pin_state}})\n",
 });
 
 mcCreateBlocklyBlock({

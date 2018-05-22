@@ -77,3 +77,17 @@ mcCreateBlocklyBlock({
   ],
   "generator": "{{ifttt_variable}}.on_change({{ifttt_on_change_callback}})\n",
 });
+
+mcCreateBlocklyBlock({
+  "type": "request_url",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "req_url",
+      "label": "Make request to url ",
+      "type": "input_value",
+      "check": "String",
+    }
+  ],
+  "generator": "request_url({{req_url}})\n",
+});
