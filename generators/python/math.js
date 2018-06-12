@@ -186,7 +186,7 @@ Blockly.Python['math_number_property'] = function(block) {
         ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(n):',
          '  # https://en.wikipedia.org/wiki/Primality_test#Naive_methods',
          '  # If n is not a number but a string, try parsing it.',
-         '  if not isinstance(n, Number):',
+         '  if not isinstance(n, (int, float)):',
          '    try:',
          '      n = float(n)',
          '    except:',
@@ -236,14 +236,14 @@ Blockly.Python['math_number_property'] = function(block) {
 
 Blockly.Python['math_change'] = function(block) {
   // Add to a variable in place.
-  Blockly.Python.definitions_['from_numbers_import_Number'] =
-      'from numbers import Number';
+  //Blockly.Python.definitions_['from_numbers_import_Number'] =
+  //      'from numbers import Number';
   var argument0 = Blockly.Python.valueToCode(block, 'DELTA',
       Blockly.Python.ORDER_ADDITIVE) || '0';
   var varName = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   return varName + ' = (' + varName + ' if isinstance(' + varName +
-      ', Number) else 0) + ' + argument0 + '\n';
+      ', (int, float)) else 0) + ' + argument0 + '\n';
 };
 
 // Rounding functions have a single operand.
@@ -275,7 +275,7 @@ Blockly.Python['math_on_list'] = function(block) {
           // This operation excludes null and values that aren't int or float:',
           // math_mean([null, null, "aString", 1, 9]) == 5.0.',
           ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(myList):',
-           '  localList = [e for e in myList if isinstance(e, Number)]',
+           '  localList = [e for e in myList if isinstance(e, (int, float))]',
            '  if not localList: return',
            '  return float(sum(localList)) / len(localList)']);
       code = functionName + '(' + list + ')';
@@ -288,7 +288,7 @@ Blockly.Python['math_on_list'] = function(block) {
           // This operation excludes null values:
           // math_median([null, null, 1, 3]) == 2.0.
           ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(myList):',
-           '  localList = sorted([e for e in myList if isinstance(e, Number)])',
+           '  localList = sorted([e for e in myList if isinstance(e, (int, float))])',
            '  if not localList: return',
            '  if len(localList) % 2 == 0:',
            '    return (localList[len(localList) // 2 - 1] + ' +
