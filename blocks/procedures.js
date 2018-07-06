@@ -366,6 +366,7 @@ Blockly.Blocks['procedures_defreturn'] = {
   },
   setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
   updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
+
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
   domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
   decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
@@ -912,11 +913,8 @@ Blockly.Blocks['procedures_ifreturn'] = {
   FUNCTION_TYPES: ['procedures_defnoreturn', 'procedures_defreturn']
 };
 
+/*
 Blockly.Blocks['procedures_start'] = {
-  /**
-   * Block for defining a procedure with a return value.
-   * @this Blockly.Block
-   */
   init: function() {
     this.appendDummyInput()
         .appendField("Start")
@@ -936,7 +934,6 @@ Blockly.Blocks['procedures_start'] = {
     this.statementConnection_ = null;
   },
   setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
-  updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
   domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
   decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
@@ -948,7 +945,7 @@ Blockly.Blocks['procedures_start'] = {
    *     - a list of all its arguments,
    *     - that it DOES have a return value.
    * @this Blockly.Block
-   */
+   *//*
   getProcedureDef: function() {
     return ["start", this.arguments_, false];
   },
@@ -964,56 +961,36 @@ Blockly.Blocks['procedures_start'] = {
   },
   callType_: 'procedures_callnoreturn'
 };
+*/
 
 
 
 
 
-
-
+/*
 Blockly.Blocks['procedures_loop'] = {
-  /**
-   * Block for defining a procedure with a return value.
-   * @this Blockly.Block
-   */
   init: function() {
-    this.appendDummyInput()
-        .appendField("Forever")
-        .appendField("", 'NAME')
-        .appendField('', 'PARAMS');
-    if ((this.workspace.options.comments ||
-         (this.workspace.options.parentWorkspace &&
-          this.workspace.options.parentWorkspace.options.comments)) &&
-        Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
-      this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
-    }
+    this.appendDummyInput().appendField("Forever");
     this.setColour(Blockly.Blocks.procedures.HUE);
-    this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
-    this.arguments_ = [];
+
+    this.mcName = Blockly.Procedures.findLegalName("forever", this);
+
     this.setStatements_(true);
     this.statementConnection_ = null;
-    this.mcName = Blockly.Procedures.findLegalName("forever", this);
   },
+
   setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
-  updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
+  updateParams_: function() {},
+
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
   domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
   decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
   compose: Blockly.Blocks['procedures_defnoreturn'].compose,
-  /**
-   * Return the signature of this procedure definition.
-   * @return {!Array} Tuple containing three elements:
-   *     - the name of the defined procedure,
-   *     - a list of all its arguments,
-   *     - that it DOES have a return value.
-   * @this Blockly.Block
-   */
+
   getProcedureDef: function() {
-    return [this.mcName, this.arguments_, false];
+    return [this.mcName, [], false]; //name, args, doesItReturn
   },
-  getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
-  renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
-  customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
+
+  arguments_: [],
   callType_: 'procedures_callnoreturn'
-};
+};*/

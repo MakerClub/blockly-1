@@ -34,4 +34,5 @@ if (Blockly.mcGeneratorsToCreate) {
     }
     Blockly.Python[key] = Blockly.mcGeneratorsToCreate[key];
   }
+  Blockly.mcGeneratorsToCreate = {};
 }

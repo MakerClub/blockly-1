@@ -370,3 +370,136 @@ Blockly.Python.getUnique = function(a, selector) {
       return seen.hasOwnProperty(item) ? false : (seen[item] = true);
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Backbone.Radio.channel('blockly').reply('categoryXml:generate', function(args) {
+  let blocksXml = [];
+
+  let blockNames = mcGetRemoteControlBlockNames(args);
+  for (let iii = 0; iii < blockNames.length; iii++) {
+    let blockXml = '<xml><block type="' + blockNames[iii] + '"></block></xml>';
+    blocksXml.push(Blockly.Xml.textToDom(blockXml).firstChild);
+  }
+
+  return blocksXml;
+});
+
+function mcGetRemoteControlBlockNames(args) {
+  //When given a remote control we return the block names that relate to it
+  let blockNames = [];
+  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+  //All blocks created for this start with a known prefix
+  for (let itemBlockName in Blockly.Blocks) {
+    if (!Blockly.Blocks.hasOwnProperty(itemBlockName)) {
+      continue;
+    }
+    if (itemBlockName.indexOf(blockName) === 0) {
+      blockNames.push(itemBlockName);
+    }
+  }
+
+  return blockNames;
+}
+
+Backbone.Radio.channel('blockly').reply('remoteControlBlocks:generate', function(args) {
+  //We must create the blockly blocks for the control
+  switch (args.type) {
+    case "slider": {
+      mcCreateRcSliderBlocks(args);
+      break;
+    }
+
+    case "button": {
+      mcCreateRcButtonBlocks(args);
+      break;
+    }
+
+    default: {
+      console.log("Unknown remote control type: " + args.type + ". No blocks created for it.");
+      break;
+    }
+  }
+});
+
+function mcCreateRcButtonBlocks(args) {
+  if (args.type !== "button") {
+    throw "Not a button";
+  }
+
+  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+
+  mcCreateBlocklyBlock({
+    "type": blockName + "_read_value",
+    "colour": "%{BKY_LOGIC_HUE}",
+    "output": "Number",
+    "fields": [
+      {
+        "label": "is " + args.displayName + " pressed",
+        "type": "dummy",
+      }
+    ],
+    "generator": "remote_control.on_change('''" + args.webhookId + "''')\n",
+  });
+
+  mcCreateBlocklyProcedure({
+    "type": blockName + "_on_press",
+    "displayName": "when " + args.displayName + " pressed", //If null, the actual name from the code will be used
+    "codeName": blockName + "_on_press", //This is automatically mangled to avoid conflicts
+    "generator": "%1remote_control.on_press(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+  });
+
+  mcCreateBlocklyProcedure({
+    "type": blockName + "_on_release",
+    "displayName": "when " + args.displayName + " released", //If null, the actual name from the code will be used
+    "codeName": blockName + "_on_release", //This is automatically mangled to avoid conflicts
+    "generator": "%1remote_control.on_release(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+  });
+
+  mcCreateBlocklyProcedure({
+    "type": blockName + "_on_change",
+    "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
+    "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
+    "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+  });
+
+}
+
+function mcCreateRcSliderBlocks(args) {
+  if (args.type !== "slider") {
+    throw "Not a slider";
+  }
+
+  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+
+  mcCreateBlocklyBlock({
+    "type": blockName + "_read_value",
+    "colour": "%{BKY_LOGIC_HUE}",
+    "output": "Number",
+    "fields": [
+      {
+        "label": args.displayName + " value",
+        "type": "dummy",
+      }
+    ],
+    "generator": "remote_control.get_value(" + args.webhookId + ")",
+  });
+
+  mcCreateBlocklyProcedure({
+    "type": blockName + "_on_change",
+    "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
+    "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
+    "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+  });
+}
