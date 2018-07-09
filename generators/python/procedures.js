@@ -133,7 +133,7 @@ Blockly.Python['procedures_ifreturn'] = function(block) {
 };
 
 
-
+/*
 Blockly.Python['procedures_start'] = function(block) {
   if (!block.arguments_) {
     block.arguments_ = [];
@@ -188,7 +188,7 @@ Blockly.Python['procedures_start'] = function(block) {
   // Add % so as not to collide with helper functions in definitions list.
   Blockly.Python.definitions_['%' + funcName] = code;
   return null;
-};
+};*/
 
 Blockly.Python['procedures_loop'] = function(block) {
   if (!block.arguments_) {
@@ -201,8 +201,8 @@ Blockly.Python['procedures_loop'] = function(block) {
   let blocklyObjects = Blockly.Python['objects'];
   if (blocklyObjects){
     var objects = Blockly.Python.getUnique(blocklyObjects, 'name');
-    for (var i = 0; i < objects.length; i++){
-      var object = objects[i];
+    for (var iii = 0; iii < objects.length; iii++){
+      var object = objects[iii];
       globals.push(object.name);
     }
   }
@@ -214,7 +214,7 @@ Blockly.Python['procedures_loop'] = function(block) {
     }
   }
   globals = globals.length ? '  global ' + globals.join(', ') + '\n' : '';
-  var funcName = block.mcName;
+  var funcName = block.mcCodeName;
   var branch = Blockly.Python.statementToCode(block, 'STACK');
   if (Blockly.Python.STATEMENT_PREFIX) {
     var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.

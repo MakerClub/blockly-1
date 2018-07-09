@@ -2,7 +2,9 @@
 
 goog.provide('Blockly.Blocks.mcCreateBlocklyBlock');
 
-Blockly.mcGeneratorsToCreate = {};
+if (typeof Blockly.mcGeneratorsToCreate === "undefined") {
+  Blockly.mcGeneratorsToCreate = {};
+}
 
 function mcCreateBlocklyBlock(args) {
   var blocklyJson = {
@@ -99,7 +101,12 @@ function mcCreateBlocklyBlock(args) {
       }
     };
 
-    Blockly.mcGeneratorsToCreate[blocklyJson.type] = generator;
+    if (typeof Blockly.Python === "undefined") {
+      //This was called early. Defer creating the generator
+      Blockly.mcGeneratorsToCreate[blocklyJson.type] = generator;
+    } else {
+      Blockly.Python[blocklyJson.type] = generator;
+    }
   }
 
 }

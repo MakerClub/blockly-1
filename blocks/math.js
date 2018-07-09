@@ -565,3 +565,33 @@ Blockly.Constants.Math.LIST_MODES_MUTATOR_EXTENSION = function() {
 Blockly.Extensions.registerMutator('math_modes_of_list_mutator',
   Blockly.Constants.Math.LIST_MODES_MUTATOR_MIXIN,
   Blockly.Constants.Math.LIST_MODES_MUTATOR_EXTENSION);
+
+
+
+
+mcCreateBlocklyBlock({
+  "type": "mc_map_range_percent",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "output": "Number",
+  "fields": [
+    {
+      "name": "map_input",
+      "label": "Map %1%",
+      "type": "input_value",
+      "check": "Number",
+    },
+    {
+      "name": "map_min",
+      "label": " to ",
+      "type": "input_value",
+      "check": "Number",
+    },
+    {
+      "name": "map_max",
+      "label": "🡒",
+      "type": "input_value",
+      "check": "Number",
+    },
+  ],
+  "generator": "map_range({{map_input}}, 0, 100, {{map_min}}, {{map_max}})",
+});
