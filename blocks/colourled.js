@@ -44,7 +44,7 @@ mcCreateBlocklyBlock({
       "name": "color_hex",
       "label": "Set led color",
       "type": "input_value",
-      "check": "Colour",
+  /*    "check": "Colour",*/
     }
   ],
   "generator": "rgb_led.color({{color_hex}})\n",
