@@ -450,7 +450,7 @@ function mcCreateRcButtonBlocks(args) {
         "type": "dummy",
       }
     ],
-    "generator": "remote_control.on_change('''" + args.webhookId + "''')\n",
+    "generator": "remote_control.get_value(" + args.webhookId + ")",
   });
 
   mcCreateBlocklyProcedure({
