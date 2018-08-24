@@ -426,6 +426,11 @@ Backbone.Radio.channel('blockly').reply('remoteControlBlocks:generate', function
       break;
     }
 
+    case "joystick": {
+      mcCreateRcJoystickBlocks(args);
+      break;
+    }
+
     default: {
       console.log("Unknown remote control type: " + args.type + ". No blocks created for it.");
       break;
@@ -502,4 +507,33 @@ function mcCreateRcSliderBlocks(args) {
     "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
     "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
   });
+}
+
+function mcCreateRcJoystickBlocks(args) {
+  if (args.type !== "joystick") {
+    throw "Not a joystick";
+  }
+
+  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+
+  mcCreateBlocklyBlock({
+    "type": blockName + "_is_direction",
+    "colour": "%{BKY_LOGIC_HUE}",
+    "output": "Boolean",
+    "fields": [
+      {
+        "name": "mcRcJoystickDirection",
+        "label": args.displayName + " is ",
+        "type": "dropdown",
+        "options": [
+          ["up", "up"],
+          ["right", "right"],
+          ["down", "down"],
+          ["left", "left"]
+        ],
+      }
+    ],
+    "generator": "joystick_is_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}')",
+  });
+
 }

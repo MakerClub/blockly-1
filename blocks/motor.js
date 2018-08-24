@@ -54,8 +54,8 @@ mcCreateBlocklyBlock({
       "label": " to ",
       "type": "dropdown",
       "options": [
-        ["1", "1"],
-        ["2", "2"],
+        ["M1", "1"],
+        ["M2", "2"],
       ],
     }
   ],
