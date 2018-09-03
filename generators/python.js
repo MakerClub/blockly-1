@@ -536,4 +536,29 @@ function mcCreateRcJoystickBlocks(args) {
     "generator": "joystick_is_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}')",
   });
 
+  mcCreateBlocklyProcedure({
+    "type": blockName + "_while_direction",
+    "displayName": "when  " + args.displayName, //If null, the actual name from the code will be used
+    "codeName": blockName + "_while_direction", //This is automatically mangled to avoid conflicts
+    "fields": [
+      {
+        "name": "mcRcJoystickDirection",
+        "label": "is ",
+        "type": "dropdown",
+        "options": [
+          ["up", "up"],
+          ["up+right", "up+right"],
+          ["right", "right"],
+          ["down+right", "down+right"],
+          ["down", "down"],
+          ["down+left", "down+left"],
+          ["left", "left"],
+          ["up+left", "up+left"],
+          ["centre", "centre"],
+        ],
+      }
+    ],
+    "generator": "%1joystick_while_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}', {{codeName}})\n", //Use {{codeName}} to handle mangling
+  });
+
 }

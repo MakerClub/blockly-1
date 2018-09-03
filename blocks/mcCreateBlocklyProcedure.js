@@ -48,11 +48,38 @@ function mcSetupProcedureFromArgs(args) {
   return {
     init: function() {
       this.mcFields = args;
+
+      if (!("inputsInline" in args)) {
+        args.inputsInline = true; //defaults to true
+      }
+
       this.jsonInit(args);
       this.mcCodeName = Blockly.Procedures.findLegalName(args.codeName, this); //This might be different if it's already used
       this.mcDisplayName = args.displayName || this.mcCodeName;
 
       this.appendDummyInput().appendField(this.mcDisplayName);
+
+      var fields = args.fields || [];
+      for (var iii = 0; iii < fields.length; iii++) {
+        var field = args.fields[iii];
+
+        var label = "";
+        if ("label" in field) {
+          label = field.label;
+        }
+        var labelBefore = label.split("%1")[0];
+        var labelAfter = label.split("%1")[1] || "";
+
+        if (field.type === "dropdown") {
+          var options = [];
+          if ("options" in field) {
+            options = field.options;
+          }
+          var dropdown = new Blockly.FieldDropdown(options);
+          this.appendDummyInput().appendField(labelBefore).appendField(dropdown, field.name).init();
+          this.appendDummyInput().appendField(labelAfter).init();
+        }
+      }
 
       //These mostly exist to allow us to reuse the procedures.js functions
       this.setStatements_(true);
@@ -102,6 +129,16 @@ function mcSetupProcedureGeneratorFromArgs(args) {
     var code = beforeProcedure + 'def ' + funcName + '():\n' +
                  globals + branch + afterProcedure;
     code = Blockly.Python.scrub_(block, code);
+
+    var fields = args.fields || [];
+
+    for (var iii = 0; iii < fields.length; iii++) {
+      var field = args.fields[iii];
+      if (field.type === "dropdown") {
+        var valueCode = block.getFieldValue(field.name);
+        code = code.replace(new RegExp("{{" + field.name + "}}", "g"), valueCode);
+      }
+    }
 
     // Add % so as not to collide with helper functions in definitions list.
     Blockly.Python.definitions_['%' + funcName] = code;
