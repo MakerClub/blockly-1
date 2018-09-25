@@ -188,7 +188,7 @@ Blockly.Python.init = function(workspace) {
   for (var i = 0; i < variables.length; i++) {
     var variable = variables[i];
     defvars[i] = Blockly.Python.variableDB_.getName(variable.name,
-        Blockly.Variables.NAME_TYPE) + ' = None';
+        Blockly.Variables.NAME_TYPE) + ' = 0'; //MAKERCLUB EDIT: Default to 0 instead of None as we think this is a bit more useful
   }
   Blockly.Python.definitions_['variables'] = defvars.join('\n');
 };
