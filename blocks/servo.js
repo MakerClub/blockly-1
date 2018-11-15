@@ -69,9 +69,28 @@ mcCreateBlocklyBlock({
         ["5", "5"],
         ["6", "6"],
       ],
-    }
+    },/*
+    {
+      "name": "servo_path",
+      "label": " at path ",
+      "type": "dropdown",
+      "optional": true,
+      "optionalShowHideLabel": "Module path",
+      "options": [
+        ["Auto", "auto"],
+        ["A", "A"],
+        ["B", "B"],
+      ],
+    }*/
   ],
-  "generator": "{{servo_variable}} = Servo({{servo_number}})\n",
+  "generator": "try:\n" +
+               "    {{servo_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists == False or not isinstance({{servo_variable}}, Servo):\n" +
+               "    {{servo_variable}} = Servo({{servo_number}})\n" +
+               "del ___exists\n"
 });
 
 mcCreateBlocklyBlock({
@@ -89,7 +108,7 @@ mcCreateBlocklyBlock({
       "label": " to ",
       "type": "input_value",
       "check": "Number",
-    },
+    },/*
     {
       "name": "servo_time",
       "label": " duration (s) ",
@@ -98,7 +117,7 @@ mcCreateBlocklyBlock({
       "optional": true,
       "optionalDefaultValue": 0,
       "optionalShowHideLabel": "Duration",
-  },/*
+  },*//*
     {
       "name": "servo_until_done",
       "label": " until done",
@@ -107,5 +126,12 @@ mcCreateBlocklyBlock({
       "optionalShowHideLabel": "Wait until done",
   },*/
   ],
-  "generator": "{{servo_variable}}.move_to({{servo_angle}}, {{servo_time}})\n",
+  "generator": "try:\n" +
+               "    {{servo_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{servo_variable}}, Servo):\n" +
+               "    {{servo_variable}}.move_to({{servo_angle}}, 0)\n" +
+               "del ___exists\n"
 });

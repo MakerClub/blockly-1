@@ -66,7 +66,7 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{pin_variable}} = mc_pin({{pin_number}})\n",
+  "generator": "{{pin_variable}} = get_makerboard().pin({{pin_number}})\n",
 });
 
 
@@ -90,7 +90,14 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{pin_variable}}.init(Pin.OUT, Pin.PULL_FLOAT, value={{pin_state}})\n",
+  "generator": "try:\n" +
+               "    {{pin_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{pin_variable}}, Gpio):\n" +
+               "    {{pin_variable}}.digital_write({{pin_state}})\n" +
+               "del ___exists\n"
 });
 
 mcCreateBlocklyBlock({
@@ -105,5 +112,5 @@ mcCreateBlocklyBlock({
       "object": "Pin",
     }
   ],
-  "generator": "({{pin_variable}}.init(Pin.IN, Pin.PULL_DOWN) or {{pin_variable}}.value())", /*This is a bit hacky, it's using the fact that init() returns None to evaluate to the value.*/
+  "generator": "({{pin_variable}}.digital_read() if ('{{pin_variable}}' in globals() and isinstance({{pin_variable}}, Gpio)) else 0)"
 });

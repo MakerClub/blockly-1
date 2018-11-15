@@ -66,7 +66,14 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{button_variable}} = Button({{button_number}})\n",
+  "generator": "try:\n" +
+               "    {{button_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists == False or not isinstance({{button_variable}}, Button):\n" +
+               "    {{button_variable}} = Button({{button_number}})\n" +
+               "del ___exists\n"
 });
 
 mcCreateBlocklyBlock({
@@ -95,8 +102,31 @@ mcCreateBlocklyBlock({
     },
 
   ],
-  "generator": "{{button_variable}}.{{button_function}}({{button_on_press_callback}})\n",
+  "generator": "try:\n" +
+               "    {{button_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{button_variable}}, Button):\n" +
+               "    {{button_variable}}.{{button_function}}({{button_on_press_callback}})\n" +
+               "del ___exists\n"
 });
+
+mcCreateBlocklyBlock({
+  "type": "button_read",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "output": "Number",
+  "fields": [
+    {
+      "name": "button_variable",
+      "label": "Button %1 digital read",
+      "type": "object_dropdown",
+      "object": "Button", //Used with object_dropdown (required if object_dropdown)
+    }
+  ],
+  "generator": "({{button_variable}}.read() if ('{{button_variable}}' in globals() and isinstance({{button_variable}}, Button)) else 0)"
+});
+
 
 
 
@@ -134,7 +164,14 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
         ],
       }
     ],
-    "generator": "{{" + objectName + "_variable}} = Button({{" + objectName + "_number}})\n",
+    "generator": "try:\n" +
+                 "    {{" + objectName + "_variable}}\n" +
+                 "    ___exists = True\n" +
+                 "except NameError:\n" +
+                 "    ___exists = False\n" +
+                 "if ___exists == False or not isinstance({{" + objectName + "_variable}}, Button):\n" +
+                 "    {{" + objectName + "_variable}} = Button({{" + objectName + "_number}})\n" +
+                 "del ___exists\n"
   });
 
   mcCreateBlocklyBlock({
@@ -154,7 +191,29 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
       },
 
     ],
-    "generator": "{{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n",
+    "generator": "try:\n" +
+                 "    {{" + objectName + "_variable}}\n" +
+                 "    ___exists = True\n" +
+                 "except NameError:\n" +
+                 "    ___exists = False\n" +
+                 "if ___exists and isinstance({{" + objectName + "_variable}}, Button):\n" +
+                 "    {{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n" +
+                 "del ___exists\n"
+  });
+
+  mcCreateBlocklyBlock({
+    "type": objectName + "_read",
+    "colour": "%{BKY_LOGIC_HUE}",
+    "output": "Number",
+    "fields": [
+      {
+        "name": objectName + "_variable",
+        "label": prettyName + " %1 digital read",
+        "type": "object_dropdown",
+        "object": objectName, //Used with object_dropdown (required if object_dropdown)
+      }
+    ],
+    "generator": "({{" + objectName + "_variable}}.read() if ('{{" + objectName + "_variable}}' in globals() and isinstance({{" + objectName + "_variable}}, Button)) else 0)"
   });
 }
 
