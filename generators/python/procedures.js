@@ -100,7 +100,8 @@ Blockly.Python['procedures_callreturn'] = function(block) {
     args[i] = Blockly.Python.valueToCode(block, 'ARG' + i,
         Blockly.Python.ORDER_NONE) || 'None';
   }
-  var code = funcName + '(' + args.join(', ') + ')';
+  args.push("mc_async=True");
+  var code = "await " + funcName + '(' + args.join(', ') + ')';
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
 
@@ -113,7 +114,8 @@ Blockly.Python['procedures_callnoreturn'] = function(block) {
     args[i] = Blockly.Python.valueToCode(block, 'ARG' + i,
         Blockly.Python.ORDER_NONE) || 'None';
   }
-  var code = funcName + '(' + args.join(', ') + ')\n';
+  args.push("mc_async=True");
+  var code = "await " + funcName + '(' + args.join(', ') + ')\n';
   return code;
 };
 
@@ -244,7 +246,7 @@ Blockly.Python['procedures_loop'] = function(block) {
 
   var code = 'def ' + funcName + '(' + args.join(', ') + '):\n' +
       globals + branch + returnValue;
-  code += "get_underscore().create_task(" + funcName + "(mc_async=True))";
+  code += "create_task(" + funcName + ")";
   code = Blockly.Python.scrub_(block, code);
   // Add % so as not to collide with helper functions in definitions list.
   Blockly.Python.definitions_['%' + funcName] = code;
