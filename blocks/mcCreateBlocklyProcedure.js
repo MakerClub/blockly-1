@@ -9,6 +9,12 @@ if (typeof Blockly.mcGeneratorsToCreate === "undefined") {
   Blockly.mcGeneratorsToCreate = {};
 }
 
+//Some procedures are considered "system" and so shouldn't be
+//shown to the user in function drop-downs. This is their names.
+if (typeof Blockly.mcSystemProcedures === "undefined") {
+  Blockly.mcSystemProcedures = [];
+}
+
 function mcCreateBlocklyProcedure(args) {
   let defaultArgs = {
     "type": null,
@@ -18,6 +24,7 @@ function mcCreateBlocklyProcedure(args) {
     "displayName": null, //If null, the actual name from the code will be used
     "codeName": null, //This is automatically mangled to avoid conflicts
     "generator": null,
+    "system": false, //If we should hide it from the end user
   };
   args = Object.assign({}, defaultArgs, args);
   if (args.type === null) {
@@ -56,6 +63,10 @@ function mcSetupProcedureFromArgs(args) {
       this.jsonInit(args);
       this.mcCodeName = Blockly.Procedures.findLegalName(args.codeName, this); //This might be different if it's already used
       this.mcDisplayName = args.displayName || this.mcCodeName;
+
+      if (args.system) {
+        Blockly.mcSystemProcedures.push(this.mcCodeName);
+      }
 
       this.appendDummyInput().appendField(this.mcDisplayName);
 
@@ -175,6 +186,7 @@ mcCreateBlocklyProcedure({
   "type": "procedures_loop",
   "displayName": "Forever",
   "codeName": "forever", //This is automatically mangled to avoid conflicts
+  "system": true, //Hide from end user
 });
 
 mcCreateBlocklyProcedure({
@@ -182,4 +194,5 @@ mcCreateBlocklyProcedure({
   "displayName": "Start",
   "codeName": "start", //This is automatically mangled to avoid conflicts
   "generator": "%1",
+  "system": true,
 });

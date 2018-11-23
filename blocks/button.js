@@ -107,9 +107,15 @@ mcCreateBlocklyBlock({
                "    ___exists = True\n" +
                "except NameError:\n" +
                "    ___exists = False\n" +
-               "if ___exists and isinstance({{button_variable}}, Button):\n" +
+               "try:\n" +
+               "    {{button_on_press_callback}}\n" +
+               "    ___cb_exists = True\n" +
+               "except NameError:\n" +
+               "    ___cb_exists = False\n" +
+               "if ___exists and isinstance({{button_variable}}, Button) and ___cb_exists:\n" +
                "    {{button_variable}}.{{button_function}}({{button_on_press_callback}})\n" +
-               "del ___exists\n"
+               "del ___exists\n" +
+               "del ___cb_exists\n"
 });
 
 mcCreateBlocklyBlock({
@@ -196,7 +202,12 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
                  "    ___exists = True\n" +
                  "except NameError:\n" +
                  "    ___exists = False\n" +
-                 "if ___exists and isinstance({{" + objectName + "_variable}}, Button):\n" +
+                 "try:\n" +
+                 "    {{" + objectName + "_" + functionName + "_callback}}\n" +
+                 "    ___cb_exists = True\n" +
+                 "except NameError:\n" +
+                 "    ___cb_exists = False\n" +
+                 "if ___exists and isinstance({{" + objectName + "_variable}}, Button) and ___cb_exists:\n" +
                  "    {{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n" +
                  "del ___exists\n"
   });

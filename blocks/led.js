@@ -149,3 +149,68 @@ Blockly.Blocks['led_fade'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+
+
+
+
+
+mcCreateBlocklyBlock({
+  "type": "led_constructor",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "led_variable",
+      "label": "Set LED ",
+      "type": "object_dropdown",
+      "object": "led", //Used with object_dropdown (required if object_dropdown)
+    },
+    {
+      "name": "led_number",
+      "label": " to ",
+      "type": "dropdown",
+      "options": [
+        ["1", "1"],
+        ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"],
+        ["6", "6"],
+        ["7", "7"],
+        ["8", "8"],
+        ["9", "9"],
+        ["10", "10"],
+      ],
+    }
+  ],
+  "generator": "{{led_variable}} = get_makerboard().pin({{led_number}})\n"
+});
+
+mcCreateBlocklyBlock({
+  "type": "led_set_state",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "led_variable",
+      "label": "LED ",
+      "type": "object_dropdown",
+      "object": "led",
+    },
+    {
+      "name": "led_state",
+      "label": " to ",
+      "type": "dropdown",
+      "options": [
+        ["on", "1"],
+        ["off", "0"],
+      ],
+    }
+  ],
+  "generator": "try:\n" +
+               "    {{led_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{led_variable}}, Gpio):\n" +
+               "    {{led_variable}}.digital_write({{led_state}})\n" +
+               "del ___exists\n"
+});
