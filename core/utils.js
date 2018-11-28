@@ -937,4 +937,3 @@ Blockly.utils.getViewportBBox = function() {
     left: scrollOffset.x
   };
 };
-

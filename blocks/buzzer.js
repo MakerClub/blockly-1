@@ -56,7 +56,7 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{buzzer_variable}} = mc_pin({{buzzer_number}}, machine.Pin.OUT)\n",
+  "generator": "{{buzzer_variable}} = get_makerboard().pin({{buzzer_number}})\n"
 });
 
 mcCreateBlocklyBlock({
@@ -79,5 +79,12 @@ mcCreateBlocklyBlock({
       ],
     }
   ],
-  "generator": "{{buzzer_variable}}.value({{buzzer_state}})\n",
+  "generator": "try:\n" +
+               "    {{buzzer_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{buzzer_variable}}, Gpio):\n" +
+               "    {{buzzer_variable}}.digital_write({{buzzer_state}})\n" +
+               "del ___exists\n"
 });

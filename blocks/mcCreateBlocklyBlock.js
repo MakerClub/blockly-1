@@ -319,8 +319,13 @@ function mcFunctionMenuGenerator() {
   var allFunctions = Blockly.Procedures.allProcedures(Blockly.mainWorkspace);
   allFunctions = allFunctions[0].concat(allFunctions[1]);
 
+  var functionNamesToIgnore = Blockly.mcSystemProcedures || [];
+
   for (var iii = 0; iii < allFunctions.length; iii++) {
     var functionName = allFunctions[iii][0];
+    if (functionNamesToIgnore.indexOf(functionName) !== -1) {
+      continue;
+    }
     functionList.push([functionName, functionName]);
   }
 

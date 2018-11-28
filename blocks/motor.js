@@ -57,9 +57,28 @@ mcCreateBlocklyBlock({
         ["M1", "1"],
         ["M2", "2"],
       ],
-    }
+    },/*
+    {
+      "name": "motor_path",
+      "label": " at path ",
+      "type": "dropdown",
+      "optional": true,
+      "optionalShowHideLabel": "Module path",
+      "options": [
+        ["Auto", "auto"],
+        ["A", "A"],
+        ["B", "B"],
+      ],
+    }*/
   ],
-  "generator": "{{motor_variable}} = Motor({{motor_number}})\n",
+  "generator": "try:\n" +
+               "    {{motor_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists == False or not isinstance({{motor_variable}}, Motor):\n" +
+               "    {{motor_variable}} = Motor({{motor_number}})\n" +
+               "del ___exists\n"
 });
 
 mcCreateBlocklyBlock({
@@ -77,7 +96,7 @@ mcCreateBlocklyBlock({
       "label": " set speed to ",
       "type": "input_value",
       "check": "Number",
-    },
+    },/*
     {
       "name": "motor_time",
       "label": " duration (s) ",
@@ -86,7 +105,7 @@ mcCreateBlocklyBlock({
       "optional": true,
       "optionalDefaultValue": 0,
       "optionalShowHideLabel": "Duration",
-  },/*
+  },*//*
     {
       "name": "motor_until_done",
       "label": " until done",
@@ -95,5 +114,12 @@ mcCreateBlocklyBlock({
       "optionalShowHideLabel": "Wait until done",
   },*/
   ],
-  "generator": "{{motor_variable}}.set_speed({{motor_speed}}, {{motor_time}})\n",
+  "generator": "try:\n" +
+               "    {{motor_variable}}\n" +
+               "    ___exists = True\n" +
+               "except NameError:\n" +
+               "    ___exists = False\n" +
+               "if ___exists and isinstance({{motor_variable}}, Motor):\n" +
+               "    {{motor_variable}}.set_speed({{motor_speed}}, 0)\n" +
+               "del ___exists\n"
 });

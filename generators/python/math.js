@@ -64,6 +64,9 @@ Blockly.Python['math_arithmetic'] = function(block) {
   var argument0 = Blockly.Python.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.Python.valueToCode(block, 'B', order) || '0';
   var code = argument0 + operator + argument1;
+  if (block.getFieldValue('OP') == "DIVIDE") {
+    code = "mc_divide(" + argument0 + ", " + argument1 + ")"
+  }
   return [code, order];
   // In case of 'DIVIDE', division between integers returns different results
   // in Python 2 and 3. However, is not an issue since Blockly does not
