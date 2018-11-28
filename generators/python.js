@@ -43,45 +43,45 @@ Blockly.Python = new Blockly.Generator('Python');
  * @private
  */
 Blockly.Python.addReservedWords(
-    // import keyword
-    // print(','.join(sorted(keyword.kwlist)))
-    // https://docs.python.org/3/reference/lexical_analysis.html#keywords
-    // https://docs.python.org/2/reference/lexical_analysis.html#keywords
-    'False,None,True,and,as,assert,break,class,continue,def,del,elif,else,' +
-    'except,exec,finally,for,from,global,if,import,in,is,lambda,nonlocal,not,' +
-    'or,pass,print,raise,return,try,while,with,yield,' +
-    // https://docs.python.org/3/library/constants.html
-    // https://docs.python.org/2/library/constants.html
-    'NotImplemented,Ellipsis,__debug__,quit,exit,copyright,license,credits,' +
-    // >>> print(','.join(sorted(dir(__builtins__))))
-    // https://docs.python.org/3/library/functions.html
-    // https://docs.python.org/2/library/functions.html
-    'ArithmeticError,AssertionError,AttributeError,BaseException,' +
-    'BlockingIOError,BrokenPipeError,BufferError,BytesWarning,' +
-    'ChildProcessError,ConnectionAbortedError,ConnectionError,' +
-    'ConnectionRefusedError,ConnectionResetError,DeprecationWarning,EOFError,' +
-    'Ellipsis,EnvironmentError,Exception,FileExistsError,FileNotFoundError,' +
-    'FloatingPointError,FutureWarning,GeneratorExit,IOError,ImportError,' +
-    'ImportWarning,IndentationError,IndexError,InterruptedError,' +
-    'IsADirectoryError,KeyError,KeyboardInterrupt,LookupError,MemoryError,' +
-    'ModuleNotFoundError,NameError,NotADirectoryError,NotImplemented,' +
-    'NotImplementedError,OSError,OverflowError,PendingDeprecationWarning,' +
-    'PermissionError,ProcessLookupError,RecursionError,ReferenceError,' +
-    'ResourceWarning,RuntimeError,RuntimeWarning,StandardError,' +
-    'StopAsyncIteration,StopIteration,SyntaxError,SyntaxWarning,SystemError,' +
-    'SystemExit,TabError,TimeoutError,TypeError,UnboundLocalError,' +
-    'UnicodeDecodeError,UnicodeEncodeError,UnicodeError,' +
-    'UnicodeTranslateError,UnicodeWarning,UserWarning,ValueError,Warning,' +
-    'ZeroDivisionError,_,__build_class__,__debug__,__doc__,__import__,' +
-    '__loader__,__name__,__package__,__spec__,abs,all,any,apply,ascii,' +
-    'basestring,bin,bool,buffer,bytearray,bytes,callable,chr,classmethod,cmp,' +
-    'coerce,compile,complex,copyright,credits,delattr,dict,dir,divmod,' +
-    'enumerate,eval,exec,execfile,exit,file,filter,float,format,frozenset,' +
-    'getattr,globals,hasattr,hash,help,hex,id,input,int,intern,isinstance,' +
-    'issubclass,iter,len,license,list,locals,long,map,max,memoryview,min,' +
-    'next,object,oct,open,ord,pow,print,property,quit,range,raw_input,reduce,' +
-    'reload,repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,' +
-    'sum,super,tuple,type,unichr,unicode,vars,xrange,zip'
+  // import keyword
+  // print(','.join(sorted(keyword.kwlist)))
+  // https://docs.python.org/3/reference/lexical_analysis.html#keywords
+  // https://docs.python.org/2/reference/lexical_analysis.html#keywords
+  'False,None,True,and,as,assert,break,class,continue,def,del,elif,else,' +
+  'except,exec,finally,for,from,global,if,import,in,is,lambda,nonlocal,not,' +
+  'or,pass,print,raise,return,try,while,with,yield,' +
+  // https://docs.python.org/3/library/constants.html
+  // https://docs.python.org/2/library/constants.html
+  'NotImplemented,Ellipsis,__debug__,quit,exit,copyright,license,credits,' +
+  // >>> print(','.join(sorted(dir(__builtins__))))
+  // https://docs.python.org/3/library/functions.html
+  // https://docs.python.org/2/library/functions.html
+  'ArithmeticError,AssertionError,AttributeError,BaseException,' +
+  'BlockingIOError,BrokenPipeError,BufferError,BytesWarning,' +
+  'ChildProcessError,ConnectionAbortedError,ConnectionError,' +
+  'ConnectionRefusedError,ConnectionResetError,DeprecationWarning,EOFError,' +
+  'Ellipsis,EnvironmentError,Exception,FileExistsError,FileNotFoundError,' +
+  'FloatingPointError,FutureWarning,GeneratorExit,IOError,ImportError,' +
+  'ImportWarning,IndentationError,IndexError,InterruptedError,' +
+  'IsADirectoryError,KeyError,KeyboardInterrupt,LookupError,MemoryError,' +
+  'ModuleNotFoundError,NameError,NotADirectoryError,NotImplemented,' +
+  'NotImplementedError,OSError,OverflowError,PendingDeprecationWarning,' +
+  'PermissionError,ProcessLookupError,RecursionError,ReferenceError,' +
+  'ResourceWarning,RuntimeError,RuntimeWarning,StandardError,' +
+  'StopAsyncIteration,StopIteration,SyntaxError,SyntaxWarning,SystemError,' +
+  'SystemExit,TabError,TimeoutError,TypeError,UnboundLocalError,' +
+  'UnicodeDecodeError,UnicodeEncodeError,UnicodeError,' +
+  'UnicodeTranslateError,UnicodeWarning,UserWarning,ValueError,Warning,' +
+  'ZeroDivisionError,_,__build_class__,__debug__,__doc__,__import__,' +
+  '__loader__,__name__,__package__,__spec__,abs,all,any,apply,ascii,' +
+  'basestring,bin,bool,buffer,bytearray,bytes,callable,chr,classmethod,cmp,' +
+  'coerce,compile,complex,copyright,credits,delattr,dict,dir,divmod,' +
+  'enumerate,eval,exec,execfile,exit,file,filter,float,format,frozenset,' +
+  'getattr,globals,hasattr,hash,help,hex,id,input,int,intern,isinstance,' +
+  'issubclass,iter,len,license,list,locals,long,map,max,memoryview,min,' +
+  'next,object,oct,open,ord,pow,print,property,quit,range,raw_input,reduce,' +
+  'reload,repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,' +
+  'sum,super,tuple,type,unichr,unicode,vars,xrange,zip'
 );
 
 
@@ -90,28 +90,28 @@ Blockly.Python.addReservedWords(
  * Order of operation ENUMs.
  * http://docs.python.org/reference/expressions.html#summary
  */
-Blockly.Python.ORDER_ATOMIC = 0;            // 0 "" ...
-Blockly.Python.ORDER_COLLECTION = 1;        // tuples, lists, dictionaries
+Blockly.Python.ORDER_ATOMIC = 0; // 0 "" ...
+Blockly.Python.ORDER_COLLECTION = 1; // tuples, lists, dictionaries
 Blockly.Python.ORDER_STRING_CONVERSION = 1; // `expression...`
-Blockly.Python.ORDER_MEMBER = 2.1;          // . []
-Blockly.Python.ORDER_FUNCTION_CALL = 2.2;   // ()
-Blockly.Python.ORDER_EXPONENTIATION = 3;    // **
-Blockly.Python.ORDER_UNARY_SIGN = 4;        // + -
-Blockly.Python.ORDER_BITWISE_NOT = 4;       // ~
-Blockly.Python.ORDER_MULTIPLICATIVE = 5;    // * / // %
-Blockly.Python.ORDER_ADDITIVE = 6;          // + -
-Blockly.Python.ORDER_BITWISE_SHIFT = 7;     // << >>
-Blockly.Python.ORDER_BITWISE_AND = 8;       // &
-Blockly.Python.ORDER_BITWISE_XOR = 9;       // ^
-Blockly.Python.ORDER_BITWISE_OR = 10;       // |
-Blockly.Python.ORDER_RELATIONAL = 11;       // in, not in, is, is not,
-                                            //     <, <=, >, >=, <>, !=, ==
-Blockly.Python.ORDER_LOGICAL_NOT = 12;      // not
-Blockly.Python.ORDER_LOGICAL_AND = 13;      // and
-Blockly.Python.ORDER_LOGICAL_OR = 14;       // or
-Blockly.Python.ORDER_CONDITIONAL = 15;      // if else
-Blockly.Python.ORDER_LAMBDA = 16;           // lambda
-Blockly.Python.ORDER_NONE = 99;             // (...)
+Blockly.Python.ORDER_MEMBER = 2.1; // . []
+Blockly.Python.ORDER_FUNCTION_CALL = 2.2; // ()
+Blockly.Python.ORDER_EXPONENTIATION = 3; // **
+Blockly.Python.ORDER_UNARY_SIGN = 4; // + -
+Blockly.Python.ORDER_BITWISE_NOT = 4; // ~
+Blockly.Python.ORDER_MULTIPLICATIVE = 5; // * / // %
+Blockly.Python.ORDER_ADDITIVE = 6; // + -
+Blockly.Python.ORDER_BITWISE_SHIFT = 7; // << >>
+Blockly.Python.ORDER_BITWISE_AND = 8; // &
+Blockly.Python.ORDER_BITWISE_XOR = 9; // ^
+Blockly.Python.ORDER_BITWISE_OR = 10; // |
+Blockly.Python.ORDER_RELATIONAL = 11; // in, not in, is, is not,
+//     <, <=, >, >=, <>, !=, ==
+Blockly.Python.ORDER_LOGICAL_NOT = 12; // not
+Blockly.Python.ORDER_LOGICAL_AND = 13; // and
+Blockly.Python.ORDER_LOGICAL_OR = 14; // or
+Blockly.Python.ORDER_CONDITIONAL = 15; // if else
+Blockly.Python.ORDER_LAMBDA = 16; // lambda
+Blockly.Python.ORDER_NONE = 99; // (...)
 
 /************************* START MAKERCLUB *********************/
 
@@ -178,7 +178,7 @@ Blockly.Python.init = function(workspace) {
 
   if (!Blockly.Python.variableDB_) {
     Blockly.Python.variableDB_ =
-        new Blockly.Names(Blockly.Python.RESERVED_WORDS_);
+      new Blockly.Names(Blockly.Python.RESERVED_WORDS_);
   } else {
     Blockly.Python.variableDB_.reset();
   }
@@ -188,7 +188,7 @@ Blockly.Python.init = function(workspace) {
   for (var i = 0; i < variables.length; i++) {
     var variable = variables[i];
     defvars[i] = Blockly.Python.variableDB_.getName(variable.name,
-        Blockly.Variables.NAME_TYPE) + ' = 0'; //MAKERCLUB EDIT: Default to 0 instead of None as we think this is a bit more useful
+      Blockly.Variables.NAME_TYPE) + ' = 0'; //MAKERCLUB EDIT: Default to 0 instead of None as we think this is a bit more useful
   }
   Blockly.Python.definitions_['variables'] = defvars.join('\n');
 };
@@ -237,11 +237,11 @@ Blockly.Python.scrubNakedValue = function(line) {
 Blockly.Python.quote_ = function(string) {
   // Can't use goog.string.quote since % must also be escaped.
   string = string.replace(/\\/g, '\\\\')
-                 .replace(/\n/g, '\\\n');
-                 //MAKERCLUB EDIT
-                 //I'm removing this line, as I don't think it's actually correct escaping?
-                 //.replace(/\%/g, '\\%');
-                 //END MAKERCLUB EDIT
+    .replace(/\n/g, '\\\n');
+  //MAKERCLUB EDIT
+  //I'm removing this line, as I don't think it's actually correct escaping?
+  //.replace(/\%/g, '\\%');
+  //END MAKERCLUB EDIT
 
   // Follow the CPython behaviour of repr() for a non-byte string.
   var quote = '\'';
@@ -314,7 +314,7 @@ Blockly.Python.getAdjustedInt = function(block, atId, opt_delta, opt_negate) {
   }
   var defaultAtIndex = block.workspace.options.oneBasedIndex ? '1' : '0';
   var atOrder = delta ? Blockly.Python.ORDER_ADDITIVE :
-      Blockly.Python.ORDER_NONE;
+    Blockly.Python.ORDER_NONE;
   var at = Blockly.Python.valueToCode(block, atId, atOrder) || defaultAtIndex;
 
   if (Blockly.isNumber(at)) {
@@ -347,7 +347,7 @@ Blockly.Python.includeObjects = function(code) {
   return code;
 }
 
-Blockly.Python.includeVariables = function(code){
+Blockly.Python.includeVariables = function(code) {
   var variableString = '';
   for (var name in Blockly.Python.variables_) {
     variableString += Blockly.Python.variables_[name] + "\n";
@@ -357,43 +357,63 @@ Blockly.Python.includeVariables = function(code){
   return code;
 };
 
-Blockly.Python.includeLibraries = function(code){
+Blockly.Python.includeLibraries = function(code) {
   return 'from makerclub import *' + '\n\n' + code;
 };
 
 Blockly.Python.getUnique = function(a, selector) {
   var seen = {};
   return a.filter(function(item) {
-      if (selector) {
-        return seen.hasOwnProperty(item[selector]) ? false : (seen[item[selector]] = true);
-      }
-      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    if (selector) {
+      return seen.hasOwnProperty(item[selector]) ? false : (seen[item[selector]] = true);
+    }
+    return seen.hasOwnProperty(item) ? false : (seen[item] = true);
   });
 };
 
+document.addEventListener('appHasStarted', function() {
+  console.log('now listening on radio');
+  Backbone.Radio.channel('blockly').reply('categoryXml:generate', function(args) {
+    let blocksXml = [];
 
+    let blockNames = mcGetRemoteControlBlockNames(args);
+    for (let iii = 0; iii < blockNames.length; iii++) {
+      let blockXml = '<xml><block type="' + blockNames[iii] + '"></block></xml>';
+      blocksXml.push(Blockly.Xml.textToDom(blockXml).firstChild);
+    }
 
+    return blocksXml;
+  });
 
+  Backbone.Radio.channel('blockly').reply('remoteControlBlocks:generate', function(args) {
+    //We must create the blockly blocks for the control
+    switch (args.type) {
+      case "slider":
+        {
+          mcCreateRcSliderBlocks(args);
+          break;
+        }
 
+      case "button":
+        {
+          mcCreateRcButtonBlocks(args);
+          break;
+        }
 
+      case "joystick":
+        {
+          mcCreateRcJoystickBlocks(args);
+          break;
+        }
 
+      default:
+        {
+          console.log("Unknown remote control type: " + args.type + ". No blocks created for it.");
+          break;
+        }
+    }
+  });
 
-
-
-
-
-
-
-Backbone.Radio.channel('blockly').reply('categoryXml:generate', function(args) {
-  let blocksXml = [];
-
-  let blockNames = mcGetRemoteControlBlockNames(args);
-  for (let iii = 0; iii < blockNames.length; iii++) {
-    let blockXml = '<xml><block type="' + blockNames[iii] + '"></block></xml>';
-    blocksXml.push(Blockly.Xml.textToDom(blockXml).firstChild);
-  }
-
-  return blocksXml;
 });
 
 function mcGetRemoteControlBlockNames(args) {
@@ -413,30 +433,6 @@ function mcGetRemoteControlBlockNames(args) {
   return blockNames;
 }
 
-Backbone.Radio.channel('blockly').reply('remoteControlBlocks:generate', function(args) {
-  //We must create the blockly blocks for the control
-  switch (args.type) {
-    case "slider": {
-      mcCreateRcSliderBlocks(args);
-      break;
-    }
-
-    case "button": {
-      mcCreateRcButtonBlocks(args);
-      break;
-    }
-
-    case "joystick": {
-      mcCreateRcJoystickBlocks(args);
-      break;
-    }
-
-    default: {
-      console.log("Unknown remote control type: " + args.type + ". No blocks created for it.");
-      break;
-    }
-  }
-});
 
 function mcCreateRcButtonBlocks(args) {
   if (args.type !== "button") {
@@ -449,12 +445,10 @@ function mcCreateRcButtonBlocks(args) {
     "type": blockName + "_read_value",
     "colour": "%{BKY_LOGIC_HUE}",
     "output": "Number",
-    "fields": [
-      {
-        "label": "is " + args.displayName + " pressed",
-        "type": "dummy",
-      }
-    ],
+    "fields": [{
+      "label": "is " + args.displayName + " pressed",
+      "type": "dummy",
+    }],
     "generator": "remote_control.get_value(" + args.webhookId + ")",
   });
 
@@ -492,12 +486,10 @@ function mcCreateRcSliderBlocks(args) {
     "type": blockName + "_read_value",
     "colour": "%{BKY_LOGIC_HUE}",
     "output": "Number",
-    "fields": [
-      {
-        "label": args.displayName + " value",
-        "type": "dummy",
-      }
-    ],
+    "fields": [{
+      "label": args.displayName + " value",
+      "type": "dummy",
+    }],
     "generator": "remote_control.get_value(" + args.webhookId + ")",
   });
 
@@ -520,19 +512,17 @@ function mcCreateRcJoystickBlocks(args) {
     "type": blockName + "_is_direction",
     "colour": "%{BKY_LOGIC_HUE}",
     "output": "Boolean",
-    "fields": [
-      {
-        "name": "mcRcJoystickDirection",
-        "label": args.displayName + " is ",
-        "type": "dropdown",
-        "options": [
-          ["up", "up"],
-          ["right", "right"],
-          ["down", "down"],
-          ["left", "left"]
-        ],
-      }
-    ],
+    "fields": [{
+      "name": "mcRcJoystickDirection",
+      "label": args.displayName + " is ",
+      "type": "dropdown",
+      "options": [
+        ["up", "up"],
+        ["right", "right"],
+        ["down", "down"],
+        ["left", "left"]
+      ],
+    }],
     "generator": "joystick_is_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}')",
   });
 
@@ -540,24 +530,22 @@ function mcCreateRcJoystickBlocks(args) {
     "type": blockName + "_while_direction",
     "displayName": "when  " + args.displayName, //If null, the actual name from the code will be used
     "codeName": blockName + "_while_direction", //This is automatically mangled to avoid conflicts
-    "fields": [
-      {
-        "name": "mcRcJoystickDirection",
-        "label": "is ",
-        "type": "dropdown",
-        "options": [
-          ["up", "up"],
-          ["up+right", "up+right"],
-          ["right", "right"],
-          ["down+right", "down+right"],
-          ["down", "down"],
-          ["down+left", "down+left"],
-          ["left", "left"],
-          ["up+left", "up+left"],
-          ["centre", "centre"],
-        ],
-      }
-    ],
+    "fields": [{
+      "name": "mcRcJoystickDirection",
+      "label": "is ",
+      "type": "dropdown",
+      "options": [
+        ["up", "up"],
+        ["up+right", "up+right"],
+        ["right", "right"],
+        ["down+right", "down+right"],
+        ["down", "down"],
+        ["down+left", "down+left"],
+        ["left", "left"],
+        ["up+left", "up+left"],
+        ["centre", "centre"],
+      ],
+    }],
     "generator": "%1joystick_while_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}', {{codeName}})\n", //Use {{codeName}} to handle mangling
   });
 
