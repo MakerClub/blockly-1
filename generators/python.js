@@ -457,6 +457,7 @@ function mcCreateRcButtonBlocks(args) {
     "displayName": "when " + args.displayName + " pressed", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_press", //This is automatically mangled to avoid conflicts
     "generator": "%1remote_control.on_press(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "system": true,
   });
 
   mcCreateBlocklyProcedure({
@@ -464,6 +465,7 @@ function mcCreateRcButtonBlocks(args) {
     "displayName": "when " + args.displayName + " released", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_release", //This is automatically mangled to avoid conflicts
     "generator": "%1remote_control.on_release(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "system": true,
   });
 
   mcCreateBlocklyProcedure({
@@ -471,8 +473,8 @@ function mcCreateRcButtonBlocks(args) {
     "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
     "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "system": true,
   });
-
 }
 
 function mcCreateRcSliderBlocks(args) {
@@ -498,6 +500,7 @@ function mcCreateRcSliderBlocks(args) {
     "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
     "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "system": true,
   });
 }
 
@@ -547,6 +550,7 @@ function mcCreateRcJoystickBlocks(args) {
       ],
     }],
     "generator": "%1joystick_while_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}', {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "system": true,
   });
 
 }
