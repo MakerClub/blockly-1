@@ -244,8 +244,8 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
     for (var i = 0; i < procedureList.length; i++) {
       var name = procedureList[i][0];
       var args = procedureList[i][1];
-      if (name === "start" || name === "loop") {
-        continue; //Makerclub core
+      if (Blockly.mcSystemProcedures.indexOf(name) !== -1) {
+        continue; //Makerclub system
       }
       // <block type="procedures_callnoreturn" gap="16">
       //   <mutation name="do something">

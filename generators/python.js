@@ -81,7 +81,15 @@ Blockly.Python.addReservedWords(
   'issubclass,iter,len,license,list,locals,long,map,max,memoryview,min,' +
   'next,object,oct,open,ord,pow,print,property,quit,range,raw_input,reduce,' +
   'reload,repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,' +
-  'sum,super,tuple,type,unichr,unicode,vars,xrange,zip'
+  'sum,super,tuple,type,unichr,unicode,vars,xrange,zip,' +
+
+  //A few MakerClub ones. These conflict with our functions
+  'mc_decorator,get_underscore,get_logger,get_makerboard,asyncio,rgb_led,' +
+  'Servo,Motor,Button,IftttEvent,remote_control,Gpio,joystick_while_direction' +
+
+  //From utils.py
+  'get_action_manager,get_http_manager,map_range,request_url,request_url_async,mc_divide' +
+  'create_task_after_user_start_finished_async,create_task'
 );
 
 
@@ -531,7 +539,7 @@ function mcCreateRcJoystickBlocks(args) {
 
   mcCreateBlocklyProcedure({
     "type": blockName + "_while_direction",
-    "displayName": "when  " + args.displayName, //If null, the actual name from the code will be used
+    "displayName": "while  " + args.displayName, //If null, the actual name from the code will be used
     "codeName": blockName + "_while_direction", //This is automatically mangled to avoid conflicts
     "fields": [{
       "name": "mcRcJoystickDirection",
