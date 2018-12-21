@@ -85,10 +85,11 @@ Blockly.Python.addReservedWords(
 
   //A few MakerClub ones. These conflict with our functions
   'mc_decorator,get_underscore,get_logger,get_makerboard,asyncio,rgb_led,' +
-  'Servo,Motor,Button,IftttEvent,remote_control,Gpio,joystick_while_direction' +
+  'Servo,Motor,Button,IftttEvent,remote_control,Gpio,joystick_while_direction,' +
+  'DistanceSensor,' +
 
   //From utils.py
-  'get_action_manager,get_http_manager,map_range,request_url,request_url_async,mc_divide' +
+  'get_action_manager,get_http_manager,map_range,request_url,request_url_async,mc_divide,' +
   'create_task_after_user_start_finished_async,create_task'
 );
 
