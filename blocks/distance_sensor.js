@@ -70,5 +70,5 @@ mcCreateBlocklyBlock({
     }
   ],
 
-  "generator": "({{distance_sensor_variable}}.measure() if ('{{distance_sensor_variable}}' in globals() and isinstance({{distance_sensor_variable}}, DistanceSensor)) else 4000)"
+  "generator": "({{distance_sensor_variable}}.measure() if ('{{distance_sensor_variable}}' in globals() and isinstance({{distance_sensor_variable}}, DistanceSensor)) else 2000)"
 });

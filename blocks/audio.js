@@ -54,7 +54,7 @@ mcCreateBlocklyBlock({
           let ret = [];
           for (let iii = 0; iii < files.length; iii++) {
               let file = files[iii];
-              ret.push([file.original.name, file.processed.name]);
+              ret.push([file.name, file.name]);
           }
           return ret;
       },
