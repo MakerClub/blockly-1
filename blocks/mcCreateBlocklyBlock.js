@@ -263,16 +263,20 @@ function mcObjectDropdownMenuGenerator() {
   var prettyObjectName = this.mcPrettyObjectName;
   var variables = Blockly.mainWorkspace.getVariablesOfType(object);
   var variableList = [];
+
+  //Always show the null selection if it's currently selected
+  if (variables.length === 0 || this.getValue() === "mcNullSelection") {
+    variableList.push(['Choose a ' + prettyObjectName.replace(/_/g, " "), "mcNullSelection"]);
+  }
+
   for (var iii = 0; iii < variables.length; iii++) {
     var variableName = variables[iii].name;
     variableList.push([variableName, variableName]);
   }
 
-  if (variables.length > 0) {
-    //variableList.push(["Rename", "mcRenameObject"]); //We kind of need a recursive way to update all dropdowns, until we have this I'm commenting this out.
+  if (variables.length > 0 && this.getValue() !== "mcNullSelection") {
+    variableList.push(["Rename", "mcRenameObject"]); //We kind of need a recursive way to update all dropdowns, until we have this I'm commenting this out.
     variableList.push(["Delete", "mcDeleteObject"]);
-  } else {
-    variableList.push(['Choose a ' + prettyObjectName.replace(/_/g, " "), "mcNullSelection"]);
   }
 
   variableList.push(["Add " + prettyObjectName.replace(/_/g, " "), "mcAddNewObject"]);
@@ -295,14 +299,14 @@ function mcObjectDropdownValidator(newValue) {
     //change to new variable if it's created successfully.
     return null;
   } else if (newValue === "mcRenameObject") {
-    var newVariableName = window.prompt("New variable name:");
-    if (newVariableName === null || newVariableName === "") {
-      return null; //They cancelled so do nothing.
-    }
-    //this.workspace.renameVariable(this.getFieldValue('SERVO_VARIABLE'), newVariableName);
-    //Change to the newly named variable
-    //TODO: We kind of need a recursive thing were we change all dropdowns that exist.
-    return newVariableName;
+    Blockly.Variables.renameVariable(Blockly.mainWorkspace, Blockly.mainWorkspace.getVariable(this.getValue()), function(newVariableName) {
+      if (newVariableName === null || newVariableName === "") {
+        return; //They cancelled so do nothing.
+      }
+      //We don't really need to do anything with the name as the renameVar callback will act on the change anyway
+      return;
+    });
+    return null;
   } else if (newValue === "mcDeleteObject") {
     Blockly.mainWorkspace.deleteVariable(this.getValue());
     this.setValue(this.getOptions()[0][1]);
@@ -329,8 +333,8 @@ function mcFunctionMenuGenerator() {
     functionList.push([functionName, functionName]);
   }
 
-  if (functionList.length == 0) {
-    functionList.push(["Choose a function", "mcNullSelection"]);
+  if (functionList.length == 0 || this.getValue() === "mcNullSelection") {
+    functionList.unshift(["Choose a function", "mcNullSelection"]);
   }
 
   return functionList;
@@ -358,7 +362,6 @@ function mcUpdateBlock() {
   while (this.inputList.length > 0) {
     this.removeInput(this.inputList[0].name);
   }
-
 
   for (var iii = 0; iii < this.mcFields.length; iii++) {
     var field = this.mcFields[iii];
@@ -470,4 +473,78 @@ function mcUpdateBlock() {
       this.workspace.render();
     }
   }
+
+  //Finally, if the block uses variables then it should impliment getVars() and
+  //return a list of variables it currently has selected.
+  var fieldNamesWithVariables = [];
+  for (var iii = 0; iii < this.mcFields.length; iii++) {
+    var field = this.mcFields[iii];
+    if (field.type === "object_dropdown") {
+      fieldNamesWithVariables.push(field.name);
+    }
+  }
+
+  delete this.getVars;
+  if (fieldNamesWithVariables != []) {
+    this.getVars = function() {
+      var ret = [];
+      for (var iii = 0; iii < fieldNamesWithVariables.length; iii++) {
+        let value = this.getFieldValue(fieldNamesWithVariables[iii]);
+        if (value) {
+          ret.push(value);
+        }
+      }
+      return ret;
+    };
+  }
+
+  delete this.renameVar;
+  if (fieldNamesWithVariables != []) {
+    this.renameVar = function(oldName, newName) {
+      for (var iii = 0; iii < fieldNamesWithVariables.length; iii++) {
+        let value = this.getFieldValue(fieldNamesWithVariables[iii]);
+        if (value !== null && value !== false && value === oldName) {
+          this.setFieldValue(newName, fieldNamesWithVariables[iii]);
+        }
+      }
+    }
+  }
+
+  var fieldNamesWithProcedures = [];
+  for (var iii = 0; iii < this.mcFields.length; iii++) {
+    var field = this.mcFields[iii];
+    if (field.type === "function_dropdown") {
+      fieldNamesWithProcedures.push(field.name);
+    }
+  }
+
+  delete this.renameProcedure;
+  this.renameProcedure = function(oldName, newName) {
+    for (var iii = 0; iii < fieldNamesWithProcedures.length; iii++) {
+      let value = this.getFieldValue(fieldNamesWithProcedures[iii]);
+      if (value !== null && value !== false && value === oldName) {
+        this.setFieldValue(newName, fieldNamesWithProcedures[iii]);
+      }
+    }
+  };
+
+  //The blocks onchange event:
+  this.onchange = function(event) {
+    if (event.type == Blockly.Events.BLOCK_DELETE) {
+      //Something got deleted, if it was a procedure we pointed to unset it
+      for (var iii = 0; iii < fieldNamesWithProcedures.length; iii++) {
+        let procedureName = this.getFieldValue(fieldNamesWithProcedures[iii]);
+        if (procedureName !== null && procedureName !== false) {
+          var def = Blockly.Procedures.getDefinition(procedureName, Blockly.mainWorkspace);
+          if (!def) {
+            //The defination for this call no longer exists, so unset this
+            Blockly.Events.setGroup(event.group);
+            this.setFieldValue("mcNullSelection", fieldNamesWithProcedures[iii]);
+            Blockly.Events.setGroup(false);
+          }
+        }
+      }
+    }
+
+  };
 }
