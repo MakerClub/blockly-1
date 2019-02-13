@@ -278,7 +278,7 @@ mcCreateBlocklyBlock({
   "output": "Number",
   "fields": [{
     "name": "servo_touch_variable",
-    "label": "Servo GPIO %1 read",
+    "label": "Servo Touch %1 read",
     "type": "object_dropdown",
     "object": "ServoTouch",
   }],
