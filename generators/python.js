@@ -428,7 +428,9 @@ document.addEventListener('appHasStarted', function() {
 function mcGetRemoteControlBlockNames(args) {
   //When given a remote control we return the block names that relate to it
   let blockNames = [];
-  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+  let blockName = "mcRc" + args.type + "_" + args.displayName;
+  blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
+  blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
   //All blocks created for this start with a known prefix
   for (let itemBlockName in Blockly.Blocks) {
     if (!Blockly.Blocks.hasOwnProperty(itemBlockName)) {
@@ -448,7 +450,9 @@ function mcCreateRcButtonBlocks(args) {
     throw "Not a button";
   }
 
-  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+  let blockName = "mcRc" + args.type + "_" + args.displayName;
+  blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
+  blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
 
   mcCreateBlocklyBlock({
     "type": blockName + "_read_value",
@@ -458,14 +462,14 @@ function mcCreateRcButtonBlocks(args) {
       "label": "is " + args.displayName + " pressed",
       "type": "dummy",
     }],
-    "generator": "remote_control.get_value(" + args.webhookId + ")",
+    "generator": "remote_control.get_value('''" + args.displayName + "''')",
   });
 
   mcCreateBlocklyProcedure({
     "type": blockName + "_on_press",
     "displayName": "when " + args.displayName + " pressed", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_press", //This is automatically mangled to avoid conflicts
-    "generator": "%1remote_control.on_press(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "generator": "%1remote_control.on_press('''" + args.displayName + "''', {{codeName}})\n", //Use {{codeName}} to handle mangling
     "system": true,
   });
 
@@ -473,7 +477,7 @@ function mcCreateRcButtonBlocks(args) {
     "type": blockName + "_on_release",
     "displayName": "when " + args.displayName + " released", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_release", //This is automatically mangled to avoid conflicts
-    "generator": "%1remote_control.on_release(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "generator": "%1remote_control.on_release('''" + args.displayName + "''', {{codeName}})\n", //Use {{codeName}} to handle mangling
     "system": true,
   });
 
@@ -481,7 +485,7 @@ function mcCreateRcButtonBlocks(args) {
     "type": blockName + "_on_change",
     "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
-    "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "generator": "%1remote_control.on_change('''" + args.displayName + "''', {{codeName}})\n", //Use {{codeName}} to handle mangling
     "system": true,
   });
 }
@@ -491,7 +495,9 @@ function mcCreateRcSliderBlocks(args) {
     throw "Not a slider";
   }
 
-  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+  let blockName = "mcRc" + args.type + "_" + args.displayName;
+  blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
+  blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
 
   mcCreateBlocklyBlock({
     "type": blockName + "_read_value",
@@ -501,14 +507,14 @@ function mcCreateRcSliderBlocks(args) {
       "label": args.displayName + " value",
       "type": "dummy",
     }],
-    "generator": "remote_control.get_value(" + args.webhookId + ")",
+    "generator": "remote_control.get_value('''" + args.displayName + "''')",
   });
 
   mcCreateBlocklyProcedure({
     "type": blockName + "_on_change",
     "displayName": "when " + args.displayName + " changes", //If null, the actual name from the code will be used
     "codeName": blockName + "_on_change", //This is automatically mangled to avoid conflicts
-    "generator": "%1remote_control.on_change(" + args.webhookId + ", {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "generator": "%1remote_control.on_change('''" + args.displayName + "''', {{codeName}})\n", //Use {{codeName}} to handle mangling
     "system": true,
   });
 }
@@ -518,7 +524,9 @@ function mcCreateRcJoystickBlocks(args) {
     throw "Not a joystick";
   }
 
-  let blockName = "mcRc" + args.type + "_" + args.webhookId;
+  let blockName = "mcRc" + args.type + "_" + args.displayName;
+  blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
+  blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
 
   mcCreateBlocklyBlock({
     "type": blockName + "_is_direction",
@@ -535,7 +543,7 @@ function mcCreateRcJoystickBlocks(args) {
         ["left", "left"]
       ],
     }],
-    "generator": "joystick_is_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}')",
+    "generator": "joystick_is_direction('''" + args.displayName + "''', '{{mcRcJoystickDirection}}')",
   });
 
   mcCreateBlocklyProcedure({
@@ -558,7 +566,7 @@ function mcCreateRcJoystickBlocks(args) {
         ["centre", "centre"],
       ],
     }],
-    "generator": "%1joystick_while_direction(" + args.webhookId + ", '{{mcRcJoystickDirection}}', {{codeName}})\n", //Use {{codeName}} to handle mangling
+    "generator": "%1joystick_while_direction('''" + args.displayName + "''', '{{mcRcJoystickDirection}}', {{codeName}})\n", //Use {{codeName}} to handle mangling
     "system": true,
   });
 
