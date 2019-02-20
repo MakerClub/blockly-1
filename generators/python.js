@@ -400,18 +400,21 @@ document.addEventListener('appHasStarted', function() {
       case "slider":
         {
           mcCreateRcSliderBlocks(args);
+          mcCreateRcSliderBlocks(args, true);
           break;
         }
 
       case "button":
         {
           mcCreateRcButtonBlocks(args);
+          mcCreateRcButtonBlocks(args, true);
           break;
         }
 
       case "joystick":
         {
           mcCreateRcJoystickBlocks(args);
+          mcCreateRcJoystickBlocks(args, true);
           break;
         }
 
@@ -445,7 +448,7 @@ function mcGetRemoteControlBlockNames(args) {
 }
 
 
-function mcCreateRcButtonBlocks(args) {
+function mcCreateRcButtonBlocks(args, useOldStyle = false) {
   if (args.type !== "button") {
     throw "Not a button";
   }
@@ -453,6 +456,11 @@ function mcCreateRcButtonBlocks(args) {
   let blockName = "mcRc" + args.type + "_" + args.displayName;
   blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
   blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
+
+  //To support old projects we must also create old-style blocks
+  if (useOldStyle) {
+    blockName = "mcRc" + args.type + "_" + args.webhookId;
+  }
 
   mcCreateBlocklyBlock({
     "type": blockName + "_read_value",
@@ -490,7 +498,7 @@ function mcCreateRcButtonBlocks(args) {
   });
 }
 
-function mcCreateRcSliderBlocks(args) {
+function mcCreateRcSliderBlocks(args, useOldStyle = false) {
   if (args.type !== "slider") {
     throw "Not a slider";
   }
@@ -498,6 +506,11 @@ function mcCreateRcSliderBlocks(args) {
   let blockName = "mcRc" + args.type + "_" + args.displayName;
   blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
   blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
+
+  //To support old projects we must also create old-style blocks
+  if (useOldStyle) {
+    blockName = "mcRc" + args.type + "_" + args.webhookId;
+  }
 
   mcCreateBlocklyBlock({
     "type": blockName + "_read_value",
@@ -519,7 +532,7 @@ function mcCreateRcSliderBlocks(args) {
   });
 }
 
-function mcCreateRcJoystickBlocks(args) {
+function mcCreateRcJoystickBlocks(args, useOldStyle = false) {
   if (args.type !== "joystick") {
     throw "Not a joystick";
   }
@@ -527,6 +540,11 @@ function mcCreateRcJoystickBlocks(args) {
   let blockName = "mcRc" + args.type + "_" + args.displayName;
   blockName = encodeURIComponent(blockName.replace(/ /g, "_"));
   blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
+
+  //To support old projects we must also create old-style blocks
+  if (useOldStyle) {
+    blockName = "mcRc" + args.type + "_" + args.webhookId;
+  }
 
   mcCreateBlocklyBlock({
     "type": blockName + "_is_direction",
