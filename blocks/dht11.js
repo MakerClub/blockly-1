@@ -45,65 +45,60 @@ goog.require('Blockly.Blocks.mcCreateBlocklyBlock');
 Blockly.Constants.Dht11.HUE = 210;
 
 mcCreateBlocklyBlock({
-  "type": "dht11_constructor",
-  "colour": "%{BKY_LOGIC_HUE}",
-  "fields": [
-    {
-      "name": "dht11_variable",
-      "label": "Set Temp/Humidity Sensor ",
-      "type": "object_dropdown",
-      "object": "dht11", //Used with object_dropdown (required if object_dropdown)
-      "prettyObjectName": "Sensor",
-    },
-    {
-      "name": "dht11_number",
-      "label": " to ",
-      "type": "dropdown",
-      "options": [
-        ["1", "1"],
-        ["2", "2"],
-        ["3", "3"],
-        ["4", "4"],
-        ["5", "5"],
-        ["6", "6"],
-        ["7", "7"],
-        ["8", "8"],
-        ["9", "9"],
-        ["10", "10"],
-      ],
-    }
-  ],
-  "generator": "{{dht11_variable}} = Dht11({{dht11_number}})\n",
+	"type": "dht11_constructor",
+	"colour": "%{BKY_LOGIC_HUE}",
+	"fields": [{
+			"name": "dht11_variable",
+			"label": "Set Temp/Humidity Sensor ",
+			"type": "object_dropdown",
+			"object": "dht11", //Used with object_dropdown (required if object_dropdown)
+			"prettyObjectName": "Sensor",
+		},
+		{
+			"name": "dht11_number",
+			"label": " to ",
+			"type": "dropdown",
+			"options": [
+				["1", "1"],
+				["2", "2"],
+				["3", "3"],
+				["4", "4"],
+				["5", "5"],
+				["6", "6"],
+				["7", "7"],
+				["8", "8"],
+				["9", "9"],
+				["10", "10"],
+			],
+		}
+	],
+	"generator": "{{dht11_variable}} = Dht11({{dht11_number}})\n",
 });
 
 mcCreateBlocklyBlock({
-  "type": "dht11_read_temperature",
-  "colour": "%{BKY_LOGIC_HUE}",
-  "output": "Number",
-  "fields": [
-    {
-      "name": "dht11_variable",
-      "label": "Temp/Humidity Sensor %1 read temperature",
-      "type": "object_dropdown",
-      "object": "dht11",
-      "prettyObjectName": "Sensor",
-    }
-  ],
-  "generator": "{{dht11_variable}}.temperature",
+	"type": "dht11_read_temperature",
+	"colour": "%{BKY_LOGIC_HUE}",
+	"output": "Number",
+	"fields": [{
+		"name": "dht11_variable",
+		"label": "Temp/Humidity Sensor %1 read temperature",
+		"type": "object_dropdown",
+		"object": "dht11",
+		"prettyObjectName": "Sensor",
+	}],
+	"generator": "({{dht11_variable}}.temperature if ('{{dht11_variable}}' in globals() and isinstance({{dht11_variable}}, Dht11)) else -1)"
 });
 
 mcCreateBlocklyBlock({
-  "type": "dht11_read_humidity",
-  "colour": "%{BKY_LOGIC_HUE}",
-  "output": "Number",
-  "fields": [
-    {
-      "name": "dht11_variable",
-      "label": "Temp/Humidity Sensor %1 read humidity",
-      "type": "object_dropdown",
-      "object": "dht11",
-      "prettyObjectName": "Sensor",
-    }
-  ],
-  "generator": "{{dht11_variable}}.humidity",
+	"type": "dht11_read_humidity",
+	"colour": "%{BKY_LOGIC_HUE}",
+	"output": "Number",
+	"fields": [{
+		"name": "dht11_variable",
+		"label": "Temp/Humidity Sensor %1 read humidity",
+		"type": "object_dropdown",
+		"object": "dht11",
+		"prettyObjectName": "Sensor",
+	}],
+	"generator": "({{dht11_variable}}.humidity if ('{{dht11_variable}}' in globals() and isinstance({{dht11_variable}}, Dht11)) else -1)"
 });
