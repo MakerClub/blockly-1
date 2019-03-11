@@ -5,6 +5,9 @@ goog.provide('Blockly.Blocks.mcCreateBlocklyBlock');
 if (typeof Blockly.mcGeneratorsToCreate === "undefined") {
   Blockly.mcGeneratorsToCreate = {};
 }
+if (typeof Blockly.mcGeneratorsToCreateJavaScript === "undefined") {
+  Blockly.mcGeneratorsToCreateJavaScript = {};
+}
 
 function mcCreateBlocklyBlock(args) {
   var blocklyJson = {

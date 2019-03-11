@@ -28,7 +28,6 @@ goog.provide('Blockly.JavaScript');
 
 goog.require('Blockly.Generator');
 
-
 /**
  * JavaScript code generator.
  * @type {!Blockly.Generator}
@@ -160,7 +159,7 @@ Blockly.JavaScript.init = function(workspace) {
           Blockly.Variables.NAME_TYPE);
     }
     Blockly.JavaScript.definitions_['variables'] =
-        'var ' + defvars.join(', ') + ';';
+        'var ' + defvars.join(', ') + ' = 0;'; //MAKERCLUB EDIT, we default to 0 in Python so we'll do that here too!
   }
 };
 

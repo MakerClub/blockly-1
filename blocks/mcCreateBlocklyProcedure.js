@@ -8,6 +8,9 @@ goog.require('Blockly.Blocks.procedures');
 if (typeof Blockly.mcGeneratorsToCreate === "undefined") {
   Blockly.mcGeneratorsToCreate = {};
 }
+if (typeof Blockly.mcGeneratorsToCreateJavaScript === "undefined") {
+  Blockly.mcGeneratorsToCreateJavaScript = {};
+}
 
 //Some procedures are considered "system" and so shouldn't be
 //shown to the user in function drop-downs. This is their names.
@@ -24,6 +27,7 @@ function mcCreateBlocklyProcedure(args) {
     "displayName": null, //If null, the actual name from the code will be used
     "codeName": null, //This is automatically mangled to avoid conflicts
     "generator": null,
+    "jsGenerator": null,
     "system": false, //If we should hide it from the end user
   };
   args = Object.assign({}, defaultArgs, args);
@@ -43,6 +47,17 @@ function mcCreateBlocklyProcedure(args) {
       Blockly.mcGeneratorsToCreate[args.type] = generator;
     } else {
       Blockly.Python[args.type] = generator;
+    }
+  }
+
+  if (args.jsGenerator !== null) {
+    //Create the generator too
+    let generator = mcSetupProcedureGeneratorFromArgsJavaScript(args);
+    if (typeof Blockly.JavaScript === "undefined") {
+      //This was called early. Defer creating the generator
+      Blockly.mcGeneratorsToCreateJavaScript[args.type] = generator;
+    } else {
+      Blockly.JavaScript[args.type] = generator;
     }
   }
 
@@ -159,6 +174,42 @@ function mcSetupProcedureGeneratorFromArgs(args) {
   }
 }
 
+function mcSetupProcedureGeneratorFromArgsJavaScript(args) {
+  return function(block) {
+    //This callback function must return the Python code for the block
+    //%1 is going to just represent all of the normal function code
+    let generatorStr = args.jsGenerator;
+    generatorStr = generatorStr.replace(new RegExp("{{codeName}}", "g"), block.mcCodeName);
+    var beforeProcedure = generatorStr.split("%1")[0];
+    var afterProcedure = generatorStr.split("%1")[1] || "";
+
+    var funcName = block.mcCodeName;
+
+    var branch = Blockly.Python.statementToCode(block, 'STACK');
+
+
+    var code = beforeProcedure + 'function ' + funcName + '() {\n' +
+                branch + afterProcedure + '}';
+    code = Blockly.JavaScript.scrub_(block, code);
+
+    var fields = args.fields || [];
+
+    for (var iii = 0; iii < fields.length; iii++) {
+      var field = args.fields[iii];
+      if (field.type === "dropdown") {
+        var valueCode = block.getFieldValue(field.name);
+        code = code.replace(new RegExp("{{" + field.name + "}}", "g"), valueCode);
+      }
+    }
+
+    // Add % so as not to collide with helper functions in definitions list.
+    Blockly.JavaScript.definitions_['%' + funcName] = code;
+
+    //We actually don't return the code. But we define the definition for Blocky.
+    return null;
+  }
+}
+
 function mcGetAllVariableCodeNames(workspace) {
   //This tries to find all global variables
   //It's useful for the global line at the top of a function in Python
@@ -194,5 +245,6 @@ mcCreateBlocklyProcedure({
   "displayName": "Start",
   "codeName": "start", //This is automatically mangled to avoid conflicts
   "generator": "%1",
+  "jsGenerator": "%1",
   "system": true,
 });

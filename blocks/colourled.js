@@ -48,4 +48,5 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "rgb_led.color({{color_hex}})\n",
+  "jsGenerator": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;\n",
 });
