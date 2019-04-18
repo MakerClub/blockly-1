@@ -380,7 +380,7 @@ Blockly.Python['math_random_int'] = function(block) {
       Blockly.Python.ORDER_NONE) || '0';
   var argument1 = Blockly.Python.valueToCode(block, 'TO',
       Blockly.Python.ORDER_NONE) || '0';
-  var code = 'random.randint(' + argument0 + ', ' + argument1 + ')';
+  var code = 'mc_randint(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
 
