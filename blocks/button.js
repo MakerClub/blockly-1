@@ -231,4 +231,3 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
 create_basic_button_alias("Tilt Sensor", "tilt_sensor", "on_tilt", "on tilt");
 create_basic_button_alias("Motion Sensor", "motion_sensor", "on_motion", "on motion");
 create_basic_button_alias("Light Sensor", "light_sensor", "on_light", "on light");
-create_basic_button_alias("Sound Sensor", "sound_sensor", "on_sound", "on sound");
