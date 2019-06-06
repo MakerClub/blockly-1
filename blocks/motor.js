@@ -72,12 +72,12 @@ mcCreateBlocklyBlock({
     }*/
   ],
   "generator": "try:\n" +
-               "    {{motor_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{motor_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists == False or not isinstance({{motor_variable}}, Motor):\n" +
-               "    {{motor_variable}} = Motor({{motor_number}})\n" +
+               "  {{motor_variable}} = Motor({{motor_number}})\n" +
                "del ___exists\n"
 });
 
@@ -115,11 +115,11 @@ mcCreateBlocklyBlock({
   },*/
   ],
   "generator": "try:\n" +
-               "    {{motor_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{motor_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists and isinstance({{motor_variable}}, Motor):\n" +
-               "    {{motor_variable}}.set_speed({{motor_speed}}, 0)\n" +
+               "  {{motor_variable}}.set_speed({{motor_speed}}, 0)\n" +
                "del ___exists\n"
 });

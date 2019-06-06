@@ -128,6 +128,14 @@ Blockly.Names.prototype.safeName_ = function(name) {
       name = 'my_' + name;
     }
   }
+
+  //MAKERCLUB EDIT
+  //MicroPython doesn't allow a variable name to be longer than 255 characters,
+  //so we limit it here. The final name might be slightly longer than the limit
+  //set here, due to prefix and added numbers to prevent conflicts.
+  name = name.substring(0, 30);
+  //END MAKERCLUB EDIT
+
   return name;
 };
 

@@ -84,12 +84,12 @@ mcCreateBlocklyBlock({
         }*/
   ],
   "generator": "try:\n" +
-    "    {{servo_variable}}\n" +
-    "    ___exists = True\n" +
+    "  {{servo_variable}}\n" +
+    "  ___exists = True\n" +
     "except NameError:\n" +
-    "    ___exists = False\n" +
+    "  ___exists = False\n" +
     "if ___exists == False or not isinstance({{servo_variable}}, Servo):\n" +
-    "    {{servo_variable}} = Servo({{servo_number}})\n" +
+    "  {{servo_variable}} = Servo({{servo_number}})\n" +
     "del ___exists\n"
 });
 
@@ -128,12 +128,12 @@ mcCreateBlocklyBlock({
       },*/
   ],
   "generator": "try:\n" +
-    "    {{servo_variable}}\n" +
-    "    ___exists = True\n" +
+    "  {{servo_variable}}\n" +
+    "  ___exists = True\n" +
     "except NameError:\n" +
-    "    ___exists = False\n" +
+    "  ___exists = False\n" +
     "if ___exists and isinstance({{servo_variable}}, Servo):\n" +
-    "    {{servo_variable}}.move_to({{servo_angle}}, 0)\n" +
+    "  {{servo_variable}}.move_to({{servo_angle}}, 0)\n" +
     "del ___exists\n"
 });
 
@@ -169,12 +169,12 @@ mcCreateBlocklyBlock({
     },
   ],
   "generator": "try:\n" +
-    "    {{servo_gpio_variable}}\n" +
-    "    ___exists = True\n" +
+    "  {{servo_gpio_variable}}\n" +
+    "  ___exists = True\n" +
     "except NameError:\n" +
-    "    ___exists = False\n" +
+    "  ___exists = False\n" +
     "if ___exists == False or not isinstance({{servo_gpio_variable}}, ServoGpio):\n" +
-    "    {{servo_gpio_variable}} = ServoGpio({{servo_number}})\n" +
+    "  {{servo_gpio_variable}} = ServoGpio({{servo_number}})\n" +
     "del ___exists\n"
 });
 
@@ -198,12 +198,12 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-    "    {{servo_gpio_variable}}\n" +
-    "    ___exists = True\n" +
+    "  {{servo_gpio_variable}}\n" +
+    "  ___exists = True\n" +
     "except NameError:\n" +
-    "    ___exists = False\n" +
+    "  ___exists = False\n" +
     "if ___exists and isinstance({{servo_gpio_variable}}, ServoGpio):\n" +
-    "    await {{servo_gpio_variable}}.digital_write_async({{servo_gpio_state}})\n" +
+    "  await {{servo_gpio_variable}}.digital_write_async({{servo_gpio_state}})\n" +
     "del ___exists\n"
 });
 
@@ -263,12 +263,12 @@ mcCreateBlocklyBlock({
     },
   ],
   "generator": "try:\n" +
-    "    {{servo_touch_variable}}\n" +
-    "    ___exists = True\n" +
+    "  {{servo_touch_variable}}\n" +
+    "  ___exists = True\n" +
     "except NameError:\n" +
-    "    ___exists = False\n" +
+    "  ___exists = False\n" +
     "if ___exists == False or not isinstance({{servo_touch_variable}}, ServoTouch):\n" +
-    "    {{servo_touch_variable}} = ServoTouch({{servo_number}})\n" +
+    "  {{servo_touch_variable}} = ServoTouch({{servo_number}})\n" +
     "del ___exists\n"
 });
 

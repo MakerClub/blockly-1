@@ -206,11 +206,11 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{led_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{led_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists and isinstance({{led_variable}}, Gpio):\n" +
-               "    {{led_variable}}.digital_write({{led_state}})\n" +
+               "  {{led_variable}}.digital_write({{led_state}})\n" +
                "del ___exists\n"
 });

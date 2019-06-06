@@ -91,12 +91,12 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{pin_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{pin_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists and isinstance({{pin_variable}}, Gpio):\n" +
-               "    {{pin_variable}}.digital_write({{pin_state}})\n" +
+               "  {{pin_variable}}.digital_write({{pin_state}})\n" +
                "del ___exists\n"
 });
 

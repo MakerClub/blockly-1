@@ -80,11 +80,11 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{buzzer_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{buzzer_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists and isinstance({{buzzer_variable}}, Gpio):\n" +
-               "    {{buzzer_variable}}.digital_write({{buzzer_state}})\n" +
+               "  {{buzzer_variable}}.digital_write({{buzzer_state}})\n" +
                "del ___exists\n"
 });
