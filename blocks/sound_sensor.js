@@ -37,12 +37,12 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{sound_sensor_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{sound_sensor_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists == False or not isinstance({{sound_sensor_variable}}, SoundSensor):\n" +
-               "    {{sound_sensor_variable}} = SoundSensor({{sound_sensor_number}})\n" +
+               "  {{sound_sensor_variable}} = SoundSensor({{sound_sensor_number}})\n" +
                "del ___exists\n"
 });
 
@@ -72,17 +72,17 @@ mcCreateBlocklyBlock({
     },
   ],
   "generator": "try:\n" +
-               "    {{sound_sensor_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{sound_sensor_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "try:\n" +
-               "    {{sound_sensor_callback}}\n" +
-               "    ___cb_exists = True\n" +
+               "  {{sound_sensor_callback}}\n" +
+               "  ___cb_exists = True\n" +
                "except NameError:\n" +
-               "    ___cb_exists = False\n" +
+               "  ___cb_exists = False\n" +
                "if ___exists and isinstance({{sound_sensor_variable}}, SoundSensor) and ___cb_exists:\n" +
-               "    {{sound_sensor_variable}}.{{sound_sensor_function}}({{sound_sensor_callback}})\n" +
+               "  {{sound_sensor_variable}}.{{sound_sensor_function}}({{sound_sensor_callback}})\n" +
                "del ___exists\n" +
                "del ___cb_exists\n"
 });

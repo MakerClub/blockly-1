@@ -56,12 +56,12 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{ifttt_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{ifttt_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists == False or not isinstance({{ifttt_variable}}, IftttEvent):\n" +
-               "    {{ifttt_variable}} = IftttEvent({{ifttt_event_name}})\n" +
+               "  {{ifttt_variable}} = IftttEvent({{ifttt_event_name}})\n" +
                "del ___exists\n"
 });
 
@@ -82,17 +82,17 @@ mcCreateBlocklyBlock({
     },
   ],
   "generator": "try:\n" +
-               "    {{ifttt_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{ifttt_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "try:\n" +
-               "    {{ifttt_on_change_callback}}\n" +
-               "    ___cb_exists = True\n" +
+               "  {{ifttt_on_change_callback}}\n" +
+               "  ___cb_exists = True\n" +
                "except NameError:\n" +
-               "    ___cb_exists = False\n" +
+               "  ___cb_exists = False\n" +
                "if ___exists and isinstance({{ifttt_variable}}, IftttEvent) and ___cb_exists:\n" +
-               "    {{ifttt_variable}}.on_change({{ifttt_on_change_callback}})\n" +
+               "  {{ifttt_variable}}.on_change({{ifttt_on_change_callback}})\n" +
                "del ___exists\n"
 });
 

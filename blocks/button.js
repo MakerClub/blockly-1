@@ -67,12 +67,12 @@ mcCreateBlocklyBlock({
     }
   ],
   "generator": "try:\n" +
-               "    {{button_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{button_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "if ___exists == False or not isinstance({{button_variable}}, Button):\n" +
-               "    {{button_variable}} = Button({{button_number}})\n" +
+               "  {{button_variable}} = Button({{button_number}})\n" +
                "del ___exists\n"
 });
 
@@ -103,17 +103,17 @@ mcCreateBlocklyBlock({
 
   ],
   "generator": "try:\n" +
-               "    {{button_variable}}\n" +
-               "    ___exists = True\n" +
+               "  {{button_variable}}\n" +
+               "  ___exists = True\n" +
                "except NameError:\n" +
-               "    ___exists = False\n" +
+               "  ___exists = False\n" +
                "try:\n" +
-               "    {{button_on_press_callback}}\n" +
-               "    ___cb_exists = True\n" +
+               "  {{button_on_press_callback}}\n" +
+               "  ___cb_exists = True\n" +
                "except NameError:\n" +
-               "    ___cb_exists = False\n" +
+               "  ___cb_exists = False\n" +
                "if ___exists and isinstance({{button_variable}}, Button) and ___cb_exists:\n" +
-               "    {{button_variable}}.{{button_function}}({{button_on_press_callback}})\n" +
+               "  {{button_variable}}.{{button_function}}({{button_on_press_callback}})\n" +
                "del ___exists\n" +
                "del ___cb_exists\n"
 });
@@ -171,12 +171,12 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
       }
     ],
     "generator": "try:\n" +
-                 "    {{" + objectName + "_variable}}\n" +
-                 "    ___exists = True\n" +
+                 "  {{" + objectName + "_variable}}\n" +
+                 "  ___exists = True\n" +
                  "except NameError:\n" +
-                 "    ___exists = False\n" +
+                 "  ___exists = False\n" +
                  "if ___exists == False or not isinstance({{" + objectName + "_variable}}, Button):\n" +
-                 "    {{" + objectName + "_variable}} = Button({{" + objectName + "_number}})\n" +
+                 "  {{" + objectName + "_variable}} = Button({{" + objectName + "_number}})\n" +
                  "del ___exists\n"
   });
 
@@ -198,17 +198,17 @@ function create_basic_button_alias(prettyName, objectName, functionName, functio
 
     ],
     "generator": "try:\n" +
-                 "    {{" + objectName + "_variable}}\n" +
-                 "    ___exists = True\n" +
+                 "  {{" + objectName + "_variable}}\n" +
+                 "  ___exists = True\n" +
                  "except NameError:\n" +
-                 "    ___exists = False\n" +
+                 "  ___exists = False\n" +
                  "try:\n" +
-                 "    {{" + objectName + "_" + functionName + "_callback}}\n" +
-                 "    ___cb_exists = True\n" +
+                 "  {{" + objectName + "_" + functionName + "_callback}}\n" +
+                 "  ___cb_exists = True\n" +
                  "except NameError:\n" +
-                 "    ___cb_exists = False\n" +
+                 "  ___cb_exists = False\n" +
                  "if ___exists and isinstance({{" + objectName + "_variable}}, Button) and ___cb_exists:\n" +
-                 "    {{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n" +
+                 "  {{" + objectName + "_variable}}.on_press({{" + objectName + "_" + functionName + "_callback}})\n" +
                  "del ___exists\n"
   });
 
