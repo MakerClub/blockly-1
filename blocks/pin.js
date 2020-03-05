@@ -148,7 +148,7 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "pin_variable",
-      "label": "Analog Pin %1 analog read",
+      "label": "Analog Pin %1 analog read BUILT",
       "type": "object_dropdown",
       "object": "Analog Pin",
     }
