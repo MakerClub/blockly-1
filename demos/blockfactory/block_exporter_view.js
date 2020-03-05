@@ -1,9 +1,6 @@
 /**
  * @license
- * Blockly Demos: Block Factory
- *
- * Copyright 2016 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,19 +24,12 @@
 
 'use strict';
 
-goog.provide('BlockExporterView');
-
-goog.require('BlockExporterTools');
-goog.require('BlockOption');
-goog.require('goog.dom');
-
-
 /**
  * BlockExporter View Class
  * @param {!Object} blockOptions Map of block types to BlockOption objects.
  * @constructor
  */
-BlockExporterView = function(blockOptions) {
+function BlockExporterView(blockOptions) {
   //  Map of block types to BlockOption objects to select from.
   this.blockOptions = blockOptions;
 };

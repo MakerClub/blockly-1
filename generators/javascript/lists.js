@@ -1,9 +1,6 @@
 /**
  * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2012 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -170,7 +167,7 @@ Blockly.JavaScript['lists_getIndex'] = function(block) {
       }
       break;
   }
-  throw 'Unhandled combination (lists_getIndex).';
+  throw Error('Unhandled combination (lists_getIndex).');
 };
 
 Blockly.JavaScript['lists_setIndex'] = function(block) {
@@ -189,7 +186,7 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
       return '';
     }
     var listVar = Blockly.JavaScript.variableDB_.getDistinctName(
-        'tmpList', Blockly.Variables.NAME_TYPE);
+        'tmpList', Blockly.VARIABLE_CATEGORY_NAME);
     var code = 'var ' + listVar + ' = ' + list + ';\n';
     list = listVar;
     return code;
@@ -235,7 +232,7 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
     case ('RANDOM'):
       var code = cacheList();
       var xVar = Blockly.JavaScript.variableDB_.getDistinctName(
-          'tmpX', Blockly.Variables.NAME_TYPE);
+          'tmpX', Blockly.VARIABLE_CATEGORY_NAME);
       code += 'var ' + xVar + ' = Math.floor(Math.random() * ' + list +
           '.length);\n';
       if (mode == 'SET') {
@@ -247,16 +244,16 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
       }
       break;
   }
-  throw 'Unhandled combination (lists_setIndex).';
+  throw Error('Unhandled combination (lists_setIndex).');
 };
 
 /**
  * Returns an expression calculating the index into a list.
- * @private
  * @param {string} listName Name of the list, used to calculate length.
  * @param {string} where The method of indexing, selected by dropdown in Blockly
  * @param {string=} opt_at The optional offset when indexing from start/end.
- * @return {string} Index expression.
+ * @return {string|undefined} Index expression.
+ * @private
  */
 Blockly.JavaScript.lists.getIndex_ = function(listName, where, opt_at) {
   if (where == 'FIRST') {
@@ -295,7 +292,7 @@ Blockly.JavaScript['lists_getSublist'] = function(block) {
         var at1 = '0';
         break;
       default:
-        throw 'Unhandled option (lists_getSublist).';
+        throw Error('Unhandled option (lists_getSublist).');
     }
     switch (where2) {
       case 'FROM_START':
@@ -310,7 +307,7 @@ Blockly.JavaScript['lists_getSublist'] = function(block) {
         var at2 = list + '.length';
         break;
       default:
-        throw 'Unhandled option (lists_getSublist).';
+        throw Error('Unhandled option (lists_getSublist).');
     }
     code = list + '.slice(' + at1 + ', ' + at2 + ')';
   } else {
@@ -354,7 +351,7 @@ Blockly.JavaScript['lists_sort'] = function(block) {
           '(type, direction) {',
        '  var compareFuncs = {',
        '    "NUMERIC": function(a, b) {',
-       '        return parseFloat(a) - parseFloat(b); },',
+       '        return Number(a) - Number(b); },',
        '    "TEXT": function(a, b) {',
        '        return a.toString() > b.toString() ? 1 : -1; },',
        '    "IGNORE_CASE": function(a, b) {',
@@ -387,7 +384,7 @@ Blockly.JavaScript['lists_split'] = function(block) {
     }
     var functionName = 'join';
   } else {
-    throw 'Unknown mode: ' + mode;
+    throw Error('Unknown mode: ' + mode);
   }
   var code = input + '.' + functionName + '(' + delimiter + ')';
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];

@@ -1,9 +1,6 @@
 /**
  * @license
- * Blockly Demos: Block Factory
- *
- * Copyright 2016 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,22 +26,12 @@
 
 'use strict';
 
-goog.provide('BlockExporterController');
-
-goog.require('BlocklyDevTools.Analytics');
-goog.require('FactoryUtils');
-goog.require('StandardCategories');
-goog.require('BlockExporterView');
-goog.require('BlockExporterTools');
-goog.require('goog.dom.xml');
-
-
 /**
  * BlockExporter Controller Class
  * @param {!BlockLibrary.Storage} blockLibStorage Block Library Storage.
  * @constructor
  */
-BlockExporterController = function(blockLibStorage) {
+function BlockExporterController(blockLibStorage) {
   // BlockLibrary.Storage object containing user's saved blocks.
   this.blockLibStorage = blockLibStorage;
   // Utils for generating code to export.
@@ -132,18 +119,16 @@ BlockExporterController.prototype.export = function() {
       BlocklyDevTools.Analytics.onWarning(msg);
       alert(msg);
     } else {
+
       // Get generator stub code in the selected language for the blocks.
       var genStubs = this.tools.getGeneratorCode(blockXmlMap,
           language);
-      // Get the correct file extension.
-      var fileType = (language == 'JavaScript') ? 'javascript' : 'plain';
+
       // Download the file.
       FactoryUtils.createAndDownloadFile(
-          genStubs, generatorStub_filename, fileType);
+          genStubs, generatorStub_filename + '.js', 'javascript');
       BlocklyDevTools.Analytics.onExport(
-          BlocklyDevTools.Analytics.GENERATOR,
-          (fileType == 'javascript' ?
-              { format: BlocklyDevTools.Analytics.FORMAT_JS } : undefined));
+          BlocklyDevTools.Analytics.GENERATOR, { format: BlocklyDevTools.Analytics.FORMAT_JS });
     }
   }
 
@@ -265,8 +250,8 @@ BlockExporterController.prototype.selectUsedBlocks = function() {
   }
   this.view.listSelectedBlocks();
 
-  if (unstoredCustomBlockTypes.length > 0){
-    // Warn user to import block defifnitions and generator code for blocks
+  if (unstoredCustomBlockTypes.length > 0) {
+    // Warn user to import block definitions and generator code for blocks
     // not in their Block Library nor Blockly's standard library.
     var blockTypesText = unstoredCustomBlockTypes.join(', ');
     var customWarning = 'Custom blocks used in workspace factory but not ' +

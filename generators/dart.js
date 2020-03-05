@@ -1,9 +1,6 @@
 /**
  * @license
- * Visual Blocks Language
- *
- * Copyright 2014 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2014 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +24,7 @@
 goog.provide('Blockly.Dart');
 
 goog.require('Blockly.Generator');
+goog.require('Blockly.utils.string');
 
 
 /**
@@ -102,13 +100,25 @@ Blockly.Dart.init = function(workspace) {
     Blockly.Dart.variableDB_.reset();
   }
 
+  Blockly.Dart.variableDB_.setVariableMap(workspace.getVariableMap());
+
   var defvars = [];
-  var variables = workspace.getAllVariables();
-  if (variables.length) {
-    for (var i = 0; i < variables.length; i++) {
-      defvars[i] = Blockly.Dart.variableDB_.getName(variables[i].name,
-          Blockly.Variables.NAME_TYPE);
-    }
+  // Add developer variables (not created or named by the user).
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    defvars.push(Blockly.Dart.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  }
+
+  // Add user variables, but only ones that are being used.
+  var variables = Blockly.Variables.allUsedVarModels(workspace);
+  for (var i = 0; i < variables.length; i++) {
+    defvars.push(Blockly.Dart.variableDB_.getName(variables[i].getId(),
+        Blockly.VARIABLE_CATEGORY_NAME));
+  }
+
+  // Declare all of the variables.
+  if (defvars.length) {
     Blockly.Dart.definitions_['variables'] =
         'var ' + defvars.join(', ') + ';';
   }
@@ -171,22 +181,38 @@ Blockly.Dart.quote_ = function(string) {
 };
 
 /**
+ * Encode a string as a properly escaped multiline Dart string, complete with
+ * quotes.
+ * @param {string} string Text to encode.
+ * @return {string} Dart string.
+ * @private
+ */
+Blockly.Dart.multiline_quote_ = function(string) {
+  // Can't use goog.string.quote since $ must also be escaped.
+  string = string.replace(/'''/g, '\\\'\\\'\\\'');
+  return '\'\'\'' + string + '\'\'\'';
+};
+
+
+/**
  * Common tasks for generating Dart from blocks.
  * Handles comments for the specified block and any connected value blocks.
  * Calls any statements following this block.
  * @param {!Blockly.Block} block The current block.
  * @param {string} code The Dart code created for this block.
+ * @param {boolean=} opt_thisOnly True to generate code for only this statement.
  * @return {string} Dart code with comments and subsequent blocks added.
  * @private
  */
-Blockly.Dart.scrub_ = function(block, code) {
+Blockly.Dart.scrub_ = function(block, code, opt_thisOnly) {
   var commentCode = '';
   // Only collect comments for blocks that aren't inline.
   if (!block.outputConnection || !block.outputConnection.targetConnection) {
     // Collect comment for this block.
     var comment = block.getCommentText();
-    comment = Blockly.utils.wrap(comment, Blockly.Dart.COMMENT_WRAP - 3);
     if (comment) {
+      comment = Blockly.utils.string.wrap(comment,
+          Blockly.Dart.COMMENT_WRAP - 3);
       if (block.getProcedureDef) {
         // Use documentation comment for function comments.
         commentCode += Blockly.Dart.prefixLines(comment + '\n', '/// ');
@@ -200,7 +226,7 @@ Blockly.Dart.scrub_ = function(block, code) {
       if (block.inputList[i].type == Blockly.INPUT_VALUE) {
         var childBlock = block.inputList[i].connection.targetBlock();
         if (childBlock) {
-          var comment = Blockly.Dart.allNestedComments(childBlock);
+          comment = Blockly.Dart.allNestedComments(childBlock);
           if (comment) {
             commentCode += Blockly.Dart.prefixLines(comment, '// ');
           }
@@ -209,7 +235,7 @@ Blockly.Dart.scrub_ = function(block, code) {
     }
   }
   var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-  var nextCode = Blockly.Dart.blockToCode(nextBlock);
+  var nextCode = opt_thisOnly ? '' : Blockly.Dart.blockToCode(nextBlock);
   return commentCode + code + nextCode;
 };
 
