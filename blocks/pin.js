@@ -44,7 +44,7 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "pin_variable",
-      "label": "Set Pin ",
+      "label": "Set Digital Pin ",
       "type": "object_dropdown",
       "object": "Pin", //Used with object_dropdown (required if object_dropdown)
     },
@@ -69,6 +69,32 @@ mcCreateBlocklyBlock({
   "generator": "{{pin_variable}} = get_makerboard().pin({{pin_number}})\n",
 });
 
+mcCreateBlocklyBlock({
+  "type": "pin_analog_constructor",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "fields": [
+    {
+      "name": "pin_variable",
+      "label": "Set Analog Pin ",
+      "type": "object_dropdown",
+      "object": "Analog Pin", //Used with object_dropdown (required if object_dropdown)
+    },
+    {
+      "name": "pin_number",
+      "label": " to ",
+      "type": "dropdown",
+      "options": [
+        ["1", "1"],
+        ["2", "2"],
+        ["6", "6"],
+        ["7", "7"],
+        ["10", "10"],
+      ],
+    }
+  ],
+  "generator": "{{pin_variable}} = get_makerboard().pin({{pin_number}})\n",
+});
+
 
 mcCreateBlocklyBlock({
   "type": "pin_output",
@@ -76,7 +102,7 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "pin_variable",
-      "label": "Pin ",
+      "label": "Digital Pin ",
       "type": "object_dropdown",
       "object": "Pin", //Used with object_dropdown (required if object_dropdown)
     },
@@ -107,10 +133,26 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "pin_variable",
-      "label": "Pin %1 digital read",
+      "label": "Digital Pin %1 digital read",
       "type": "object_dropdown",
       "object": "Pin",
     }
   ],
   "generator": "({{pin_variable}}.digital_read() if ('{{pin_variable}}' in globals() and isinstance({{pin_variable}}, Gpio)) else 0)"
 });
+
+mcCreateBlocklyBlock({
+  "type": "pin_analog_read",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "output": "Number",
+  "fields": [
+    {
+      "name": "pin_variable",
+      "label": "Analog Pin %1 analog read",
+      "type": "object_dropdown",
+      "object": "Analog Pin",
+    }
+  ],
+  "generator": "({{pin_variable}}.analog_read() if ('{{pin_variable}}' in globals() and isinstance({{pin_variable}}, Gpio)) else 0)"
+});
+ 
