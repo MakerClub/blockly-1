@@ -10,6 +10,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'if [[ "$BRANCH_NAME" != "stage" ]]; then false; fi'
                 echo 'Building'
             }
         }

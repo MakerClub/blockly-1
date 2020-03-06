@@ -1,3 +1,9 @@
+# Making Jenkinsfile work for us
+To avoid git merging our Jenkinsfile between branches, please run:
+```
+git config --global merge.ours.driver true
+```
+
 # Blockly [![Build Status]( https://travis-ci.org/google/blockly.svg?branch=master)](https://travis-ci.org/google/blockly)
 
 

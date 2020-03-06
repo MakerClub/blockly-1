@@ -148,11 +148,10 @@ mcCreateBlocklyBlock({
   "fields": [
     {
       "name": "pin_variable",
-      "label": "Analog Pin %1 analog read BUILT",
+      "label": "Analog Pin %1 analog read",
       "type": "object_dropdown",
       "object": "Analog Pin",
     }
   ],
   "generator": "({{pin_variable}}.analog_read() if ('{{pin_variable}}' in globals() and isinstance({{pin_variable}}, Gpio)) else 0)"
 });
- 
