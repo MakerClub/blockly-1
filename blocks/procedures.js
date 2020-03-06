@@ -118,24 +118,13 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    */
   mutationToDom: function(opt_paramIds) {
     var container = Blockly.utils.xml.createElement('mutation');
-    if (opt_paramIds) {
-      container.setAttribute('name', this.getFieldValue('NAME'));
-    }
-    for (var i = 0; i < this.argumentVarModels_.length; i++) {
+    container.setAttribute('name', this.getProcedureCall());
+    for (var i = 0; i < this.arguments_.length; i++) {
       var parameter = Blockly.utils.xml.createElement('arg');
-      var argModel = this.argumentVarModels_[i];
-      parameter.setAttribute('name', argModel.name);
-      parameter.setAttribute('varid', argModel.getId());
-      if (opt_paramIds && this.paramIds_) {
-        parameter.setAttribute('paramId', this.paramIds_[i]);
-      }
+      parameter.setAttribute('name', this.arguments_[i]);
       container.appendChild(parameter);
     }
 
-    // Save whether the statement input is visible.
-    if (!this.hasStatements_) {
-      container.setAttribute('statements', 'false');
-    }
     return container;
   },
   /**
