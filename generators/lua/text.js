@@ -1,9 +1,6 @@
 /**
  * @license
- * Visual Blocks Language
- *
- * Copyright 2016 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2016 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +29,12 @@ goog.require('Blockly.Lua');
 Blockly.Lua['text'] = function(block) {
   // Text value.
   var code = Blockly.Lua.quote_(block.getFieldValue('TEXT'));
+  return [code, Blockly.Lua.ORDER_ATOMIC];
+};
+
+Blockly.Lua['text_multiline'] = function(block) {
+  // Text value.
+  var code = Blockly.Lua.multiline_quote_(block.getFieldValue('TEXT'));
   return [code, Blockly.Lua.ORDER_ATOMIC];
 };
 
@@ -65,7 +68,7 @@ Blockly.Lua['text_join'] = function(block) {
 Blockly.Lua['text_append'] = function(block) {
   // Append to a variable in place.
   var varName = Blockly.Lua.variableDB_.getName(
-      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
   var value = Blockly.Lua.valueToCode(block, 'TEXT',
       Blockly.Lua.ORDER_CONCATENATION) || '\'\'';
   return varName + ' = ' + varName + ' .. ' + value + '\n';
@@ -149,7 +152,7 @@ Blockly.Lua['text_charAt'] = function(block) {
       } else if (where == 'FROM_END') {
         var start = '-' + at;
       } else {
-        throw 'Unhandled option (text_charAt).';
+        throw Error('Unhandled option (text_charAt).');
       }
     }
     if (start.match(/^-?\w*$/)) {
@@ -185,7 +188,7 @@ Blockly.Lua['text_getSubstring'] = function(block) {
   } else if (where1 == 'FROM_END') {
     var start = '-' + at1;
   } else {
-    throw 'Unhandled option (text_getSubstring)';
+    throw Error('Unhandled option (text_getSubstring)');
   }
 
   // Get end index.
@@ -200,7 +203,7 @@ Blockly.Lua['text_getSubstring'] = function(block) {
   } else if (where2 == 'FROM_END') {
     var end = '-' + at2;
   } else {
-    throw 'Unhandled option (text_getSubstring)';
+    throw Error('Unhandled option (text_getSubstring)');
   }
   var code = 'string.sub(' + text + ', ' + start + ', ' + end + ')';
   return [code, Blockly.Lua.ORDER_HIGH];

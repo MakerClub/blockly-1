@@ -155,4 +155,3 @@ mcCreateBlocklyBlock({
   ],
   "generator": "({{pin_variable}}.analog_read() if ('{{pin_variable}}' in globals() and isinstance({{pin_variable}}, Gpio)) else 0)"
 });
- 

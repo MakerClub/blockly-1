@@ -1,8 +1,6 @@
 /**
- * Blockly Demos: Plane Seat Calculator Blocks
- *
- * Copyright 2013 Google Inc.
- * https://developers.google.com/blockly/
+ * @license
+ * Copyright 2013 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +24,11 @@
 Blockly.Blocks['plane_set_seats'] = {
   // Block seat variable setter.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+    this.setHelpUrl(Blockly.Msg['VARIABLES_SET_HELPURL']);
     this.setColour(330);
     this.appendValueInput('VALUE')
         .appendField(Plane.getMsg('Plane_setSeats'));
-    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.setTooltip(Blockly.Msg['VARIABLES_SET_TOOLTIP']);
     this.setDeletable(false);
   }
 };
@@ -45,7 +43,7 @@ Blockly.JavaScript['plane_set_seats'] = function(block) {
 Blockly.Blocks['plane_get_rows'] = {
   // Block for row variable getter.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
+    this.setHelpUrl(Blockly.Msg['VARIABLES_GET_HELPURL']);
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Plane.getMsg('Plane_getRows'), 'title');
@@ -65,7 +63,7 @@ Blockly.JavaScript['plane_get_rows'] = function(block) {
 Blockly.Blocks['plane_get_rows1st'] = {
   // Block for first class row variable getter.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
+    this.setHelpUrl(Blockly.Msg['VARIABLES_GET_HELPURL']);
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Plane.getMsg('Plane_getRows1'), 'title');
@@ -85,7 +83,7 @@ Blockly.JavaScript['plane_get_rows1st'] = function(block) {
 Blockly.Blocks['plane_get_rows2nd'] = {
   // Block for second class row variable getter.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
+    this.setHelpUrl(Blockly.Msg['VARIABLES_GET_HELPURL']);
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Plane.getMsg('Plane_getRows2'), 'title');

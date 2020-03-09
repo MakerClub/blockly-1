@@ -1,8 +1,6 @@
 /**
- * Blockly Demos: Block Factory Blocks
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
+ * @license
+ * Copyright 2012 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +45,7 @@ Blockly.Blocks['factory_base'] = {
         ['↓ bottom connection', 'BOTTOM']],
         function(option) {
           this.sourceBlock_.updateShape_(option);
-          // Connect a shadow block to this new input. 
+          // Connect a shadow block to this new input.
           this.sourceBlock_.spawnOutputShadow_(option);
         });
     this.appendDummyInput()
@@ -61,7 +59,7 @@ Blockly.Blocks['factory_base'] = {
         'https://developers.google.com/blockly/guides/create-custom-blocks/block-factory');
   },
   mutationToDom: function() {
-    var container = document.createElement('mutation');
+    var container = Blockly.utils.xml.createElement('mutation');
     container.setAttribute('connections', this.getFieldValue('CONNECTIONS'));
     return container;
   },
@@ -329,7 +327,7 @@ Blockly.Blocks['field_dropdown'] = {
   },
   mutationToDom: function(workspace) {
     // Create XML to represent menu options.
-    var container = document.createElement('mutation');
+    var container = Blockly.utils.xml.createElement('mutation');
     container.setAttribute('options', this.optionCount_);
     return container;
   },
@@ -547,7 +545,7 @@ Blockly.Blocks['type_group'] = {
   },
   mutationToDom: function(workspace) {
     // Create XML to represent a group of types.
-    var container = document.createElement('mutation');
+    var container = Blockly.utils.xml.createElement('mutation');
     container.setAttribute('types', this.typeCount_);
     return container;
   },
@@ -766,7 +764,7 @@ Blockly.Blocks['colour_hue'] = {
     }
   },
   mutationToDom: function(workspace) {
-    var container = document.createElement('mutation');
+    var container = Blockly.utils.xml.createElement('mutation');
     container.setAttribute('colour', this.getColour());
     return container;
   },
@@ -787,7 +785,7 @@ function fieldNameCheck(referenceBlock) {
   }
   var name = referenceBlock.getFieldValue('FIELDNAME').toLowerCase();
   var count = 0;
-  var blocks = referenceBlock.workspace.getAllBlocks();
+  var blocks = referenceBlock.workspace.getAllBlocks(false);
   for (var i = 0, block; block = blocks[i]; i++) {
     var otherName = block.getFieldValue('FIELDNAME');
     if (!block.disabled && !block.getInheritedDisabled() &&
@@ -812,7 +810,7 @@ function inputNameCheck(referenceBlock) {
   }
   var name = referenceBlock.getFieldValue('INPUTNAME').toLowerCase();
   var count = 0;
-  var blocks = referenceBlock.workspace.getAllBlocks();
+  var blocks = referenceBlock.workspace.getAllBlocks(false);
   for (var i = 0, block; block = blocks[i]; i++) {
     var otherName = block.getFieldValue('INPUTNAME');
     if (!block.disabled && !block.getInheritedDisabled() &&

@@ -1,9 +1,6 @@
 /**
  * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
+ * Copyright 2012 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +24,7 @@
 goog.provide('Blockly.Python');
 
 goog.require('Blockly.Generator');
+goog.require('Blockly.utils.string');
 
 
 /**
@@ -173,6 +171,7 @@ Blockly.Python.ORDER_OVERRIDES = [
 /**
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
+ * @this {Blockly.Generator}
  */
 Blockly.Python.init = function(workspace) {
   /**
@@ -192,13 +191,24 @@ Blockly.Python.init = function(workspace) {
     Blockly.Python.variableDB_.reset();
   }
 
+  Blockly.Python.variableDB_.setVariableMap(workspace.getVariableMap());
+
   var defvars = [];
-  var variables = workspace.getAllVariables();
+  // Add developer variables (not created or named by the user).
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    defvars.push(Blockly.Python.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE) + ' = None');
+  }
+
+  // Add user variables, but only ones that are being used.
+  var variables = Blockly.Variables.allUsedVarModels(workspace);
   for (var i = 0; i < variables.length; i++) {
     var variable = variables[i];
     defvars[i] = Blockly.Python.variableDB_.getName(variable.name,
       Blockly.Variables.NAME_TYPE) + ' = 0'; //MAKERCLUB EDIT: Default to 0 instead of None as we think this is a bit more useful
   }
+
   Blockly.Python.definitions_['variables'] = defvars.join('\n');
 };
 
@@ -246,11 +256,7 @@ Blockly.Python.scrubNakedValue = function(line) {
 Blockly.Python.quote_ = function(string) {
   // Can't use goog.string.quote since % must also be escaped.
   string = string.replace(/\\/g, '\\\\')
-    .replace(/\n/g, '\\\n');
-  //MAKERCLUB EDIT
-  //I'm removing this line, as I don't think it's actually correct escaping?
-  //.replace(/\%/g, '\\%');
-  //END MAKERCLUB EDIT
+                 .replace(/\n/g, '\\\n');
 
   // Follow the CPython behaviour of repr() for a non-byte string.
   var quote = '\'';
@@ -265,28 +271,38 @@ Blockly.Python.quote_ = function(string) {
 };
 
 /**
+ * Encode a string as a properly escaped multiline Python string, complete
+ * with quotes.
+ * @param {string} string Text to encode.
+ * @return {string} Python string.
+ * @private
+ */
+Blockly.Python.multiline_quote_ = function(string) {
+  // Can't use goog.string.quote since % must also be escaped.
+  string = string.replace(/'''/g, '\\\'\\\'\\\'');
+  return '\'\'\'' + string + '\'\'\'';
+};
+
+/**
  * Common tasks for generating Python from blocks.
  * Handles comments for the specified block and any connected value blocks.
  * Calls any statements following this block.
  * @param {!Blockly.Block} block The current block.
  * @param {string} code The Python code created for this block.
+ * @param {boolean=} opt_thisOnly True to generate code for only this statement.
  * @return {string} Python code with comments and subsequent blocks added.
  * @private
  */
-Blockly.Python.scrub_ = function(block, code) {
+Blockly.Python.scrub_ = function(block, code, opt_thisOnly) {
   var commentCode = '';
   // Only collect comments for blocks that aren't inline.
   if (!block.outputConnection || !block.outputConnection.targetConnection) {
     // Collect comment for this block.
     var comment = block.getCommentText();
-    comment = Blockly.utils.wrap(comment, Blockly.Python.COMMENT_WRAP - 3);
     if (comment) {
-      if (block.getProcedureDef) {
-        // Use a comment block for function comments.
-        commentCode += '"""' + comment + '\n"""\n';
-      } else {
-        commentCode += Blockly.Python.prefixLines(comment + '\n', '# ');
-      }
+      comment = Blockly.utils.string.wrap(comment,
+          Blockly.Python.COMMENT_WRAP - 3);
+      commentCode += Blockly.Python.prefixLines(comment + '\n', '# ');
     }
     // Collect comments for all value arguments.
     // Don't collect comments for nested statements.
@@ -294,7 +310,7 @@ Blockly.Python.scrub_ = function(block, code) {
       if (block.inputList[i].type == Blockly.INPUT_VALUE) {
         var childBlock = block.inputList[i].connection.targetBlock();
         if (childBlock) {
-          var comment = Blockly.Python.allNestedComments(childBlock);
+          comment = Blockly.Python.allNestedComments(childBlock);
           if (comment) {
             commentCode += Blockly.Python.prefixLines(comment, '# ');
           }
@@ -303,7 +319,7 @@ Blockly.Python.scrub_ = function(block, code) {
     }
   }
   var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-  var nextCode = Blockly.Python.blockToCode(nextBlock);
+  var nextCode = opt_thisOnly ? '' : Blockly.Python.blockToCode(nextBlock);
   return commentCode + code + nextCode;
 };
 
@@ -436,7 +452,7 @@ function mcGetRemoteControlBlockNames(args) {
   blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
   //All blocks created for this start with a known prefix
   for (let itemBlockName in Blockly.Blocks) {
-    if (!Blockly.Blocks.hasOwnProperty(itemBlockName)) {
+    if (!Object.prototype.hasOwnProperty.call(Blockly.Blocks, itemBlockName)) {
       continue;
     }
     if (itemBlockName.indexOf(blockName) === 0) {
