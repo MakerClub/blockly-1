@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'if [[ "$BRANCH_NAME" != "beta" ]]; then false; fi'
+                sh 'if [[ "$BRANCH_NAME" != "master" ]]; then false; fi'
                 echo 'Building'
             }
         }

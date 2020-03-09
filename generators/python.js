@@ -452,7 +452,7 @@ function mcGetRemoteControlBlockNames(args) {
   blockName = blockName.replace(/[-_.!~*'()%']/g, "_"); //Not actually unique, but hopefully close enough
   //All blocks created for this start with a known prefix
   for (let itemBlockName in Blockly.Blocks) {
-    if (!Blockly.Blocks.hasOwnProperty(itemBlockName)) {
+    if (!Object.prototype.hasOwnProperty.call(Blockly.Blocks, itemBlockName)) {
       continue;
     }
     if (itemBlockName.indexOf(blockName) === 0) {

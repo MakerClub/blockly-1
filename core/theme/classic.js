@@ -31,7 +31,7 @@ Blockly.Themes.Classic = {};
 
 Blockly.Themes.Classic.defaultBlockStyles = {
   "colour_blocks": {
-    "colourPrimary": "20"
+    "colourPrimary": "230"
   },
   "list_blocks": {
     "colourPrimary": "260"

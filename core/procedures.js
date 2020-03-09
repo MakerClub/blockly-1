@@ -209,7 +209,7 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
   var xmlList = [];
   if (Blockly.Blocks['procedures_start']) {
     // <block type="procedures_ifreturn" gap="16"></block>
-    var block = goog.dom.createDom('block');
+    var block = Blockly.utils.xml.createElement('block');
     block.setAttribute('type', 'procedures_start');
     block.setAttribute('gap', 16);
     var workspaceTopBlocks = workspace.getTopBlocks();
@@ -223,7 +223,7 @@ Blockly.Procedures.flyoutCategory = function(workspace) {
 
   if (Blockly.Blocks['procedures_loop']) {
     // <block type="procedures_ifreturn" gap="16"></block>
-    var block = goog.dom.createDom('block');
+    var block = Blockly.utils.xml.createElement('block');
     block.setAttribute('type', 'procedures_loop');
     block.setAttribute('gap', 16);
     xmlList.push(block);

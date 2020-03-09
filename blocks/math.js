@@ -600,7 +600,7 @@ mcCreateBlocklyBlock({
     },
     {
       "name": "map_max",
-      "label": "🡒",
+      "label": "➔",
       "type": "input_value",
       "check": "Number",
     },

@@ -121,6 +121,9 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     if (opt_paramIds) {
       container.setAttribute('name', this.getFieldValue('NAME'));
     }
+    if (!this.argumentVarModels_) { //This function can be called before init()
+      this.argumentVarModels_ = [];
+    }
     for (var i = 0; i < this.argumentVarModels_.length; i++) {
       var parameter = Blockly.utils.xml.createElement('arg');
       var argModel = this.argumentVarModels_[i];
@@ -136,6 +139,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     if (!this.hasStatements_) {
       container.setAttribute('statements', 'false');
     }
+
     return container;
   },
   /**
