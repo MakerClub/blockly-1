@@ -5,6 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')   
     }
+
     stages {
         stage('Build') {
             steps {
@@ -26,33 +27,6 @@ pipeline {
                 sh "AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY} aws cloudfront create-invalidation --distribution-id E13ILULTB607EK --paths '/*'"
             }
         }
-    }
-    options{
-        buildDiscarder(
-            logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')
-        )
-        disableConcurrentBuilds()
-    }
-}
-
-
-pipeline {
-    agent any
-
-   
-    stages {
-        stage('Build') {
-            steps {
-                sh 'if [[ "$BRANCH_NAME" != "stage" ]]; then false; fi'
-                echo 'Building'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing new config'
-            }
-        }
-        
     }
     options{
         buildDiscarder(
