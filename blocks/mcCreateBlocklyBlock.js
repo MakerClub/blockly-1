@@ -299,7 +299,8 @@ function mcObjectDropdownValidator(newValue) {
     //change to new variable if it's created successfully.
     return null;
   } else if (newValue === "mcRenameObject") {
-    Blockly.Variables.renameVariable(Blockly.mainWorkspace, Blockly.mainWorkspace.getVariable(this.getValue()), function(newVariableName) {
+    Blockly.Variables.renameVariable(Blockly.mainWorkspace, Blockly.mainWorkspace.getVariable(this.getValue(),object), function(newVariableName) {
+      
       if (newVariableName === null || newVariableName === "") {
         return; //They cancelled so do nothing.
       }
